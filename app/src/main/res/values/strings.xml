@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">tuk 중고서적</string>
+
+    <string name="create_tv_registerSub">책을 판매하거나 쪽지를 보낼 때 표시될 프로필 정보를 입력해주세요.\n\n빨간색 테두리로 표시되는 항목은 반드시 입력해야 해요.</string>
 </resources>
