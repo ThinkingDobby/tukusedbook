@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
     tools:context=".LoadingActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,7 +56,7 @@
         android:fontFamily="@font/pretendard_regular"
         android:text="화면을 터치해 시작하세요."
         android:textColor="@color/colorDarkGray"
-        app:layout_constraintVertical_bias="0.8"
+        app:layout_constraintVertical_bias="0.6"
         app:layout_constraintTop_toBottomOf="@id/loading_cl_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

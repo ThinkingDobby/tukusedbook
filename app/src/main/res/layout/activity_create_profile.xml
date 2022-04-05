@@ -5,145 +5,253 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
     tools:context=".CreateProfileActivity">
 
-    <TextView
-        android:id="@+id/create_tv_greet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="42dp"
-        android:fontFamily="@font/pretendard_bold"
-        android:text="환영합니다."
-        android:textColor="@color/colorPrimary"
-        android:textSize="40sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="162dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="16dp"
-        android:adjustViewBounds="true"
-        android:alpha="0.2"
-        android:src="@drawable/ic_tukorealogo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/create_tv_registerTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:fontFamily="@font/pretendard_bold"
-        android:text="프로필 등록"
-        android:textColor="@color/colorBlack"
-        android:textSize="22sp"
-        app:layout_constraintStart_toStartOf="@id/create_tv_greet"
-        app:layout_constraintTop_toBottomOf="@id/create_tv_greet" />
+            <TextView
+                android:id="@+id/createProfile_tv_greet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="66dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="환영합니다."
+                android:textColor="@color/colorPrimary"
+                android:textSize="40sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/create_tv_registerSub"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="32dp"
-        android:fontFamily="@font/pretendard_regular"
-        android:text="@string/create_tv_registerSub"
-        android:textColor="@color/colorBlack"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/create_tv_greet"
-        app:layout_constraintTop_toBottomOf="@id/create_tv_registerTitle" />
+            <ImageView
+                android:layout_width="162dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="74dp"
+                android:layout_marginEnd="16dp"
+                android:adjustViewBounds="true"
+                android:alpha="0.2"
+                android:src="@drawable/ic_tukorealogo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/create_tv_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:fontFamily="@font/pretendard_regular"
-        android:text="닉네임"
-        android:textColor="@color/colorBlack"
-        android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@id/create_tv_greet"
-        app:layout_constraintTop_toBottomOf="@id/create_tv_registerSub" />
+            <TextView
+                android:id="@+id/createProfile_tv_registerTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="64dp"
+                android:fontFamily="@font/pretendard_bold"
+                android:text="프로필 등록"
+                android:textColor="@color/colorBlack"
+                android:textSize="22sp"
+                app:layout_constraintStart_toStartOf="@id/createProfile_tv_greet"
+                app:layout_constraintTop_toBottomOf="@id/createProfile_tv_greet" />
 
-    <EditText
-        android:id="@+id/create_et_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/pretendard_regular"
-        android:hint="닉네임을 입력해주세요."
-        android:textColor="@color/colorBlack"
-        android:textColorHint="@color/colorGray"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@id/create_tv_greet"
-        app:layout_constraintTop_toBottomOf="@id/create_tv_name" />
+            <TextView
+                android:id="@+id/createProfile_tv_registerSub"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_marginEnd="32dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/createProfile_tv_registerSub"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/createProfile_tv_greet"
+                app:layout_constraintTop_toBottomOf="@id/createProfile_tv_registerTitle" />
 
-    <TextView
-        android:id="@+id/create_tv_tell"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:fontFamily="@font/pretendard_regular"
-        android:text="연락처"
-        android:textColor="@color/colorBlack"
-        android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@id/create_tv_greet"
-        app:layout_constraintTop_toBottomOf="@id/create_et_name" />
+            <TextView
+                android:id="@+id/createProfile_tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="52dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="닉네임"
+                android:textColor="@color/colorBlack"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@id/createProfile_tv_greet"
+                app:layout_constraintTop_toBottomOf="@id/createProfile_tv_registerSub" />
 
-    <EditText
-        android:id="@+id/create_et_tell"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/pretendard_regular"
-        android:hint="연락처를 자유로운 형태로 입력해주세요."
-        android:textColor="@color/colorBlack"
-        android:textColorHint="@color/colorGray"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@id/create_tv_greet"
-        app:layout_constraintTop_toBottomOf="@id/create_tv_tell" />
+            <EditText
+                android:id="@+id/createProfile_et_name"
+                android:layout_width="296dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/createprofile_et_essential"
+                android:fontFamily="@font/pretendard_regular"
+                android:hint="닉네임을 입력해주세요."
+                android:paddingHorizontal="10dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="7dp"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="@color/colorGray"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/createProfile_tv_greet"
+                app:layout_constraintTop_toBottomOf="@id/createProfile_tv_name" />
 
-    <TextView
-        android:id="@+id/create_tv_department"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:fontFamily="@font/pretendard_regular"
-        android:text="학과"
-        android:textColor="@color/colorBlack"
-        android:textSize="13sp"
-        app:layout_constraintStart_toStartOf="@id/create_tv_greet"
-        app:layout_constraintTop_toBottomOf="@id/create_et_tell" />
+            <TextView
+                android:id="@+id/createProfile_tv_tell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="연락처"
+                android:textColor="@color/colorBlack"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@id/createProfile_tv_greet"
+                app:layout_constraintTop_toBottomOf="@id/createProfile_et_name" />
 
-    <EditText
-        android:id="@+id/create_et_department"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:enabled="false"
-        android:fontFamily="@font/pretendard_regular"
-        android:text="컴퓨터공학부"
-        android:textColor="@color/colorBlack"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/create_tv_department"
-        app:layout_constraintStart_toEndOf="@id/create_tv_department"
-        app:layout_constraintTop_toTopOf="@id/create_tv_department" />
+            <EditText
+                android:id="@+id/createProfile_et_tell"
+                android:layout_width="296dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/createprofile_et_essential"
+                android:fontFamily="@font/pretendard_regular"
+                android:hint="연락처를 자유로운 형태로 입력해주세요."
+                android:paddingHorizontal="10dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="7dp"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="@color/colorGray"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/createProfile_tv_greet"
+                app:layout_constraintTop_toBottomOf="@id/createProfile_tv_tell" />
 
-    <Button
-        android:layout_width="46dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="22dp"
-        android:background="@color/colorWhite"
-        android:fontFamily="@font/pretendard_regular"
-        android:text="목록"
-        android:textColor="@color/colorSub1"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="@id/create_tv_department"
-        app:layout_constraintStart_toEndOf="@id/create_et_department"
-        app:layout_constraintTop_toTopOf="@id/create_tv_department" />
+            <TextView
+                android:id="@+id/createProfile_tv_department"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="학과"
+                android:textColor="@color/colorBlack"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@id/createProfile_tv_greet"
+                app:layout_constraintTop_toBottomOf="@id/createProfile_et_tell" />
 
+            <EditText
+                android:id="@+id/createProfile_et_department"
+                android:layout_width="184dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="22dp"
+                android:background="@drawable/createprofile_et_fixed"
+                android:enabled="false"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="5dp"
+                android:text="컴퓨터공학부"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/createProfile_tv_department"
+                app:layout_constraintStart_toEndOf="@id/createProfile_tv_department"
+                app:layout_constraintTop_toTopOf="@id/createProfile_tv_department" />
+
+            <Button
+                android:layout_width="46dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="22dp"
+                android:background="@drawable/createprofile_btn_d_list"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="목록"
+                android:textColor="@drawable/tv_d_buttontext"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/createProfile_tv_department"
+                app:layout_constraintStart_toEndOf="@id/createProfile_et_department"
+                app:layout_constraintTop_toTopOf="@id/createProfile_tv_department" />
+
+            <TextView
+                android:id="@+id/createProfile_tv_grade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="37dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="학년"
+                android:textColor="@color/colorBlack"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@id/createProfile_tv_greet"
+                app:layout_constraintTop_toBottomOf="@id/createProfile_tv_department" />
+
+            <EditText
+                android:id="@+id/createProfile_et_grade"
+                android:layout_width="36dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="22dp"
+                android:background="@drawable/createprofile_et_small"
+                android:enabled="false"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="5dp"
+                android:text="3"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/createProfile_tv_grade"
+                app:layout_constraintStart_toEndOf="@id/createProfile_tv_grade"
+                app:layout_constraintTop_toTopOf="@id/createProfile_tv_grade" />
+
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="22dp"
+                android:background="@drawable/createprofile_btn_d_down"
+                android:fontFamily="@font/pretendard_regular"
+                android:textColor="@color/colorSub1"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/createProfile_tv_grade"
+                app:layout_constraintStart_toEndOf="@id/createProfile_et_grade"
+                app:layout_constraintTop_toTopOf="@id/createProfile_tv_grade" />
+
+            <TextView
+                android:id="@+id/createProfile_tv_intro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="49dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="소개"
+                android:textColor="@color/colorBlack"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@id/createProfile_tv_greet"
+                app:layout_constraintTop_toBottomOf="@id/createProfile_tv_grade" />
+
+            <EditText
+                android:id="@+id/createProfile_et_intro"
+                android:layout_width="296dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/createprofile_et_d_intro"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/createProfile_tv_registerTitle"
+                app:layout_constraintTop_toBottomOf="@id/createProfile_tv_intro" />
+
+            
+            <Button
+                android:id="@+id/createProfile_btn_register"
+                android:layout_width="296dp"
+                android:layout_height="36dp"
+                app:layout_constraintTop_toBottomOf="@id/createProfile_et_intro"
+                android:layout_marginTop="52dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="프로필 등록"
+                android:textSize="16sp"
+                android:textColor="@drawable/tv_d_buttontext"
+                android:fontFamily="@font/pretendard_medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="56dp"
+                android:background="@drawable/createprofile_btn_d_register"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
