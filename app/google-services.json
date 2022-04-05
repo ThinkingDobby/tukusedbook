@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "724280687013",
+    "firebase_url": "https://tukusedbook-default-rtdb.firebaseio.com",
+    "project_id": "tukusedbook",
+    "storage_bucket": "tukusedbook.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:724280687013:android:bc4b06653625e01fda104c",
+        "android_client_info": {
+          "package_name": "com.thinkingdobby.tukusedbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "724280687013-o7l52bodfqtu79boajg6cud0l9ofloei.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvDBCb6FJAI-5Wc-iDmp6mfhe41TzxNog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "724280687013-o7l52bodfqtu79boajg6cud0l9ofloei.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
