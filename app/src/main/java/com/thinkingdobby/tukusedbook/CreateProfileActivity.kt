@@ -1,13 +1,18 @@
 package com.thinkingdobby.tukusedbook
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.thinkingdobby.tukusedbook.data.User
 import kotlinx.android.synthetic.main.activity_create_profile.*
 
@@ -26,6 +31,22 @@ class CreateProfileActivity : AppCompatActivity() {
             )
         }
 
+        createProfile_et_name.addTextChangedListener(object : TextWatcher {
+            var prev = ""
+
+            override fun afterTextChanged(p0: Editable?) {
+                if (createProfile_et_name.text.toString() != "") {
+                    createProfile_et_name.setBackgroundResource(R.drawable.createprofile_et_essential_satisfied)
+                } else {
+                    createProfile_et_name.setBackgroundResource(R.drawable.createprofile_et_essential)
+                }
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
+
         createProfile_et_intro.addTextChangedListener(object : TextWatcher {
             var prev = ""
 
@@ -43,10 +64,31 @@ class CreateProfileActivity : AppCompatActivity() {
             }
         })
 
+        val pref = getSharedPreferences("profile", MODE_PRIVATE)
+        val editor = pref.edit()
+        val edit = intent.getBooleanExtra("isEdit", false)
+
         val ref = FirebaseDatabase.getInstance().getReference("User").push()
+        var id = ref.key!!
+
+        if (edit) {
+            id = pref.getString("user_id", "temp")!!
+            createProfile_tv_registerTitle.text = "프로필 변경"
+            createProfile_btn_register.text = "프로필 변경"
+
+            Firebase.database.getReference("User").child(id).get().addOnSuccessListener {
+                val user = it.getValue(User::class.java)
+                createProfile_et_name.setText(user?.name)
+                createProfile_et_tell.setText(user?.tell)
+                createProfile_et_department.setText(user?.department)
+                createProfile_et_grade.setText(user?.grade.toString())
+                createProfile_et_intro.setText(user?.intro)
+            }
+        }
+
         createProfile_btn_register.setOnClickListener {
             val user = User(
-                ref.key!!,
+                id,
                 createProfile_et_name.text.toString(),
                 createProfile_et_tell.text.toString(),
                 createProfile_et_department.text.toString(),
@@ -54,7 +96,18 @@ class CreateProfileActivity : AppCompatActivity() {
                 createProfile_et_intro.text.toString()
             )
 
-            ref.setValue(user)
+            if (edit) Firebase.database.getReference("User/$id").setValue(user)
+            else {
+                ref.setValue(user)
+                editor.putString("user_id", id).apply()
+                getSharedPreferences("basic", MODE_PRIVATE).edit().putBoolean("isFirst", false).apply()
+            }
+
+            if (edit) Toast.makeText(this, "프로필이 변경되었습니다.", Toast.LENGTH_SHORT).show()
+            else Toast.makeText(this, "프로필이 등록되었습니다.", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 }

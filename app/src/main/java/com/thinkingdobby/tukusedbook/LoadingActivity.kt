@@ -25,7 +25,10 @@ class LoadingActivity : AppCompatActivity() {
         }
 
         loading_v_start.setOnClickListener {
-            val intent = Intent(this, CreateProfileActivity::class.java)
+//            val first = getSharedPreferences("basic", MODE_PRIVATE).getBoolean("isFirst", true)
+            val first = true
+
+            val intent = if (first) Intent(this, CreateProfileActivity::class.java) else Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }
