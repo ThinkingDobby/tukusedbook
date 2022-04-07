@@ -87,27 +87,32 @@ class CreateProfileActivity : AppCompatActivity() {
         }
 
         createProfile_btn_register.setOnClickListener {
-            val user = User(
-                id,
-                createProfile_et_name.text.toString(),
-                createProfile_et_tell.text.toString(),
-                createProfile_et_department.text.toString(),
-                createProfile_et_grade.text.toString().toInt(),
-                createProfile_et_intro.text.toString()
-            )
+            if (createProfile_et_name.text.toString() == "") {
+                Toast.makeText(this, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            } else {
+                val user = User(
+                    id,
+                    createProfile_et_name.text.toString(),
+                    createProfile_et_tell.text.toString(),
+                    createProfile_et_department.text.toString(),
+                    createProfile_et_grade.text.toString().toInt(),
+                    createProfile_et_intro.text.toString()
+                )
 
-            if (edit) Firebase.database.getReference("User/$id").setValue(user)
-            else {
-                ref.setValue(user)
-                editor.putString("user_id", id).apply()
-                getSharedPreferences("basic", MODE_PRIVATE).edit().putBoolean("isFirst", false).apply()
+                if (edit) Firebase.database.getReference("User/$id").setValue(user)
+                else {
+                    ref.setValue(user)
+                    editor.putString("user_id", id).apply()
+                    getSharedPreferences("basic", MODE_PRIVATE).edit().putBoolean("isFirst", false)
+                        .apply()
+                }
+
+                if (edit) Toast.makeText(this, "프로필이 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                else Toast.makeText(this, "프로필이 등록되었습니다.", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             }
-
-            if (edit) Toast.makeText(this, "프로필이 변경되었습니다.", Toast.LENGTH_SHORT).show()
-            else Toast.makeText(this, "프로필이 등록되었습니다.", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
         }
     }
 }

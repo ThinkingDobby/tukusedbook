@@ -90,7 +90,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/createprofile_et_essential"
                     android:fontFamily="@font/pretendard_regular"
-                    android:hint="닉네임을 입력해주세요."
+                    android:hint="닉네임은 반드시 입력해야 해요."
                     android:inputType="text"
                     android:paddingHorizontal="10dp"
                     android:paddingTop="8dp"

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="176dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:background="@drawable/all_line"
+            android:id="@+id/book_iv_book"
+            android:layout_width="99dp"
+            android:layout_height="132dp"
+            android:layout_marginStart="22dp"
+            android:src="@drawable/sample_book"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/book_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginEnd="22dp"
+            android:fontFamily="@font/pretendard_semibold"
+            android:maxLines="2"
+            android:text="코틀린을 활용한 안드로이드 프로그래밍"
+            android:textColor="@color/colorBlack"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@id/book_iv_book"
+            app:layout_constraintTop_toTopOf="@id/book_iv_book" />
+
+        <TextView
+            android:id="@+id/book_tv_publisher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="22dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:maxLines="1"
+            android:text="한빛아카데미"
+            android:textColor="@color/colorBlack"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@id/book_tv_title"
+            app:layout_constraintTop_toBottomOf="@id/book_tv_title" />
+
+        <TextView
+            android:id="@+id/book_tv_stateLev"
+            android:layout_width="195dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/pretendard_bold"
+            android:maxLines="1"
+            android:text="거의 새 책"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/book_tv_price"
+            app:layout_constraintStart_toStartOf="@id/book_tv_title" />
+
+        <TextView
+            android:id="@+id/book_tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:includeFontPadding="false"
+            android:text="28000"
+            android:textColor="@color/colorBlack"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@id/book_iv_book"
+            app:layout_constraintStart_toStartOf="@id/book_tv_title" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="원"
+            android:textColor="@color/colorBlack"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/book_tv_price"
+            app:layout_constraintStart_toEndOf="@id/book_tv_price" />
+
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/main_icon_heart_filled"
+            app:layout_constraintBottom_toBottomOf="@id/book_tv_like"
+            app:layout_constraintEnd_toStartOf="@id/book_tv_like"
+            app:layout_constraintTop_toTopOf="@id/book_tv_like"/>
+
+        <TextView
+            android:id="@+id/book_tv_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="22dp"
+            android:fontFamily="@font/roboto_regular"
+            android:includeFontPadding="false"
+            android:text="3"
+            android:textColor="@color/colorBlack"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+        <ImageView
+            android:layout_width="296dp"
+            android:layout_height="1dp"
+            android:background="@drawable/bottom_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
