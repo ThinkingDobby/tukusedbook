@@ -1,5 +1,6 @@
 package com.thinkingdobby.tukusedbook
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -121,6 +122,11 @@ class MainActivity : AppCompatActivity() {
 //            else findPet_tv_empty.visibility = View.INVISIBLE
         } catch (e: Exception) {
             Log.d("Load Error", e.toString())
+        }
+
+        main_btn_floating.setOnClickListener {
+            val intent = Intent(this, BookAddActivity::class.java)
+            startActivity(intent)
         }
     }
 }
