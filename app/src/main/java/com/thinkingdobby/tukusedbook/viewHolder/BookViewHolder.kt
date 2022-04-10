@@ -23,14 +23,17 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val book_tv_like = itemView.book_tv_like
 
     val book_iv_book = itemView.book_iv_book
+    val book_iv_line = itemView.book_iv_line
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    fun bind(book: Book, context: Context) {
+    fun bind(book: Book, position: Int, context: Context) {
         book_tv_title.text = book.title
         book_tv_publisher.text = book.publisher
         book_tv_stateLev.text = book.state_lev
         book_tv_price.text = book.price.toString()
         book_tv_like.text = book.like.toString()
+
+        if (position == 0) book_iv_line.visibility = View.INVISIBLE
 
 //        이미지 로드
 //        val circularProgressDrawable = CircularProgressDrawable(context)

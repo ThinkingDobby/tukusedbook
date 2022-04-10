@@ -15,4 +15,13 @@
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
+    <style name="DatePickerStyle" parent="Theme.AppCompat.Light.Dialog">
+        <!-- 상단 색 변경 -->
+        <item name="colorAccent">@color/colorSub1</item>
+        <!-- 선택한 날짜를 표시할 색상 -->
+        <item name="colorControlActivated">@color/colorPrimary</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+        <!-- 취소/확인버튼 색상 -->
+        <item name="android:textColor">@color/colorSub1</item>
+    </style>
 </resources>

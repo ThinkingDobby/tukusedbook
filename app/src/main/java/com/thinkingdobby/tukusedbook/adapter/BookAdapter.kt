@@ -27,7 +27,7 @@ class BookAdapter(val context: Context, private val dataList: MutableList<Book>)
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        holder.bind(dataList[position], context)
+        holder.bind(dataList[position], position, context)
 //        리스트 각 항목 클릭
 //        try {
 //            holder.itemView.pet_btn_info.setOnClickListener {

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".BookAddActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -202,10 +203,10 @@
 
             <EditText
                 android:id="@+id/bookAdd_et_pubDate"
-                android:layout_width="132dp"
+                android:layout_width="184dp"
                 android:layout_height="30dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/bookadd_et_pubdate"
+                android:background="@drawable/createprofile_et_fixed"
                 android:enabled="false"
                 android:fontFamily="@font/pretendard_regular"
                 android:paddingHorizontal="8dp"
@@ -255,6 +256,7 @@
                 android:paddingHorizontal="10dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="6dp"
+                android:text=""
                 android:textColor="@color/colorBlack"
                 android:textColorHint="@color/colorGray"
                 android:textSize="16sp"
@@ -282,6 +284,7 @@
                 android:background="@drawable/bookadd_et_page"
                 android:fontFamily="@font/pretendard_regular"
                 android:inputType="text"
+                android:text="0"
                 android:paddingHorizontal="10dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="6dp"
@@ -313,6 +316,7 @@
                 android:fontFamily="@font/pretendard_regular"
                 android:inputType="text"
                 android:paddingHorizontal="10dp"
+                android:text="0"
                 android:paddingTop="8dp"
                 android:paddingBottom="6dp"
                 android:textColor="@color/colorBlack"
@@ -338,6 +342,7 @@
                 android:layout_marginStart="18dp"
                 android:background="@drawable/bookadd_et_size"
                 android:fontFamily="@font/pretendard_regular"
+                android:text="0"
                 android:inputType="text"
                 android:paddingHorizontal="10dp"
                 android:paddingTop="8dp"
@@ -448,6 +453,7 @@
                 app:layout_constraintTop_toTopOf="@id/bookAdd_tv_grade" />
 
             <ImageView
+                android:id="@+id/bookAdd_iv_line1"
                 android:layout_width="296dp"
                 android:layout_height="1dp"
                 android:layout_marginTop="42dp"
@@ -456,9 +462,315 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/bookAdd_tv_grade" />
 
+            <TextView
+                android:id="@+id/bookAdd_tv_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:text="서적 상태"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_iv_line1" />
 
+            <HorizontalScrollView
+                android:id="@+id/bookAdd_sv_detailImg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                app:layout_constraintStart_toStartOf="@id/bookAdd_tv_infoTitle"
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_tv_state">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/bookAdd_iv_detailImgTemp"
+                        android:layout_width="99dp"
+                        android:layout_height="132dp"
+                        android:background="@drawable/all_line"
+                        android:src="@drawable/bookadd_iv_basic"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/bookAdd_iv_detailImgAdd"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="43dp"
+                        android:src="@drawable/bookadd_btn_addsubimg"
+                        app:layout_constraintStart_toEndOf="@id/bookAdd_iv_detailImgTemp"
+                        app:layout_constraintTop_toTopOf="@id/bookAdd_iv_detailImgTemp" />
+
+                    <TextView
+                        android:id="@+id/bookAdd_tv_detailImgAdd"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:text="세부사진 추가"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="13sp"
+                        app:layout_constraintEnd_toEndOf="@id/bookAdd_iv_detailImgAdd"
+                        app:layout_constraintStart_toStartOf="@id/bookAdd_iv_detailImgAdd"
+                        app:layout_constraintTop_toBottomOf="@id/bookAdd_iv_detailImgAdd" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </HorizontalScrollView>
+
+            <TextView
+                android:id="@+id/bookAdd_tv_doodle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="낙서"
+                android:textColor="@color/colorBlack"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@id/bookAdd_tv_infoTitle"
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_sv_detailImg" />
+
+            <EditText
+                android:id="@+id/bookAdd_et_doodle"
+                android:layout_width="184dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="22dp"
+                android:background="@drawable/createprofile_et_fixed"
+                android:enabled="false"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="5dp"
+                android:text="필기와 낙서 많음"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/bookAdd_tv_doodle"
+                app:layout_constraintStart_toEndOf="@id/bookAdd_tv_doodle"
+                app:layout_constraintTop_toTopOf="@id/bookAdd_tv_doodle" />
+
+            <Button
+                android:id="@+id/bookAdd_btn_doodle"
+                android:layout_width="46dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="22dp"
+                android:background="@drawable/createprofile_btn_d_list"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="선택"
+                android:textColor="@drawable/tv_d_buttontext"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/bookAdd_tv_doodle"
+                app:layout_constraintStart_toEndOf="@id/bookAdd_et_doodle"
+                app:layout_constraintTop_toTopOf="@id/bookAdd_tv_doodle" />
+
+            <TextView
+                android:id="@+id/bookAdd_tv_damage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="37dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="손상"
+                android:textColor="@color/colorBlack"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@id/bookAdd_tv_infoTitle"
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_tv_doodle" />
+
+            <EditText
+                android:id="@+id/bookAdd_et_damage"
+                android:layout_width="184dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="22dp"
+                android:background="@drawable/createprofile_et_fixed"
+                android:enabled="false"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="5dp"
+                android:text="약간 있음"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/bookAdd_tv_damage"
+                app:layout_constraintStart_toEndOf="@id/bookAdd_tv_damage"
+                app:layout_constraintTop_toTopOf="@id/bookAdd_tv_damage" />
+
+            <Button
+                android:id="@+id/bookAdd_btn_damage"
+                android:layout_width="46dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="22dp"
+                android:background="@drawable/createprofile_btn_d_list"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="선택"
+                android:textColor="@drawable/tv_d_buttontext"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/bookAdd_tv_damage"
+                app:layout_constraintStart_toEndOf="@id/bookAdd_et_damage"
+                app:layout_constraintTop_toTopOf="@id/bookAdd_tv_damage" />
+
+            <TextView
+                android:id="@+id/bookAdd_tv_stain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="37dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="얼룩"
+                android:textColor="@color/colorBlack"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@id/bookAdd_tv_infoTitle"
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_tv_damage" />
+
+            <EditText
+                android:id="@+id/bookAdd_et_stain"
+                android:layout_width="184dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="22dp"
+                android:background="@drawable/createprofile_et_fixed"
+                android:enabled="false"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="5dp"
+                android:text="없음"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/bookAdd_tv_stain"
+                app:layout_constraintStart_toEndOf="@id/bookAdd_tv_stain"
+                app:layout_constraintTop_toTopOf="@id/bookAdd_tv_stain" />
+
+            <Button
+                android:id="@+id/bookAdd_btn_stain"
+                android:layout_width="46dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="22dp"
+                android:background="@drawable/createprofile_btn_d_list"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="선택"
+                android:textColor="@drawable/tv_d_buttontext"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/bookAdd_tv_stain"
+                app:layout_constraintStart_toEndOf="@id/bookAdd_et_stain"
+                app:layout_constraintTop_toTopOf="@id/bookAdd_tv_stain" />
+
+            <ImageView
+                android:id="@+id/bookAdd_iv_line2"
+                android:layout_width="296dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="42dp"
+                android:background="@drawable/bottom_line"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_tv_stain" />
+
+            <TextView
+                android:id="@+id/bookAdd_tv_stateLev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:text="서적 등급"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_iv_line2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="@string/bookAdd_tv_stateGuide"
+                android:textColor="@color/colorGray"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/bookAdd_tv_stateLev"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <EditText
+                android:id="@+id/bookAdd_et_stateLev"
+                android:layout_width="184dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/createprofile_et_fixed"
+                android:enabled="false"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="5dp"
+                android:text="낙서나 손상이 있는 책"
+                android:textColor="#CE8300"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/bookAdd_tv_infoTitle"
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_tv_stateLev" />
+
+            <Button
+                android:id="@+id/bookAdd_btn_stateLev"
+                android:layout_width="46dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="22dp"
+                android:background="@drawable/createprofile_btn_d_list"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="선택"
+                android:textColor="@drawable/tv_d_buttontext"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/bookAdd_et_stateLev"
+                app:layout_constraintStart_toEndOf="@id/bookAdd_et_stateLev"
+                app:layout_constraintTop_toTopOf="@id/bookAdd_et_stateLev" />
+
+            <TextView
+                android:id="@+id/bookAdd_tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="42dp"
+                android:fontFamily="@font/pretendard_semibold"
+                android:text="가격"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_et_stateLev" />
+
+            <EditText
+                android:id="@+id/bookAdd_et_price"
+                android:layout_width="95dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/bookadd_et_price"
+                android:fontFamily="@font/pretendard_regular"
+                android:paddingHorizontal="10dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="5dp"
+                android:text="12000"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/bookAdd_tv_infoTitle"
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_tv_price" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="3dp"
+                android:layout_marginBottom="4dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="원"
+                android:textColor="@color/colorBlack"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@id/bookAdd_et_price"
+                app:layout_constraintStart_toEndOf="@id/bookAdd_et_price" />
+
+            <Button
+                android:id="@+id/bookAdd_btn_register"
+                android:layout_width="296dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="52dp"
+                android:layout_marginBottom="56dp"
+                android:background="@drawable/createprofile_btn_d_register"
+                android:fontFamily="@font/pretendard_medium"
+                android:text="판매 서적 등록"
+                android:textColor="@drawable/tv_d_buttontext"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/bookAdd_tv_infoTitle"
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_et_price" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

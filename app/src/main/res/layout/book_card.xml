@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
     android:layout_width="match_parent"
-    android:layout_height="176dp">
+    android:layout_height="178dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
             android:layout_width="99dp"
             android:layout_height="132dp"
             android:layout_marginStart="22dp"
-            android:src="@drawable/sample_book"
+            android:src="@drawable/bookadd_iv_basic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -90,7 +91,7 @@
             android:layout_width="20dp"
             android:layout_height="18dp"
             android:layout_marginEnd="5dp"
-            android:src="@drawable/main_icon_heart_filled"
+            android:src="@drawable/main_icon_heart"
             app:layout_constraintBottom_toBottomOf="@id/book_tv_like"
             app:layout_constraintEnd_toStartOf="@id/book_tv_like"
             app:layout_constraintTop_toTopOf="@id/book_tv_like"/>
@@ -111,10 +112,12 @@
 
 
         <ImageView
+            android:id="@+id/book_iv_line"
             android:layout_width="296dp"
             android:layout_height="1dp"
-            android:background="@drawable/bottom_line"
-            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="22dp"
+            android:background="@drawable/main_line"
+            app:layout_constraintTop_toBottomOf="@id/book_iv_book"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

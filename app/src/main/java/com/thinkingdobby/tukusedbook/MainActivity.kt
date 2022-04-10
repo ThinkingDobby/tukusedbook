@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         main_rv_list.adapter = BookAdapter(this, postList)
 
         try {
-            FirebaseDatabase.getInstance().reference
+            FirebaseDatabase.getInstance().getReference("Book")
                 .orderByChild("post_date").addChildEventListener(object : ChildEventListener {
                     override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                         snapshot?.let { snapshot ->
