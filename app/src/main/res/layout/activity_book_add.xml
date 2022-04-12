@@ -403,6 +403,7 @@
                 app:layout_constraintTop_toTopOf="@id/bookAdd_tv_department" />
 
             <Button
+                android:id="@+id/bookAdd_btn_department"
                 android:layout_width="46dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="22dp"
@@ -438,7 +439,7 @@
                 android:paddingHorizontal="10dp"
                 android:paddingTop="6dp"
                 android:paddingBottom="5dp"
-                android:text="3"
+                android:text="1"
                 android:textColor="@color/colorBlack"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/bookAdd_tv_grade"
@@ -446,6 +447,7 @@
                 app:layout_constraintTop_toTopOf="@id/bookAdd_tv_grade" />
 
             <Button
+                android:id="@+id/bookAdd_btn_grade"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="22dp"
@@ -502,7 +504,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <Button
-                        android:id="@+id/bookAdd_iv_detailImgAdd"
+                        android:id="@+id/bookAdd_btn_detailImgAdd"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="32dp"
@@ -520,9 +522,9 @@
                         android:text="세부사진 추가"
                         android:textColor="@color/colorBlack"
                         android:textSize="13sp"
-                        app:layout_constraintEnd_toEndOf="@id/bookAdd_iv_detailImgAdd"
-                        app:layout_constraintStart_toStartOf="@id/bookAdd_iv_detailImgAdd"
-                        app:layout_constraintTop_toBottomOf="@id/bookAdd_iv_detailImgAdd" />
+                        app:layout_constraintEnd_toEndOf="@id/bookAdd_btn_detailImgAdd"
+                        app:layout_constraintStart_toStartOf="@id/bookAdd_btn_detailImgAdd"
+                        app:layout_constraintTop_toBottomOf="@id/bookAdd_btn_detailImgAdd" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </HorizontalScrollView>
 
@@ -549,7 +551,7 @@
                 android:paddingHorizontal="10dp"
                 android:paddingTop="6dp"
                 android:paddingBottom="5dp"
-                android:text="필기와 낙서 많음"
+                android:text="없음"
                 android:textColor="@color/colorBlack"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/bookAdd_tv_doodle"
@@ -593,7 +595,7 @@
                 android:paddingHorizontal="10dp"
                 android:paddingTop="6dp"
                 android:paddingBottom="5dp"
-                android:text="약간 있음"
+                android:text="없음"
                 android:textColor="@color/colorBlack"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@id/bookAdd_tv_damage"
@@ -701,8 +703,8 @@
                 android:paddingHorizontal="10dp"
                 android:paddingTop="6dp"
                 android:paddingBottom="5dp"
-                android:text="낙서나 손상이 있는 책"
-                android:textColor="#CE8300"
+                android:text="거의 새 책"
+                android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="@id/bookAdd_tv_infoTitle"
                 app:layout_constraintTop_toBottomOf="@id/bookAdd_tv_stateLev" />
@@ -767,7 +769,7 @@
                 android:layout_width="296dp"
                 android:layout_height="36dp"
                 android:layout_marginTop="52dp"
-                android:layout_marginBottom="42dp"
+                android:layout_marginBottom="32dp"
                 android:background="@drawable/createprofile_btn_d_register"
                 android:fontFamily="@font/pretendard_medium"
                 android:text="판매 서적 등록"

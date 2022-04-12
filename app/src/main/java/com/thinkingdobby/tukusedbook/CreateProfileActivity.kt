@@ -13,11 +13,13 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.thinkingdobby.tukusedbook.data.User
+import com.thinkingdobby.tukusedbook.data.departments
 import kotlinx.android.synthetic.main.activity_create_profile.*
 
 
@@ -63,6 +65,26 @@ class CreateProfileActivity : AppCompatActivity() {
 
             }
         })
+
+        // 선택 버튼
+        createProfile_btn_department.setOnClickListener {
+            val dlg = AlertDialog.Builder(this)
+            dlg.setItems(departments) { _, which ->
+                createProfile_et_department.setText(departments[which])
+            }
+            dlg.setTitle("학과 선택")
+            dlg.show()
+        }
+
+        createProfile_btn_grade.setOnClickListener {
+            val dlg = AlertDialog.Builder(this)
+            val grades = arrayOf("1", "2", "3", "4")
+            dlg.setItems(grades) { _, which ->
+                createProfile_et_grade.setText(grades[which])
+            }
+            dlg.setTitle("학년 선택")
+            dlg.show()
+        }
 
         val pref = getSharedPreferences("profile", MODE_PRIVATE)
         val editor = pref.edit()

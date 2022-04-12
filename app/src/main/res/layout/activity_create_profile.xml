@@ -163,6 +163,7 @@
                     app:layout_constraintTop_toTopOf="@id/createProfile_tv_department" />
 
                 <Button
+                    android:id="@+id/createProfile_btn_department"
                     android:layout_width="46dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="22dp"
@@ -198,7 +199,7 @@
                     android:paddingHorizontal="10dp"
                     android:paddingTop="6dp"
                     android:paddingBottom="5dp"
-                    android:text="3"
+                    android:text="1"
                     android:textColor="@color/colorBlack"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@id/createProfile_tv_grade"
@@ -206,6 +207,7 @@
                     app:layout_constraintTop_toTopOf="@id/createProfile_tv_grade" />
 
                 <Button
+                    android:id="@+id/createProfile_btn_grade"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_marginStart="22dp"

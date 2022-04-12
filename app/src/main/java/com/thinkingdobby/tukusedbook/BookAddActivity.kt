@@ -1,6 +1,7 @@
 package com.thinkingdobby.tukusedbook
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.content.Context
@@ -17,14 +18,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import com.thinkingdobby.tukusedbook.data.Book
+import com.thinkingdobby.tukusedbook.data.*
 import kotlinx.android.synthetic.main.activity_book_add.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class BookAddActivity : AppCompatActivity() {
-    private var pickImageFromAlbum = 0
     private var uriPhoto: Uri? =
+        Uri.parse("android.resource://com.thinkingdobby.tukusedbook/drawable/bookadd_iv_basic")
+    private var detailUriPhotoTemp: Uri? =
         Uri.parse("android.resource://com.thinkingdobby.tukusedbook/drawable/bookadd_iv_basic")
 
     private var time = SimpleDateFormat("yyyy년 MM월 dd일").format(Date())
@@ -36,8 +38,9 @@ class BookAddActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_add)
 
-        bookAdd_iv_main.setOnClickListener { loadImage() }
-        bookAdd_tv_mainImgAdd.setOnClickListener { loadImage() }
+        bookAdd_iv_main.setOnClickListener { loadImage(0) }
+        bookAdd_tv_mainImgAdd.setOnClickListener { loadImage(0) }
+        bookAdd_btn_detailImgAdd.setOnClickListener { loadImage(1)}
         bookAdd_btn_back.setOnClickListener { finish() }
 
         // EditText 관리
@@ -94,6 +97,62 @@ class BookAddActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
+
+        // 선택 버튼
+        bookAdd_btn_department.setOnClickListener {
+            val dlg = AlertDialog.Builder(this)
+            dlg.setItems(departments) { _, which ->
+                bookAdd_et_department.setText(departments[which])
+            }
+            dlg.setTitle("학과를 선택하세요.")
+            dlg.show()
+        }
+
+        bookAdd_btn_grade.setOnClickListener {
+            val dlg = AlertDialog.Builder(this)
+            val grades = arrayOf("1", "2", "3", "4")
+            dlg.setItems(grades) { _, which ->
+                bookAdd_et_grade.setText(grades[which])
+            }
+            dlg.setTitle("학년을 선택하세요.")
+            dlg.show()
+        }
+
+        bookAdd_btn_doodle.setOnClickListener {
+            val dlg = AlertDialog.Builder(this)
+            dlg.setItems(doodles) { _, which ->
+                bookAdd_et_doodle.setText(doodles[which])
+            }
+            dlg.setTitle("낙서 여부를 선택하세요.")
+            dlg.show()
+        }
+
+        bookAdd_btn_damage.setOnClickListener {
+            val dlg = AlertDialog.Builder(this)
+            dlg.setItems(damages) { _, which ->
+                bookAdd_et_damage.setText(damages[which])
+            }
+            dlg.setTitle("손상 여부를 선택하세요.")
+            dlg.show()
+        }
+
+        bookAdd_btn_stain.setOnClickListener {
+            val dlg = AlertDialog.Builder(this)
+            dlg.setItems(stains) { _, which ->
+                bookAdd_et_stain.setText(stains[which])
+            }
+            dlg.setTitle("얼룩 여부를 선택하세요.")
+            dlg.show()
+        }
+
+        bookAdd_btn_stateLev.setOnClickListener {
+            val dlg = AlertDialog.Builder(this)
+            dlg.setItems(state_levs) { _, which ->
+                bookAdd_et_stateLev.setText(state_levs[which])
+            }
+            dlg.setTitle("서적 등급을 선택하세요.")
+            dlg.show()
+        }
 
         // 기본 초기화
         bookAdd_et_pubDate.setText(time)
@@ -167,25 +226,31 @@ class BookAddActivity : AppCompatActivity() {
                 else ref.setValue(book)
 
                 imageUpload(book.book_id, "main", edit)
+                imageUpload(book.book_id, "detail", edit)
             }
 
         }
     }
 
-    private fun loadImage() {
+    private fun loadImage(type: Int) {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
 
-        startActivityForResult(Intent.createChooser(intent, "Load Picture"), pickImageFromAlbum)
+        startActivityForResult(Intent.createChooser(intent, "Load Picture"), type)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == pickImageFromAlbum) {
+        if (requestCode == 0) {
             if (resultCode == Activity.RESULT_OK) {
                 uriPhoto = data?.data
                 bookAdd_iv_main.setImageURI(uriPhoto)
+            }
+        } else if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                detailUriPhotoTemp = data?.data
+                bookAdd_iv_detailImgTemp.setImageURI(detailUriPhotoTemp)
             }
         }
     }
@@ -211,7 +276,12 @@ class BookAddActivity : AppCompatActivity() {
     // type은 main, sub1, sub2, ... 중 어느 이미지인지
     private fun imageUpload(id: String, type: String, edit: Boolean) {
         val storageRef = FirebaseStorage.getInstance().getReference("images/$id").child(type)
-        storageRef.putFile(uriPhoto!!).addOnSuccessListener {
+        val target = when (type) {
+            "main" -> uriPhoto
+            else -> detailUriPhotoTemp
+        }
+
+        storageRef.putFile(target!!).addOnSuccessListener {
             if (edit) Toast.makeText(this, "서적 정보가 변경됐어요.", Toast.LENGTH_SHORT).show()
             else Toast.makeText(this, "판매 서적이 등록됐어요.", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, MainActivity::class.java)
