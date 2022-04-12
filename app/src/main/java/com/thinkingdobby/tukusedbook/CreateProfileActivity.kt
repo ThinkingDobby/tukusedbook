@@ -27,14 +27,6 @@ class CreateProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_profile)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            val w: Window = window
-            w.setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-        }
-
         createProfile_et_name.addTextChangedListener(object : TextWatcher {
             var prev = ""
 
@@ -119,6 +111,7 @@ class CreateProfileActivity : AppCompatActivity() {
                 else Toast.makeText(this, "프로필이 등록되었습니다.", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
+                overridePendingTransition(0, 0)
                 finish()
             }
         }
@@ -140,5 +133,10 @@ class CreateProfileActivity : AppCompatActivity() {
             )
         }
         return super.dispatchTouchEvent(ev)
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(0, 0)
     }
 }

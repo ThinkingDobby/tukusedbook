@@ -1,13 +1,9 @@
 package com.thinkingdobby.tukusedbook
 
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.view.Window
-import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -24,14 +20,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            val w: Window = window
-            w.setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-        }
 
         val layoutManager = LinearLayoutManager(this)
         layoutManager.reverseLayout = true
@@ -127,6 +115,12 @@ class MainActivity : AppCompatActivity() {
         main_btn_floating.setOnClickListener {
             val intent = Intent(this, BookAddActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(0, 0)
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(0, 0)
     }
 }

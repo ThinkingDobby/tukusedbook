@@ -6,14 +6,11 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.MotionEvent
 import android.view.View
-import android.view.Window
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
@@ -39,19 +36,9 @@ class BookAddActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_add)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            val w: Window = window
-            w.setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-        }
-
         bookAdd_iv_main.setOnClickListener { loadImage() }
         bookAdd_tv_mainImgAdd.setOnClickListener { loadImage() }
         bookAdd_btn_back.setOnClickListener { finish() }
-
-        bookAdd_v_bot.setOnTouchListener { view, motionEvent -> true }
 
         // EditText 관리
         bookAdd_et_title.addTextChangedListener(object : TextWatcher {
@@ -229,7 +216,13 @@ class BookAddActivity : AppCompatActivity() {
             else Toast.makeText(this, "판매 서적이 등록됐어요.", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(0, 0)
             finish()
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(0, 0)
     }
 }
