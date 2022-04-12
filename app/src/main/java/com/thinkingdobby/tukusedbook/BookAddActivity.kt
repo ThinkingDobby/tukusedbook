@@ -3,32 +3,32 @@ package com.thinkingdobby.tukusedbook
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.SystemClock
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
+import android.view.MotionEvent
+import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.DatePicker
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
-import androidx.core.text.isDigitsOnly
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ServerValue
 import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.tukusedbook.data.Book
 import kotlinx.android.synthetic.main.activity_book_add.*
-import kotlinx.android.synthetic.main.activity_create_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class BookAddActivity : AppCompatActivity() {
     private var pickImageFromAlbum = 0
-    private var uriPhoto: Uri? = Uri.parse("android.resource://com.thinkingdobby.tukusedbook/drawable/bookadd_iv_basic")
+    private var uriPhoto: Uri? =
+        Uri.parse("android.resource://com.thinkingdobby.tukusedbook/drawable/bookadd_iv_basic")
 
     private var time = SimpleDateFormat("yyyy년 MM월 dd일").format(Date())
     private var bookId = "temp"
@@ -51,6 +51,8 @@ class BookAddActivity : AppCompatActivity() {
         bookAdd_tv_mainImgAdd.setOnClickListener { loadImage() }
         bookAdd_btn_back.setOnClickListener { finish() }
 
+        bookAdd_v_bot.setOnTouchListener { view, motionEvent -> true }
+
         // EditText 관리
         bookAdd_et_title.addTextChangedListener(object : TextWatcher {
             var prev = ""
@@ -62,8 +64,10 @@ class BookAddActivity : AppCompatActivity() {
                     bookAdd_et_title.setBackgroundResource(R.drawable.createprofile_et_essential)
                 }
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
+
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
@@ -78,8 +82,10 @@ class BookAddActivity : AppCompatActivity() {
                     bookAdd_et_publisher.setBackgroundResource(R.drawable.createprofile_et_essential)
                 }
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
+
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
@@ -94,8 +100,10 @@ class BookAddActivity : AppCompatActivity() {
                     bookAdd_et_author.setBackgroundResource(R.drawable.createprofile_et_essential)
                 }
             }
+
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
+
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
@@ -115,11 +123,13 @@ class BookAddActivity : AppCompatActivity() {
             val year: Int = today.get(Calendar.YEAR)
             val month: Int = today.get(Calendar.MONTH)
             val date: Int = today.get(Calendar.DATE)
-            val dlg = DatePickerDialog(this, R.style.DatePickerStyle,
+            val dlg = DatePickerDialog(
+                this, R.style.DatePickerStyle,
                 { view, year, month, dayOfMonth ->
                     time = "${year}년 ${month + 1}월 ${dayOfMonth}일"
                     bookAdd_et_pubDate.setText(time)
-                }, year, month, date)
+                }, year, month, date
+            )
             dlg.show()
         }
 
@@ -137,11 +147,11 @@ class BookAddActivity : AppCompatActivity() {
                 val pref = getSharedPreferences("profile", MODE_PRIVATE)
                 val sellerId = pref.getString("user_id", "temp")
                 val pageTmp = bookAdd_et_page.text.toString()
-                val page = if (!pageTmp.all{it.isDigit()}) -1 else pageTmp.toInt()
+                val page = if (!pageTmp.all { it.isDigit() }) -1 else pageTmp.toInt()
                 val size1Tmp = bookAdd_et_size1.text.toString()
-                val size1 = if(!size1Tmp.all{it.isDigit()}) -1 else size1Tmp.toInt()
+                val size1 = if (!size1Tmp.all { it.isDigit() }) -1 else size1Tmp.toInt()
                 val size2Tmp = bookAdd_et_size2.text.toString()
-                val size2 = if(!size2Tmp.all{it.isDigit()}) -1 else size2Tmp.toInt()
+                val size2 = if (!size2Tmp.all { it.isDigit() }) -1 else size2Tmp.toInt()
 
                 val book = Book(
                     if (!edit) ref.key!! else bookId,
@@ -191,6 +201,24 @@ class BookAddActivity : AppCompatActivity() {
                 bookAdd_iv_main.setImageURI(uriPhoto)
             }
         }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val view: View? = currentFocus
+        if (view != null && (ev.action == MotionEvent.ACTION_UP || ev.action == MotionEvent.ACTION_MOVE) && view is EditText && !view.javaClass
+                .name.startsWith("android.webkit.")
+        ) {
+            val scrcoords = IntArray(2)
+            view.getLocationOnScreen(scrcoords)
+            val x: Float = ev.rawX + view.getLeft() - scrcoords[0]
+            val y: Float = ev.rawY + view.getTop() - scrcoords[1]
+            if (x < view.getLeft() || x > view.getRight() || y < view.getTop() || y > view.getBottom()) (this.getSystemService(
+                Context.INPUT_METHOD_SERVICE
+            ) as InputMethodManager).hideSoftInputFromWindow(
+                this.window.decorView.applicationWindowToken, 0
+            )
+        }
+        return super.dispatchTouchEvent(ev)
     }
 
     // type은 main, sub1, sub2, ... 중 어느 이미지인지

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
+    android:fitsSystemWindows="true"
     tools:context=".BookAddActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -120,6 +121,7 @@
                 android:background="@drawable/createprofile_et_essential"
                 android:fontFamily="@font/pretendard_regular"
                 android:hint="제목을 입력해주세요."
+                android:imeOptions="actionDone"
                 android:inputType="text"
                 android:paddingHorizontal="10dp"
                 android:paddingTop="8dp"
@@ -150,6 +152,7 @@
                 android:background="@drawable/createprofile_et_essential"
                 android:fontFamily="@font/pretendard_regular"
                 android:hint="출판사를 입력해주세요."
+                android:imeOptions="actionDone"
                 android:inputType="text"
                 android:paddingHorizontal="10dp"
                 android:paddingTop="8dp"
@@ -180,6 +183,7 @@
                 android:background="@drawable/createprofile_et_essential"
                 android:fontFamily="@font/pretendard_regular"
                 android:hint="저자를 입력해주세요."
+                android:imeOptions="actionDone"
                 android:inputType="text"
                 android:paddingHorizontal="10dp"
                 android:paddingTop="8dp"
@@ -253,6 +257,7 @@
                 android:background="@drawable/bookadd_et_d_isbn"
                 android:fontFamily="@font/pretendard_regular"
                 android:hint="예) 9791163030843"
+                android:imeOptions="actionDone"
                 android:inputType="number"
                 android:paddingHorizontal="10dp"
                 android:paddingTop="8dp"
@@ -284,6 +289,7 @@
                 android:layout_marginStart="16dp"
                 android:background="@drawable/bookadd_et_d_page"
                 android:fontFamily="@font/pretendard_regular"
+                android:imeOptions="actionDone"
                 android:inputType="number"
                 android:paddingHorizontal="10dp"
                 android:paddingTop="8dp"
@@ -316,6 +322,7 @@
                 android:background="@drawable/bookadd_et_d_size"
                 android:fontFamily="@font/pretendard_regular"
                 android:inputType="number"
+                android:nextFocusDown="@id/bookAdd_et_size2"
                 android:paddingHorizontal="10dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="6dp"
@@ -323,7 +330,6 @@
                 android:textColor="@color/colorBlack"
                 android:textColorHint="@color/colorGray"
                 android:textSize="16sp"
-                android:nextFocusDown="@id/bookAdd_et_size2"
                 app:layout_constraintBottom_toBottomOf="@id/bookAdd_tv_size"
                 app:layout_constraintStart_toEndOf="@id/bookAdd_tv_isbn"
                 app:layout_constraintTop_toTopOf="@id/bookAdd_tv_size" />
@@ -344,12 +350,12 @@
                 android:layout_marginStart="18dp"
                 android:background="@drawable/bookadd_et_d_size"
                 android:fontFamily="@font/pretendard_regular"
+                android:imeOptions="actionDone"
                 android:inputType="number"
                 android:paddingHorizontal="10dp"
                 android:paddingTop="8dp"
                 android:paddingBottom="6dp"
                 android:text="0"
-                android:imeOptions="actionDone"
                 android:textColor="@color/colorBlack"
                 android:textColorHint="@color/colorGray"
                 android:textSize="16sp"
@@ -499,13 +505,13 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
+                    <Button
                         android:id="@+id/bookAdd_iv_detailImgAdd"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_marginStart="32dp"
                         android:layout_marginTop="43dp"
-                        android:src="@drawable/bookadd_btn_addsubimg"
+                        android:background="@drawable/bookadd_btn_d_addsubimg"
                         app:layout_constraintStart_toEndOf="@id/bookAdd_iv_detailImgTemp"
                         app:layout_constraintTop_toTopOf="@id/bookAdd_iv_detailImgTemp" />
 
@@ -776,5 +782,11 @@
                 app:layout_constraintTop_toBottomOf="@id/bookAdd_et_price" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <View
+        android:id="@+id/bookAdd_v_bot"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
