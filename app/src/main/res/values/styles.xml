@@ -24,4 +24,10 @@
         <!-- 취소/확인버튼 색상 -->
         <item name="android:textColor">@color/colorSub1</item>
     </style>
+
+    <style name="ProgressBarStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorSub1</item>
+        <item name="android:textColorPrimary">@color/colorBlack</item>
+        <item name="fontFamily">@font/pretendard_regular</item>
+    </style>
 </resources>

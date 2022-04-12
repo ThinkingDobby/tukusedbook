@@ -1,12 +1,16 @@
 package com.thinkingdobby.tukusedbook
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Window
 import android.view.WindowManager
@@ -15,12 +19,17 @@ import android.widget.Toast
 import androidx.core.text.isDigitsOnly
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
+import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.tukusedbook.data.Book
 import kotlinx.android.synthetic.main.activity_book_add.*
+import kotlinx.android.synthetic.main.activity_create_profile.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class BookAddActivity : AppCompatActivity() {
+    private var pickImageFromAlbum = 0
+    private var uriPhoto: Uri? = Uri.parse("android.resource://com.thinkingdobby.tukusedbook/drawable/bookadd_iv_basic")
+
     private var time = SimpleDateFormat("yyyy년 MM월 dd일").format(Date())
     private var bookId = "temp"
     private var like = 0
@@ -38,7 +47,58 @@ class BookAddActivity : AppCompatActivity() {
             )
         }
 
+        bookAdd_iv_main.setOnClickListener { loadImage() }
+        bookAdd_tv_mainImgAdd.setOnClickListener { loadImage() }
         bookAdd_btn_back.setOnClickListener { finish() }
+
+        // EditText 관리
+        bookAdd_et_title.addTextChangedListener(object : TextWatcher {
+            var prev = ""
+
+            override fun afterTextChanged(p0: Editable?) {
+                if (bookAdd_et_title.text.toString() != "") {
+                    bookAdd_et_title.setBackgroundResource(R.drawable.createprofile_et_essential_satisfied)
+                } else {
+                    bookAdd_et_title.setBackgroundResource(R.drawable.createprofile_et_essential)
+                }
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
+
+        bookAdd_et_publisher.addTextChangedListener(object : TextWatcher {
+            var prev = ""
+
+            override fun afterTextChanged(p0: Editable?) {
+                if (bookAdd_et_publisher.text.toString() != "") {
+                    bookAdd_et_publisher.setBackgroundResource(R.drawable.createprofile_et_essential_satisfied)
+                } else {
+                    bookAdd_et_publisher.setBackgroundResource(R.drawable.createprofile_et_essential)
+                }
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
+
+        bookAdd_et_author.addTextChangedListener(object : TextWatcher {
+            var prev = ""
+
+            override fun afterTextChanged(p0: Editable?) {
+                if (bookAdd_et_author.text.toString() != "") {
+                    bookAdd_et_author.setBackgroundResource(R.drawable.createprofile_et_essential_satisfied)
+                } else {
+                    bookAdd_et_author.setBackgroundResource(R.drawable.createprofile_et_essential)
+                }
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
 
         // 기본 초기화
         bookAdd_et_pubDate.setText(time)
@@ -67,6 +127,9 @@ class BookAddActivity : AppCompatActivity() {
             if (bookAdd_et_title.length() == 0 || bookAdd_et_publisher.length() == 0 || bookAdd_et_author.length() == 0) {
                 Toast.makeText(this, "빨간색 테두리로 나타나는 항목은 반드시 입력해야 해요.", Toast.LENGTH_SHORT).show()
             } else {
+                val progDlg = ProgressDialog(this, R.style.ProgressBarStyle)
+                progDlg.setMessage("잠시만 기다려주세요...")
+                progDlg.show()
 
                 // Firebase Database Upload
                 val ref = FirebaseDatabase.getInstance().getReference("Book").push()
@@ -106,14 +169,39 @@ class BookAddActivity : AppCompatActivity() {
                 if (edit) FirebaseDatabase.getInstance().getReference("Book/$bookId").setValue(book)
                 else ref.setValue(book)
 
-                if (edit) Toast.makeText(this, "서적 정보가 등록됐어요.", Toast.LENGTH_SHORT).show()
-                else Toast.makeText(this, "판매 서적이 등록됐어요.", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+                imageUpload(book.book_id, "main", edit)
             }
 
         }
+    }
 
+    private fun loadImage() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+
+        startActivityForResult(Intent.createChooser(intent, "Load Picture"), pickImageFromAlbum)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == pickImageFromAlbum) {
+            if (resultCode == Activity.RESULT_OK) {
+                uriPhoto = data?.data
+                bookAdd_iv_main.setImageURI(uriPhoto)
+            }
+        }
+    }
+
+    // type은 main, sub1, sub2, ... 중 어느 이미지인지
+    private fun imageUpload(id: String, type: String, edit: Boolean) {
+        val storageRef = FirebaseStorage.getInstance().getReference("images/$id").child(type)
+        storageRef.putFile(uriPhoto!!).addOnSuccessListener {
+            if (edit) Toast.makeText(this, "서적 정보가 변경됐어요.", Toast.LENGTH_SHORT).show()
+            else Toast.makeText(this, "판매 서적이 등록됐어요.", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }

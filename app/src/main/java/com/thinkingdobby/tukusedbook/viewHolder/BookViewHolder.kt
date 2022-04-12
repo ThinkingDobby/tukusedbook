@@ -36,31 +36,34 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         if (position == 0) book_iv_line.visibility = View.INVISIBLE
 
 //        이미지 로드
-//        val circularProgressDrawable = CircularProgressDrawable(context)
-//        circularProgressDrawable.setTint(Color.WHITE)
-//        circularProgressDrawable.strokeWidth = 5f
-//        circularProgressDrawable.centerRadius = 30f
-//        circularProgressDrawable.start()
+        val circularProgressDrawable = CircularProgressDrawable(context)
+        circularProgressDrawable.setTint(Color.WHITE)
+        circularProgressDrawable.strokeWidth = 5f
+        circularProgressDrawable.centerRadius = 30f
+        circularProgressDrawable.start()
 
-        // 메인 이미지 로드
-//        val storageRef = FirebaseStorage.getInstance().getReference("images").child(book.book_id)
-//
-//        storageRef.downloadUrl.addOnCompleteListener { task ->
-//            if (task.isSuccessful) {
-//                // Glide 이용하여 이미지뷰에 로딩
-//                try {
-//                    Glide.with(context)
-//                        .load(task.result)
-//                        .placeholder(circularProgressDrawable)
-//                        .transform(CenterCrop())
-//                        .into(book_iv_book)
-//                } catch (e: IllegalArgumentException) {
-//                    Log.d("Glide Error", "from PetViewHolder")
-//                }
-//            } else {
-//                // URL을 가져오지 못하면 토스트 메세지
-//                Log.d("Image Load Error", "URL 불러오지 못함")
-//            }
-//        }
+
+
+//        메인 이미지 로드
+        val storageRef = FirebaseStorage.getInstance().getReference("images/${book.book_id}").child("main")
+
+        storageRef.downloadUrl.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                // Glide 이용하여 이미지뷰에 로딩
+                try {
+                    // 추후 progress bar와 visibility 사용하는 방식으로 변경할 것
+                    Glide.with(context)
+                        .load(task.result)
+                        .placeholder(circularProgressDrawable)
+                        .transform(CenterCrop())
+                        .into(book_iv_book)
+                } catch (e: IllegalArgumentException) {
+                    Log.d("Glide Error", "from PetViewHolder")
+                }
+            } else {
+                // URL을 가져오지 못한 경우
+                Log.d("Image Load Error", "URL 불러오지 못함")
+            }
+        }
     }
 }
