@@ -68,7 +68,7 @@ class CreateProfileActivity : AppCompatActivity() {
 
         // 선택 버튼
         createProfile_btn_department.setOnClickListener {
-            val dlg = AlertDialog.Builder(this)
+            val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
             dlg.setItems(departments) { _, which ->
                 createProfile_et_department.setText(departments[which])
             }
@@ -77,7 +77,7 @@ class CreateProfileActivity : AppCompatActivity() {
         }
 
         createProfile_btn_grade.setOnClickListener {
-            val dlg = AlertDialog.Builder(this)
+            val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
             val grades = arrayOf("1", "2", "3", "4")
             dlg.setItems(grades) { _, which ->
                 createProfile_et_grade.setText(grades[which])

@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.tukusedbook.data.Book
+import com.thinkingdobby.tukusedbook.data.state_levs
+import com.thinkingdobby.tukusedbook.data.state_levs_color
 import kotlinx.android.synthetic.main.book_card.view.*
 import java.lang.IllegalArgumentException
 
@@ -35,14 +37,15 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         if (position == 0) book_iv_line.visibility = View.INVISIBLE
 
+        val color = state_levs_color[state_levs.indexOf(book_tv_stateLev.text.toString())]
+        book_tv_stateLev.setTextColor(Color.parseColor(color))
+
 //        이미지 로드
         val circularProgressDrawable = CircularProgressDrawable(context)
         circularProgressDrawable.setTint(Color.WHITE)
         circularProgressDrawable.strokeWidth = 5f
         circularProgressDrawable.centerRadius = 30f
         circularProgressDrawable.start()
-
-
 
 //        메인 이미지 로드
         val storageRef = FirebaseStorage.getInstance().getReference("images/${book.book_id}").child("main")

@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -100,7 +101,7 @@ class BookAddActivity : AppCompatActivity() {
 
         // 선택 버튼
         bookAdd_btn_department.setOnClickListener {
-            val dlg = AlertDialog.Builder(this)
+            val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
             dlg.setItems(departments) { _, which ->
                 bookAdd_et_department.setText(departments[which])
             }
@@ -109,7 +110,7 @@ class BookAddActivity : AppCompatActivity() {
         }
 
         bookAdd_btn_grade.setOnClickListener {
-            val dlg = AlertDialog.Builder(this)
+            val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
             val grades = arrayOf("1", "2", "3", "4")
             dlg.setItems(grades) { _, which ->
                 bookAdd_et_grade.setText(grades[which])
@@ -119,7 +120,7 @@ class BookAddActivity : AppCompatActivity() {
         }
 
         bookAdd_btn_doodle.setOnClickListener {
-            val dlg = AlertDialog.Builder(this)
+            val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
             dlg.setItems(doodles) { _, which ->
                 bookAdd_et_doodle.setText(doodles[which])
             }
@@ -128,7 +129,7 @@ class BookAddActivity : AppCompatActivity() {
         }
 
         bookAdd_btn_damage.setOnClickListener {
-            val dlg = AlertDialog.Builder(this)
+            val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
             dlg.setItems(damages) { _, which ->
                 bookAdd_et_damage.setText(damages[which])
             }
@@ -137,7 +138,7 @@ class BookAddActivity : AppCompatActivity() {
         }
 
         bookAdd_btn_stain.setOnClickListener {
-            val dlg = AlertDialog.Builder(this)
+            val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
             dlg.setItems(stains) { _, which ->
                 bookAdd_et_stain.setText(stains[which])
             }
@@ -146,9 +147,10 @@ class BookAddActivity : AppCompatActivity() {
         }
 
         bookAdd_btn_stateLev.setOnClickListener {
-            val dlg = AlertDialog.Builder(this)
+            val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
             dlg.setItems(state_levs) { _, which ->
                 bookAdd_et_stateLev.setText(state_levs[which])
+                bookAdd_et_stateLev.setTextColor(Color.parseColor(state_levs_color[which]))
             }
             dlg.setTitle("서적 등급을 선택하세요.")
             dlg.show()

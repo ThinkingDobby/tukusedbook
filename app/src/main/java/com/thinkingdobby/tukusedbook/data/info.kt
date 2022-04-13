@@ -1,5 +1,7 @@
 package com.thinkingdobby.tukusedbook.data
 
+import com.thinkingdobby.tukusedbook.R
+
 val departments = arrayOf(
     "기계공학과",
     "기계설계공학과",
@@ -38,6 +40,13 @@ val stains = arrayOf(
 val state_levs = arrayOf(
     "거의 새 책",
     "약간의 사용감 있는 책",
-    "낙서나 손상이 있는 책",
-    "낙서나 손상이 심한 책"
+    "사용감 많은 책",
+    "낙서나 손상이 심한 책",
+)
+
+val state_levs_color = arrayOf(
+    "#0051A0",
+    "#0085CE",
+    "#CE8300",
+    "#DF6464"
 )

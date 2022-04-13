@@ -1,5 +1,6 @@
 package com.thinkingdobby.tukusedbook
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +12,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.thinkingdobby.tukusedbook.adapter.BookAdapter
 import com.thinkingdobby.tukusedbook.data.Book
+import com.thinkingdobby.tukusedbook.data.departments
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -21,12 +23,34 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val layoutManager = LinearLayoutManager(this)
+        // 처음에 사용자의 학과, 학년으로 카테고리 분류되도록 설정
+        // 카테고리 변경 시 recreate() - 안되면 finish 후 startActivity로 화면 재실행 - 인텐트로 카테고리 전달 필요요
+
+       val layoutManager = LinearLayoutManager(this)
         layoutManager.reverseLayout = true
         layoutManager.stackFromEnd = true
 
         main_rv_list.layoutManager = layoutManager
         main_rv_list.adapter = BookAdapter(this, postList)
+
+        main_btn_department.setOnClickListener {
+            val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+            dlg.setItems(departments) { _, which ->
+                main_et_department.setText(departments[which])
+            }
+            dlg.setTitle("학과를 선택하세요.")
+            dlg.show()
+        }
+
+        main_btn_grade.setOnClickListener {
+            val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+            val grades = arrayOf("1", "2", "3", "4")
+            dlg.setItems(grades) { _, which ->
+                main_et_grade.setText(grades[which])
+            }
+            dlg.setTitle("학년을 선택하세요.")
+            dlg.show()
+        }
 
         try {
             FirebaseDatabase.getInstance().getReference("Book")
