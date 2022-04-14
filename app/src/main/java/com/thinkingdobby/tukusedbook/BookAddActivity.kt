@@ -40,6 +40,7 @@ class BookAddActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_add)
 
+
         bookAdd_iv_main.setOnClickListener { loadImage(0) }
         bookAdd_tv_mainImgAdd.setOnClickListener { loadImage(0) }
         bookAdd_btn_detailImgAdd.setOnClickListener { loadImage(1)}
@@ -97,6 +98,25 @@ class BookAddActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+        })
+
+        bookAdd_et_detailInfo.addTextChangedListener(object : TextWatcher {
+            var prev = ""
+
+            override fun afterTextChanged(p0: Editable?) {
+                if (bookAdd_et_detailInfo.lineCount >= 7) {
+                    bookAdd_et_detailInfo.setText(prev)
+                    bookAdd_et_detailInfo.setSelection(bookAdd_et_detailInfo.length())
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                prev = p0.toString()
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
             }
         })
 
@@ -221,6 +241,7 @@ class BookAddActivity : AppCompatActivity() {
                     bookAdd_et_stain.text.toString(),
                     bookAdd_et_stateLev.text.toString(),
                     bookAdd_et_price.text.toString().toInt(),
+                    bookAdd_et_detailInfo.text.toString(),
                     like,
                     sold
                 )

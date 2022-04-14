@@ -659,6 +659,36 @@
                 app:layout_constraintStart_toEndOf="@id/bookAdd_et_stain"
                 app:layout_constraintTop_toTopOf="@id/bookAdd_tv_stain" />
 
+            <TextView
+                android:id="@+id/bookAdd_tv_detailInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="33dp"
+                android:fontFamily="@font/pretendard_regular"
+                android:text="상세정보"
+                android:textColor="@color/colorBlack"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="@id/bookAdd_tv_infoTitle"
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_tv_stain"/>
+
+            <EditText
+                android:id="@+id/bookAdd_et_detailInfo"
+                android:layout_width="296dp"
+                android:layout_height="130dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/createprofile_et_d_intro"
+                android:fontFamily="@font/pretendard_regular"
+                android:gravity="start|top"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="8dp"
+                android:maxLines="6"
+                android:textColor="@color/colorBlack"
+                android:textSize="15sp"
+                android:hint="책의 상태를 상세하게 입력해주세요."
+                android:textColorHint="@color/colorGray"
+                app:layout_constraintStart_toStartOf="@id/bookAdd_tv_infoTitle"
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_tv_detailInfo"/>
+
             <ImageView
                 android:id="@+id/bookAdd_iv_line2"
                 android:layout_width="296dp"
@@ -667,7 +697,7 @@
                 android:background="@drawable/bottom_line"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/bookAdd_tv_stain" />
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_et_detailInfo" />
 
             <TextView
                 android:id="@+id/bookAdd_tv_stateLev"

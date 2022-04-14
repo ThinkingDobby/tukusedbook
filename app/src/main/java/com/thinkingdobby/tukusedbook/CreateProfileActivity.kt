@@ -101,7 +101,7 @@ class CreateProfileActivity : AppCompatActivity() {
             Firebase.database.getReference("User").child(id).get().addOnSuccessListener {
                 val user = it.getValue(User::class.java)
                 createProfile_et_name.setText(user?.name)
-                createProfile_et_tell.setText(user?.tell)
+                createProfile_et_tel.setText(user?.tel)
                 createProfile_et_department.setText(user?.department)
                 createProfile_et_grade.setText(user?.grade.toString())
                 createProfile_et_intro.setText(user?.intro)
@@ -115,7 +115,7 @@ class CreateProfileActivity : AppCompatActivity() {
                 val user = User(
                     id,
                     createProfile_et_name.text.toString(),
-                    createProfile_et_tell.text.toString(),
+                    createProfile_et_tel.text.toString(),
                     createProfile_et_department.text.toString(),
                     createProfile_et_grade.text.toString().toInt(),
                     createProfile_et_intro.text.toString()

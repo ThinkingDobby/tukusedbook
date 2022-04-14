@@ -2,10 +2,9 @@ package com.thinkingdobby.tukusedbook.data
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import java.sql.Timestamp
 
 @Parcelize
-class Book (
+class Book(
     var book_id: String,
     var seller_id: String,
     var post_date: String,
@@ -24,10 +23,13 @@ class Book (
     var stain: String,
     var state_lev: String,
     var price: Int,
+    var detail_info: String,
     var like: Int,
     var sold: Boolean
-): Parcelable {
-    constructor(): this("", "", "", "", "",
+) : Parcelable {
+    constructor() : this(
+        "", "", "", "", "",
         "", "", "", 0, listOf(), "", 0,
-        0, "", "", "", "", 0, 0, false)
+        0, "", "", "", "", 0, "", 0, false
+    )
 }

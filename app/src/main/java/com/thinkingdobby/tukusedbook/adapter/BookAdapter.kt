@@ -1,6 +1,7 @@
 package com.thinkingdobby.tukusedbook.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.thinkingdobby.tukusedbook.BookDetailActivity
 import com.thinkingdobby.tukusedbook.R
 import com.thinkingdobby.tukusedbook.data.Book
 import com.thinkingdobby.tukusedbook.viewHolder.BookViewHolder
@@ -43,6 +45,11 @@ class BookAdapter(val context: Context, private val dataList: ArrayList<Book>) :
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         holder.bind(filteredDataList[position], position, context)
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, BookDetailActivity::class.java)
+            context.startActivity(intent)
+        }
 //        리스트 각 항목 클릭
 //        try {
 //            holder.itemView.pet_btn_info.setOnClickListener {

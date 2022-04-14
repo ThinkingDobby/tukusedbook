@@ -2,5 +2,8 @@
     <string name="app_name">tuk 중고서적</string>
 
     <string name="createProfile_tv_registerSub">책을 판매하거나 쪽지를 보낼 때 표시될 프로필 정보를 입력해주세요.\n\n입력한 프로필 정보는 이후에 변경 가능해요.</string>
+
     <string name="bookAdd_tv_stateGuide"><u>등급 가이드</u></string>
+
+    <string name="bookDetail_tv_moreInfo"><u>책 정보 더보기</u></string>
 </resources>
