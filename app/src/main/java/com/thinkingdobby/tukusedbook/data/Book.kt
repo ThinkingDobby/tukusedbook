@@ -18,7 +18,7 @@ class Book (
     var size: List<Int>,
     var department: String,
     var grade: Int,
-    var detail_img: List<String>,
+    var detail_img_cnt: Int,
     var doodle: String,
     var damage: String,
     var stain: String,
@@ -29,5 +29,5 @@ class Book (
 ): Parcelable {
     constructor(): this("", "", "", "", "",
         "", "", "", 0, listOf(), "", 0,
-        listOf(), "", "", "", "", 0, 0, false)
+        0, "", "", "", "", 0, 0, false)
 }

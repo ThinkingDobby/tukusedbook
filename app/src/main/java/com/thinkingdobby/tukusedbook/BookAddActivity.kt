@@ -32,6 +32,7 @@ class BookAddActivity : AppCompatActivity() {
 
     private var time = SimpleDateFormat("yyyy년 MM월 dd일").format(Date())
     private var bookId = "temp"
+    private var imgCnt = 0
     private var like = 0
     private var sold = false
 
@@ -214,7 +215,7 @@ class BookAddActivity : AppCompatActivity() {
                     listOf(size1, size2),
                     bookAdd_et_department.text.toString(),
                     bookAdd_et_grade.text.toString().toInt(),
-                    listOf(),
+                    imgCnt,
                     bookAdd_et_doodle.text.toString(),
                     bookAdd_et_damage.text.toString(),
                     bookAdd_et_stain.text.toString(),
