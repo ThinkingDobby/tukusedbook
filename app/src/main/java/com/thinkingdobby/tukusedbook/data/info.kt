@@ -1,8 +1,7 @@
 package com.thinkingdobby.tukusedbook.data
 
-import com.thinkingdobby.tukusedbook.R
-
 val departments = arrayOf(
+    "전체",
     "기계공학과",
     "기계설계공학과",
     "메카트로닉스공학부",

@@ -3,6 +3,8 @@ package com.thinkingdobby.tukusedbook
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val postList = mutableListOf<Book>()
+    private val postList = arrayListOf<Book>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,12 +33,30 @@ class MainActivity : AppCompatActivity() {
         layoutManager.stackFromEnd = true
 
         main_rv_list.layoutManager = layoutManager
-        main_rv_list.adapter = BookAdapter(this, postList)
+        val bookAdapter = BookAdapter(this, postList)
+        main_rv_list.adapter = bookAdapter
+
+        main_et_search.addTextChangedListener (object: TextWatcher {
+            override fun beforeTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                //Do Nothing
+            }
+
+            override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                bookAdapter.filter.filter(charSequence)
+            }
+
+            override fun afterTextChanged(charSequence: Editable?) {
+                //Do Nothing
+            }
+        })
 
         main_btn_department.setOnClickListener {
             val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
             dlg.setItems(departments) { _, which ->
                 main_et_department.setText(departments[which])
+                bookAdapter.setDepartment(departments[which])
+                main_et_search.setText("")
+                bookAdapter.filter.filter("")
             }
             dlg.setTitle("학과를 선택하세요.")
             dlg.show()
@@ -44,9 +64,12 @@ class MainActivity : AppCompatActivity() {
 
         main_btn_grade.setOnClickListener {
             val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
-            val grades = arrayOf("1", "2", "3", "4")
+            val grades = arrayOf("전체", "1", "2", "3", "4")
             dlg.setItems(grades) { _, which ->
                 main_et_grade.setText(grades[which])
+                bookAdapter.setGrade(grades[which])
+                main_et_search.setText("")
+                bookAdapter.filter.filter("")
             }
             dlg.setTitle("학년을 선택하세요.")
             dlg.show()
@@ -71,6 +94,9 @@ class MainActivity : AppCompatActivity() {
                             }
 //                            항목 없을 때
 //                            if (postList.size != 0) findPet_tv_empty.visibility = View.INVISIBLE
+                            bookAdapter.setDepartment(main_et_department.text.toString())
+                            bookAdapter.setGrade(main_et_grade.text.toString())
+                            bookAdapter.filter.filter(main_et_search.text.toString())
                         }
                     }
 
@@ -86,6 +112,9 @@ class MainActivity : AppCompatActivity() {
                                 postList[prevIndex + 1] = post
                                 main_rv_list.adapter?.notifyItemChanged(prevIndex + 1)
                             }
+                            bookAdapter.setDepartment(main_et_department.text.toString())
+                            bookAdapter.setGrade(main_et_grade.text.toString())
+                            bookAdapter.filter.filter(main_et_search.text.toString())
                         }
                     }
 
@@ -106,6 +135,9 @@ class MainActivity : AppCompatActivity() {
                                     main_rv_list.adapter?.notifyItemChanged(prevIndex + 1)
                                 }
                             }
+                            bookAdapter.setDepartment(main_et_department.text.toString())
+                            bookAdapter.setGrade(main_et_grade.text.toString())
+                            bookAdapter.filter.filter(main_et_search.text.toString())
                         }
                     }
 
@@ -121,6 +153,9 @@ class MainActivity : AppCompatActivity() {
 //                            항목 없을 때
 //                            if (postList.size != 0) findPet_tv_empty.visibility = View.INVISIBLE
 //                            else findPet_tv_empty.visibility = View.VISIBLE
+                            bookAdapter.setDepartment(main_et_department.text.toString())
+                            bookAdapter.setGrade(main_et_grade.text.toString())
+                            bookAdapter.filter.filter(main_et_search.text.toString())
                         }
                     }
 
