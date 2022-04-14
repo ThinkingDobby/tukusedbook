@@ -57,6 +57,7 @@ class MainActivity : AppCompatActivity() {
                 bookAdapter.setDepartment(departments[which])
                 main_et_search.setText("")
                 bookAdapter.filter.filter("")
+                main_rv_list.scrollToPosition(bookAdapter.itemCount - 1)
             }
             dlg.setTitle("학과를 선택하세요.")
             dlg.show()
@@ -70,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                 bookAdapter.setGrade(grades[which])
                 main_et_search.setText("")
                 bookAdapter.filter.filter("")
+                main_rv_list.scrollToPosition(bookAdapter.itemCount - 1)
             }
             dlg.setTitle("학년을 선택하세요.")
             dlg.show()
