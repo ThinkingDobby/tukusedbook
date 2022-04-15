@@ -2,10 +2,14 @@ package com.thinkingdobby.tukusedbook
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Rect
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.MotionEvent
+import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.ChildEventListener
@@ -36,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         val bookAdapter = BookAdapter(this, postList)
         main_rv_list.adapter = bookAdapter
 
-        main_et_search.addTextChangedListener (object: TextWatcher {
+        main_et_search.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 //Do Nothing
             }
@@ -150,7 +154,10 @@ class MainActivity : AppCompatActivity() {
                                 val existIndex = postList.map { it.book_id }.indexOf(post.book_id)
                                 postList.removeAt(existIndex)
                                 main_rv_list.adapter?.notifyItemRemoved(existIndex)
-                                main_rv_list.adapter?.notifyItemRangeChanged(existIndex, postList.size)
+                                main_rv_list.adapter?.notifyItemRangeChanged(
+                                    existIndex,
+                                    postList.size
+                                )
                             }
 //                            항목 없을 때
 //                            if (postList.size != 0) findPet_tv_empty.visibility = View.INVISIBLE
@@ -178,6 +185,25 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             overridePendingTransition(0, 0)
         }
+    }
+
+    // 화면 터치 시 키보드 내리고 검색바 포커스 해제
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val view: View? = currentFocus
+        val focusView = currentFocus
+        if (focusView != null) {
+            val rect = Rect()
+            focusView.getGlobalVisibleRect(rect)
+            val x = ev.x.toInt()
+            val y = ev.y.toInt()
+            if (!rect.contains(x, y)) {
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm?.hideSoftInputFromWindow(focusView.windowToken, 0)
+                focusView.clearFocus()
+            }
+        }
+        main_et_search.clearFocus()
+        return super.dispatchTouchEvent(ev)
     }
 
     override fun finish() {

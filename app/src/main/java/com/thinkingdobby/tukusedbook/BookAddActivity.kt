@@ -27,12 +27,16 @@ import java.util.*
 class BookAddActivity : AppCompatActivity() {
     private var uriPhoto: Uri? =
         Uri.parse("android.resource://com.thinkingdobby.tukusedbook/drawable/bookadd_iv_basic")
-    private var detailUriPhotoTemp: Uri? =
+    private var detailUriPhotoTemp1: Uri? =
+        Uri.parse("android.resource://com.thinkingdobby.tukusedbook/drawable/bookadd_iv_basic")
+    private var detailUriPhotoTemp2: Uri? =
+        Uri.parse("android.resource://com.thinkingdobby.tukusedbook/drawable/bookadd_iv_basic")
+    private var detailUriPhotoTemp3: Uri? =
         Uri.parse("android.resource://com.thinkingdobby.tukusedbook/drawable/bookadd_iv_basic")
 
     private var time = SimpleDateFormat("yyyy년 MM월 dd일").format(Date())
     private var bookId = "temp"
-    private var imgCnt = 0
+    private var imgCnt = 3
     private var like = 0
     private var sold = false
 
@@ -43,7 +47,9 @@ class BookAddActivity : AppCompatActivity() {
 
         bookAdd_iv_main.setOnClickListener { loadImage(0) }
         bookAdd_tv_mainImgAdd.setOnClickListener { loadImage(0) }
-        bookAdd_btn_detailImgAdd.setOnClickListener { loadImage(1)}
+        bookAdd_iv_detailImgTemp1.setOnClickListener { loadImage(1)}
+        bookAdd_iv_detailImgTemp2.setOnClickListener { loadImage(2) }
+        bookAdd_iv_detailImgTemp3.setOnClickListener { loadImage(3) }
         bookAdd_btn_back.setOnClickListener { finish() }
 
         // EditText 관리
@@ -250,7 +256,9 @@ class BookAddActivity : AppCompatActivity() {
                 else ref.setValue(book)
 
                 imageUpload(book.book_id, "main", edit)
-                imageUpload(book.book_id, "detail", edit)
+                imageUpload(book.book_id, "detail1", edit)
+                imageUpload(book.book_id, "detail2", edit)
+                imageUpload(book.book_id, "detail3", edit)
             }
 
         }
@@ -273,8 +281,18 @@ class BookAddActivity : AppCompatActivity() {
             }
         } else if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
-                detailUriPhotoTemp = data?.data
-                bookAdd_iv_detailImgTemp.setImageURI(detailUriPhotoTemp)
+                detailUriPhotoTemp1 = data?.data
+                bookAdd_iv_detailImgTemp1.setImageURI(detailUriPhotoTemp1)
+            }
+        } else if (requestCode == 2) {
+            if (resultCode == Activity.RESULT_OK) {
+                detailUriPhotoTemp2 = data?.data
+                bookAdd_iv_detailImgTemp2.setImageURI(detailUriPhotoTemp2)
+            }
+        } else if (requestCode == 3) {
+            if (resultCode == Activity.RESULT_OK) {
+                detailUriPhotoTemp3 = data?.data
+                bookAdd_iv_detailImgTemp3.setImageURI(detailUriPhotoTemp3)
             }
         }
     }
@@ -302,16 +320,20 @@ class BookAddActivity : AppCompatActivity() {
         val storageRef = FirebaseStorage.getInstance().getReference("images/$id").child(type)
         val target = when (type) {
             "main" -> uriPhoto
-            else -> detailUriPhotoTemp
+            "detail1" -> detailUriPhotoTemp1
+            "detail2" -> detailUriPhotoTemp2
+            else -> detailUriPhotoTemp3
         }
 
         storageRef.putFile(target!!).addOnSuccessListener {
-            if (edit) Toast.makeText(this, "서적 정보가 변경됐어요.", Toast.LENGTH_SHORT).show()
-            else Toast.makeText(this, "판매 서적이 등록됐어요.", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(0, 0)
-            finish()
+            if (type == "detail3") {
+                if (edit) Toast.makeText(this, "서적 정보가 변경됐어요.", Toast.LENGTH_SHORT).show()
+                else Toast.makeText(this, "판매 서적이 등록됐어요.", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                overridePendingTransition(0, 0)
+                finish()
+            }
         }
     }
 

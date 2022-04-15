@@ -55,8 +55,9 @@
 
             <ImageView
                 android:id="@+id/bookAdd_iv_main"
-                android:layout_width="210dp"
+                android:layout_width="wrap_content"
                 android:layout_height="280dp"
+                android:adjustViewBounds="true"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/all_line"
                 android:src="@drawable/bookadd_iv_basic"
@@ -92,10 +93,10 @@
                 android:id="@+id/bookAdd_btn_isbnInput"
                 android:layout_width="108dp"
                 android:layout_height="33dp"
-                android:background="@drawable/bookadd_btn_isbn"
+                android:background="@drawable/bookadd_btn_d_isbn"
                 android:fontFamily="@font/pretendard_regular"
                 android:text="ISBN으로 입력"
-                android:textColor="@color/colorSub1"
+                android:textColor="@drawable/tv_d_buttontext"
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/bookAdd_tv_infoTitle" />
@@ -480,52 +481,36 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/bookAdd_iv_line1" />
 
-            <HorizontalScrollView
-                android:id="@+id/bookAdd_sv_detailImg"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <ImageView
+                android:id="@+id/bookAdd_iv_detailImgTemp1"
+                android:layout_width="88dp"
+                android:layout_height="122dp"
                 android:layout_marginTop="22dp"
-                app:layout_constraintStart_toStartOf="@id/bookAdd_tv_infoTitle"
-                app:layout_constraintTop_toBottomOf="@id/bookAdd_tv_state">
+                android:background="@drawable/all_line"
+                android:src="@drawable/bookadd_iv_basic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_tv_state"/>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/bookAdd_iv_detailImgTemp2"
+                android:layout_width="88dp"
+                android:layout_height="122dp"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/all_line"
+                android:src="@drawable/bookadd_iv_basic"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_tv_state"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
-                    <ImageView
-                        android:id="@+id/bookAdd_iv_detailImgTemp"
-                        android:layout_width="99dp"
-                        android:layout_height="132dp"
-                        android:background="@drawable/all_line"
-                        android:src="@drawable/bookadd_iv_basic"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Button
-                        android:id="@+id/bookAdd_btn_detailImgAdd"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="43dp"
-                        android:background="@drawable/bookadd_btn_d_addsubimg"
-                        app:layout_constraintStart_toEndOf="@id/bookAdd_iv_detailImgTemp"
-                        app:layout_constraintTop_toTopOf="@id/bookAdd_iv_detailImgTemp" />
-
-                    <TextView
-                        android:id="@+id/bookAdd_tv_detailImgAdd"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/pretendard_regular"
-                        android:text="세부사진 추가"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="13sp"
-                        app:layout_constraintEnd_toEndOf="@id/bookAdd_btn_detailImgAdd"
-                        app:layout_constraintStart_toStartOf="@id/bookAdd_btn_detailImgAdd"
-                        app:layout_constraintTop_toBottomOf="@id/bookAdd_btn_detailImgAdd" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </HorizontalScrollView>
+            <ImageView
+                android:id="@+id/bookAdd_iv_detailImgTemp3"
+                android:layout_width="88dp"
+                android:layout_height="122dp"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/all_line"
+                android:src="@drawable/bookadd_iv_basic"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_tv_state"/>
 
             <TextView
                 android:id="@+id/bookAdd_tv_doodle"
@@ -537,7 +522,7 @@
                 android:textColor="@color/colorBlack"
                 android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="@id/bookAdd_tv_infoTitle"
-                app:layout_constraintTop_toBottomOf="@id/bookAdd_sv_detailImg" />
+                app:layout_constraintTop_toBottomOf="@id/bookAdd_iv_detailImgTemp1" />
 
             <EditText
                 android:id="@+id/bookAdd_et_doodle"
@@ -665,7 +650,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="33dp"
                 android:fontFamily="@font/pretendard_regular"
-                android:text="상세정보"
+                android:text="상세 정보"
                 android:textColor="@color/colorBlack"
                 android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="@id/bookAdd_tv_infoTitle"
