@@ -3,6 +3,8 @@ package com.thinkingdobby.tukusedbook.adapter
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -46,22 +48,18 @@ class BookAdapter(val context: Context, private val dataList: ArrayList<Book>) :
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         holder.bind(filteredDataList[position], position, context)
 
-        holder.itemView.setOnClickListener {
-            val intent = Intent(context, BookDetailActivity::class.java)
-            context.startActivity(intent)
-        }
 //        리스트 각 항목 클릭
-//        try {
-//            holder.itemView.pet_btn_info.setOnClickListener {
-//                val intent = Intent(context, BookDetailActivity::class.java)
-//                val bundle = Bundle()
-//                bundle.putParcelable("selectedBook", dataList[position])
-//                intent.putExtras(bundle)
-//                context.startActivity(intent)
-//            }
-//        } catch (e: Exception) {
-//            Log.d("infoClick", e.toString())
-//        }
+        try {
+            holder.itemView.setOnClickListener {
+                val intent = Intent(context, BookDetailActivity::class.java)
+                val bundle = Bundle()
+                bundle.putParcelable("selectedBook", filteredDataList[position])
+                intent.putExtras(bundle)
+                context.startActivity(intent)
+            }
+        } catch (e: Exception) {
+            Log.d("infoClick", e.toString())
+        }
     }
 
     override fun getFilter(): Filter {

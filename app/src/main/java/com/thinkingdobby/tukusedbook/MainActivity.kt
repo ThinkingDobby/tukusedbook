@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Rect
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         main_rv_list.layoutManager = layoutManager
         val bookAdapter = BookAdapter(this, postList)
         main_rv_list.adapter = bookAdapter
+        main_rv_list.setItemViewCacheSize(30)
 
         main_et_search.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -50,8 +52,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(charSequence: Editable?) {
-                //Do Nothing
-            }
+                main_rv_list.scrollToPosition(bookAdapter.itemCount - 1)            }
         })
 
         main_btn_department.setOnClickListener {
@@ -209,5 +210,12 @@ class MainActivity : AppCompatActivity() {
     override fun finish() {
         super.finish()
         overridePendingTransition(0, 0)
+    }
+
+    private fun startLoading() {
+        val handler = Handler()
+        handler.postDelayed({
+            // 카테고리 변경 시 로딩 구현
+        }, 1000)
     }
 }

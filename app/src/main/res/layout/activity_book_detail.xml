@@ -96,6 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/bookdetail_label"
+                    android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@id/bookDetail_iv_main"
                     app:layout_constraintTop_toTopOf="@id/bookDetail_iv_main" />
 
@@ -104,6 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/pretendard_bold"
+                    android:visibility="invisible"
                     android:text="판매 완료"
                     android:textColor="@color/colorPrimary"
                     android:textSize="18sp"
@@ -220,7 +222,7 @@
                 <ImageView
                     android:id="@+id/bookDetail_iv_line1"
                     android:layout_width="296dp"
-                    android:layout_height="1dp"
+                    android:layout_height="2dp"
                     android:layout_marginTop="42dp"
                     android:background="@drawable/bottom_line"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -392,7 +394,7 @@
                 <ImageView
                     android:id="@+id/bookDetail_iv_line2"
                     android:layout_width="296dp"
-                    android:layout_height="1dp"
+                    android:layout_height="2dp"
                     android:layout_marginTop="42dp"
                     android:background="@drawable/bottom_line"
                     app:layout_constraintEnd_toEndOf="parent"

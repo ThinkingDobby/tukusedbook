@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.google.firebase.storage.FirebaseStorage
+import com.thinkingdobby.tukusedbook.R
 import com.thinkingdobby.tukusedbook.data.Book
 import com.thinkingdobby.tukusedbook.data.state_levs
 import com.thinkingdobby.tukusedbook.data.state_levs_color
@@ -39,6 +40,10 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val color = state_levs_color[state_levs.indexOf(book_tv_stateLev.text.toString())]
         book_tv_stateLev.setTextColor(Color.parseColor(color))
+
+        // 기본 이미지 로드
+        book_iv_book.setImageResource(R.drawable.bookadd_iv_basic)
+
 
 //        이미지 로드
         val circularProgressDrawable = CircularProgressDrawable(context)
