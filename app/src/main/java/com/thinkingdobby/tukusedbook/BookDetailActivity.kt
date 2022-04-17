@@ -8,9 +8,11 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
@@ -22,6 +24,7 @@ import kotlinx.android.synthetic.main.activity_book_detail.*
 import java.lang.IllegalArgumentException
 
 class BookDetailActivity : AppCompatActivity() {
+    private var admin = false
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +37,61 @@ class BookDetailActivity : AppCompatActivity() {
         val pref = getSharedPreferences("profile", MODE_PRIVATE)
         val nowId = pref.getString("user_id", "temp")!!
 
+        val storageRef = FirebaseStorage.getInstance().getReference("images/${book.book_id}")
+
+        if (book.seller_id == nowId) admin = true
+
+        if (admin) {
+            bookDetail_btn_edit.visibility = View.VISIBLE
+            bookDetail_btn_delete.visibility = View.VISIBLE
+
+            bookDetail_icon_like.setImageResource(R.drawable.main_icon_heart_disabled)
+            bookDetail_icon_like.isClickable = false
+
+            bookDetail_iv_line2.visibility = View.GONE
+
+            bookDetail_cl_seller.visibility = View.GONE
+            bookDetail_btn_soldFin.visibility = View.VISIBLE
+
+            bookDetail_icon_chat.visibility = View.INVISIBLE
+            bookDetail_icon_tv_chat.visibility = View.INVISIBLE
+        } else {
+            bookDetail_btn_edit.visibility = View.INVISIBLE
+            bookDetail_btn_delete.visibility = View.INVISIBLE
+
+            bookDetail_iv_line2.visibility = View.VISIBLE
+
+            bookDetail_cl_seller.visibility = View.VISIBLE
+            bookDetail_btn_soldFin.visibility = View.GONE
+
+            bookDetail_icon_chat.visibility = View.VISIBLE
+            bookDetail_icon_tv_chat.visibility = View.VISIBLE
+        }
+
+        bookDetail_btn_delete.setOnClickListener {
+            val ref = FirebaseDatabase.getInstance().getReference("Book").child(book.book_id)
+            var sRef = FirebaseStorage.getInstance().getReference("images").child(book.book_id)
+            val builder = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+
+            if (book.seller_id == nowId) builder.setMessage("글을 삭제할까요?")
+
+            builder.setPositiveButton("아니오") { _, which ->
+            }
+
+            builder.setNegativeButton("예") {_, which ->
+                ref.removeValue()
+                // Firebase Storage - 폴더 내부 내용 없어야 폴더 삭제 가능
+                sRef.child("main").delete()
+                sRef.child("detail1").delete()
+                sRef.child("detail2").delete()
+                sRef.child("detail3").delete()
+                sRef.delete()
+                Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            builder.create().show()
+        }
+
         if (book.sold) {
             bookDetail_iv_sold.visibility = View.VISIBLE
             bookDetail_tv_sold.visibility = View.VISIBLE
@@ -41,8 +99,6 @@ class BookDetailActivity : AppCompatActivity() {
             bookDetail_iv_sold.visibility = View.INVISIBLE
             bookDetail_tv_sold.visibility = View.INVISIBLE
         }
-
-        val storageRef = FirebaseStorage.getInstance().getReference("images/${book.book_id}")
 
         val circularProgressDrawable = CircularProgressDrawable(this)
         circularProgressDrawable.setTint(Color.WHITE)   // 추후 수정
@@ -130,7 +186,7 @@ class BookDetailActivity : AppCompatActivity() {
         bookDetail_tv_stain.text = book.stain
         bookDetail_tv_detailInfo.text = book.detail_info
 
-        Firebase.database.getReference("User").child(nowId).get().addOnSuccessListener {
+        Firebase.database.getReference("User").child(book.seller_id).get().addOnSuccessListener {
             val user = it.getValue(User::class.java)!!
             bookDetail_tv_sellerNickName.text = user.name
             bookDetail_tv_sellerTel.text = user.tel
