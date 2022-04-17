@@ -88,8 +88,11 @@
 
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="18dp"
+            android:id="@+id/book_icon_like"
+            android:layout_width="40dp"
+            android:layout_height="54dp"
+            android:paddingStart="20dp"
+            android:paddingVertical="18dp"
             android:layout_marginEnd="5dp"
             android:src="@drawable/main_icon_heart"
             app:layout_constraintBottom_toBottomOf="@id/book_tv_like"

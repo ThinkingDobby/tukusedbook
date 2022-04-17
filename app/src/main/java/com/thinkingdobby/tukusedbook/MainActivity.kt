@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
                 main_rv_list.scrollToPosition(bookAdapter.itemCount - 1)
             }
             dlg.setTitle("학과를 선택하세요.")
+            dlg.setPositiveButton("취소" , null)
             dlg.show()
         }
 
@@ -79,6 +80,7 @@ class MainActivity : AppCompatActivity() {
                 main_rv_list.scrollToPosition(bookAdapter.itemCount - 1)
             }
             dlg.setTitle("학년을 선택하세요.")
+            dlg.setPositiveButton("취소" , null)
             dlg.show()
         }
 

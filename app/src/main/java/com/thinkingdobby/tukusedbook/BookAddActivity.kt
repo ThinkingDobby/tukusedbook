@@ -249,7 +249,8 @@ class BookAddActivity : AppCompatActivity() {
                     bookAdd_et_price.text.toString().toInt(),
                     bookAdd_et_detailInfo.text.toString(),
                     like,
-                    sold
+                    sold,
+                    mutableMapOf()
                 )
 
                 if (edit) FirebaseDatabase.getInstance().getReference("Book/$bookId").setValue(book)

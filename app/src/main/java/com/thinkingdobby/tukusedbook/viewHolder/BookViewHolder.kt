@@ -6,10 +6,12 @@ import android.os.Build
 import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.tukusedbook.R
 import com.thinkingdobby.tukusedbook.data.Book
@@ -26,6 +28,7 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val book_tv_like = itemView.book_tv_like
 
     val book_iv_book = itemView.book_iv_book
+    val book_icon_like = itemView.book_icon_like
     val book_iv_line = itemView.book_iv_line
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -40,6 +43,34 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val color = state_levs_color[state_levs.indexOf(book_tv_stateLev.text.toString())]
         book_tv_stateLev.setTextColor(Color.parseColor(color))
+
+        val pref = context.getSharedPreferences("profile", AppCompatActivity.MODE_PRIVATE)
+        val nowId = pref.getString("user_id", "temp")!!
+        if (nowId == book.seller_id) {
+            book_icon_like.setImageResource(R.drawable.main_icon_heart_disabled)
+            book_icon_like.isClickable = false
+        } else {
+            val ref = FirebaseDatabase.getInstance().getReference("Book").child(book.book_id)
+            var like = book.like_users[nowId] ?: false
+            if (like) book_icon_like.setImageResource(R.drawable.main_icon_heart_filled)
+            else book_icon_like.setImageResource(R.drawable.main_icon_heart)
+
+            book_icon_like.setOnClickListener {
+                val checkUpdates = mutableMapOf<String, Any>()
+                if (like) {
+                    book.like_users[nowId] = false
+                    book.like--
+                    checkUpdates["like_users"] = book.like_users
+                    checkUpdates["like"] = book.like
+                } else {
+                    book.like_users[nowId] = true
+                    book.like++
+                    checkUpdates["like_users"] = book.like_users
+                    checkUpdates["like"] = book.like
+                }
+                ref.updateChildren(checkUpdates)
+            }
+        }
 
         // 기본 이미지 로드
         book_iv_book.setImageResource(R.drawable.bookadd_iv_basic)

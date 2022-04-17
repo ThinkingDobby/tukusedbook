@@ -25,11 +25,12 @@ class Book(
     var price: Int,
     var detail_info: String,
     var like: Int,
-    var sold: Boolean
+    var sold: Boolean,
+    var like_users: MutableMap<String, Boolean>
 ) : Parcelable {
     constructor() : this(
         "", "", "", "", "",
         "", "", "", 0, listOf(), "", 0,
-        0, "", "", "", "", 0, "", 0, false
+        0, "", "", "", "", 0, "", 0, false, mutableMapOf()
     )
 }

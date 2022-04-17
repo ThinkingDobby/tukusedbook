@@ -66,6 +66,32 @@ class BookDetailActivity : AppCompatActivity() {
 
             bookDetail_icon_chat.visibility = View.VISIBLE
             bookDetail_icon_tv_chat.visibility = View.VISIBLE
+
+            val ref = FirebaseDatabase.getInstance().getReference("Book").child(book.book_id)
+            var like = book.like_users[nowId] ?: false
+            if (like) bookDetail_icon_like.setImageResource(R.drawable.main_icon_heart_filled)
+            else bookDetail_icon_like.setImageResource(R.drawable.main_icon_heart)
+
+            bookDetail_icon_like.setOnClickListener {
+                val checkUpdates = mutableMapOf<String, Any>()
+                if (like) {
+                    book.like_users[nowId] = false
+                    book.like--
+                    checkUpdates["like_users"] = book.like_users
+                    checkUpdates["like"] = book.like
+                    bookDetail_icon_like.setImageResource(R.drawable.main_icon_heart)
+                    like = false
+                } else {
+                    book.like_users[nowId] = true
+                    book.like++
+                    checkUpdates["like_users"] = book.like_users
+                    checkUpdates["like"] = book.like
+                    bookDetail_icon_like.setImageResource(R.drawable.main_icon_heart_filled)
+                    like = true
+                }
+                bookDetail_tv_like.text = book.like.toString()
+                ref.updateChildren(checkUpdates)
+            }
         }
 
         bookDetail_btn_delete.setOnClickListener {
@@ -73,23 +99,26 @@ class BookDetailActivity : AppCompatActivity() {
             var sRef = FirebaseStorage.getInstance().getReference("images").child(book.book_id)
             val builder = AlertDialog.Builder(this, R.style.AlertDialogStyle)
 
-            if (book.seller_id == nowId) builder.setMessage("글을 삭제할까요?")
+            // 임시 디자인
+            if (book.seller_id == nowId) {
+                builder.setMessage("글을 삭제할까요?                     ")
 
-            builder.setPositiveButton("아니오") { _, which ->
-            }
+                builder.setPositiveButton("아니오") { _, which ->
+                }
 
-            builder.setNegativeButton("예") {_, which ->
-                ref.removeValue()
-                // Firebase Storage - 폴더 내부 내용 없어야 폴더 삭제 가능
-                sRef.child("main").delete()
-                sRef.child("detail1").delete()
-                sRef.child("detail2").delete()
-                sRef.child("detail3").delete()
-                sRef.delete()
-                Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
-                finish()
+                builder.setNegativeButton("예") { _, which ->
+                    ref.removeValue()
+                    // Firebase Storage - 폴더 내부 내용 없어야 폴더 삭제 가능
+                    sRef.child("main").delete()
+                    sRef.child("detail1").delete()
+                    sRef.child("detail2").delete()
+                    sRef.child("detail3").delete()
+                    sRef.delete()
+                    Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+                builder.create().show()
             }
-            builder.create().show()
         }
 
         if (book.sold) {
@@ -185,6 +214,8 @@ class BookDetailActivity : AppCompatActivity() {
         bookDetail_tv_damage.text = book.damage
         bookDetail_tv_stain.text = book.stain
         bookDetail_tv_detailInfo.text = book.detail_info
+
+        bookDetail_tv_like.text = book.like.toString()
 
         Firebase.database.getReference("User").child(book.seller_id).get().addOnSuccessListener {
             val user = it.getValue(User::class.java)!!
