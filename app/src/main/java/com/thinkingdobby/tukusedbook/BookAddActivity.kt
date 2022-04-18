@@ -25,14 +25,16 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class BookAddActivity : AppCompatActivity() {
+    private var basicUri =
+        "android.resource://com.thinkingdobby.tukusedbook/drawable/bookadd_iv_basic"
     private var uriPhoto: Uri? =
-        Uri.parse("android.resource://com.thinkingdobby.tukusedbook/drawable/bookadd_iv_basic")
+        Uri.parse(basicUri)
     private var detailUriPhotoTemp1: Uri? =
-        Uri.parse("android.resource://com.thinkingdobby.tukusedbook/drawable/bookadd_iv_basic")
+        Uri.parse(basicUri)
     private var detailUriPhotoTemp2: Uri? =
-        Uri.parse("android.resource://com.thinkingdobby.tukusedbook/drawable/bookadd_iv_basic")
+        Uri.parse(basicUri)
     private var detailUriPhotoTemp3: Uri? =
-        Uri.parse("android.resource://com.thinkingdobby.tukusedbook/drawable/bookadd_iv_basic")
+        Uri.parse(basicUri)
 
     private var time = SimpleDateFormat("yyyy년 MM월 dd일").format(Date())
     private var bookId = "temp"
@@ -47,9 +49,36 @@ class BookAddActivity : AppCompatActivity() {
 
         bookAdd_iv_main.setOnClickListener { loadImage(0) }
         bookAdd_tv_mainImgAdd.setOnClickListener { loadImage(0) }
-        bookAdd_iv_detailImgTemp1.setOnClickListener { loadImage(1)}
-        bookAdd_iv_detailImgTemp2.setOnClickListener { loadImage(2) }
-        bookAdd_iv_detailImgTemp3.setOnClickListener { loadImage(3) }
+
+        bookAdd_iv_detailImgTemp1.setOnClickListener {
+            loadImage(1)
+        }
+        bookAdd_iv_detailImgTemp2.setOnClickListener {
+            loadImage(2)
+        }
+        bookAdd_iv_detailImgTemp3.setOnClickListener {
+            loadImage(3)
+        }
+        bookAdd_btn_removeImgTemp1.setOnClickListener {
+            detailUriPhotoTemp1 = Uri.parse(basicUri)
+            bookAdd_iv_detailImgTemp1.setImageURI(detailUriPhotoTemp1)
+            bookAdd_btn_removeImgTemp1.visibility = View.INVISIBLE
+            bookAdd_tv_detailImgTemp1.visibility = View.VISIBLE
+        }
+        bookAdd_btn_removeImgTemp2.setOnClickListener {
+            detailUriPhotoTemp2 = Uri.parse(basicUri)
+            bookAdd_iv_detailImgTemp2.setImageURI(detailUriPhotoTemp2)
+            bookAdd_btn_removeImgTemp2.visibility = View.INVISIBLE
+            bookAdd_tv_detailImgTemp2.visibility = View.VISIBLE
+        }
+        bookAdd_btn_removeImgTemp3.setOnClickListener {
+            detailUriPhotoTemp3 = Uri.parse(basicUri)
+            bookAdd_iv_detailImgTemp3.setImageURI(detailUriPhotoTemp3)
+            bookAdd_btn_removeImgTemp3.visibility = View.INVISIBLE
+            bookAdd_tv_detailImgTemp3.visibility = View.VISIBLE
+        }
+
+
         bookAdd_btn_back.setOnClickListener { finish() }
 
         // EditText 관리
@@ -284,16 +313,22 @@ class BookAddActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 detailUriPhotoTemp1 = data?.data
                 bookAdd_iv_detailImgTemp1.setImageURI(detailUriPhotoTemp1)
+                bookAdd_btn_removeImgTemp1.visibility = View.VISIBLE
+                bookAdd_tv_detailImgTemp1.visibility = View.INVISIBLE
             }
         } else if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
                 detailUriPhotoTemp2 = data?.data
                 bookAdd_iv_detailImgTemp2.setImageURI(detailUriPhotoTemp2)
+                bookAdd_btn_removeImgTemp2.visibility = View.VISIBLE
+                bookAdd_tv_detailImgTemp2.visibility = View.INVISIBLE
             }
         } else if (requestCode == 3) {
             if (resultCode == Activity.RESULT_OK) {
                 detailUriPhotoTemp3 = data?.data
                 bookAdd_iv_detailImgTemp3.setImageURI(detailUriPhotoTemp3)
+                bookAdd_btn_removeImgTemp3.visibility = View.VISIBLE
+                bookAdd_tv_detailImgTemp3.visibility = View.INVISIBLE
             }
         }
     }
