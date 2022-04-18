@@ -55,7 +55,8 @@ class BookAdapter(val context: Context, private val dataList: ArrayList<Book>) :
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        holder.bind(filteredDataList[position], position, context, categoryChanging, filteredDataList.size, this)
+        holder.bind(filteredDataList[position], position, context, categoryChanging, this)
+        Log.d("list",  "${filteredDataList[position].book_id}")
 
 //        리스트 각 항목 클릭
         try {
@@ -101,7 +102,7 @@ class BookAdapter(val context: Context, private val dataList: ArrayList<Book>) :
                 return filterResults
             }
             override fun publishResults(constraint: CharSequence, results: FilterResults) {
-                filteredDataList  = results.values as ArrayList<Book>
+                filteredDataList = results.values as ArrayList<Book>
                 notifyDataSetChanged()
             }
         }

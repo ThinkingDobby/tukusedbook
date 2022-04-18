@@ -40,9 +40,13 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val book_iv_line = itemView.book_iv_line
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    fun bind(book: Book, position: Int, context: Context, categoryChanging: Boolean, total: Int, adapter: BookAdapter):Boolean {
-        // 기본 이미지 로드
-        if (categoryChanging) book_iv_book.setImageResource(R.drawable.bookadd_iv_basic)
+    fun bind(book: Book, position: Int, context: Context, categoryChanging: Boolean, adapter: BookAdapter):Boolean {
+        // 기본 이미지 로드 - 플래그 true인 경우
+        if (categoryChanging) {
+            book_iv_book.setImageResource(R.drawable.bookadd_iv_basic)
+            if (position == 0) adapter.setCategoryChanging(false)
+            Log.d("test", "$position, ${adapter.getCategoryChanging()}")
+        }
 
         book_tv_title.text = book.title
         book_tv_publisher.text = book.publisher
@@ -67,6 +71,7 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             else book_icon_like.setImageResource(R.drawable.main_icon_heart)
 
             book_icon_like.setOnClickListener {
+                adapter.setCategoryChanging(false)
                 val checkUpdates = mutableMapOf<String, Any>()
                 if (like) {
                     book.like_users[nowId] = false
@@ -102,31 +107,6 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                         .load(task.result)
                         .placeholder(circularProgressDrawable)
                         .transform(CenterCrop())
-                        .listener(object : RequestListener<Drawable> {
-                            override fun onLoadFailed(
-                                p0: GlideException?,
-                                p1: Any?,
-                                target: Target<Drawable>?,
-                                p3: Boolean
-                            ): Boolean {
-                                if (position == total - 1) adapter.setCategoryChanging(false)
-                                Log.d("categoryChanging", adapter.getCategoryChanging().toString())
-                                Log.d("idx", "$position $total")
-                                return false
-                            }
-                            override fun onResourceReady(
-                                p0: Drawable?,
-                                p1: Any?,
-                                target: Target<Drawable>?,
-                                dataSource: com.bumptech.glide.load.DataSource?,
-                                p4: Boolean
-                            ): Boolean {
-                                if (position == total - 1) adapter.setCategoryChanging(false)
-                                Log.d("categoryChanging", adapter.getCategoryChanging().toString())
-                                Log.d("idx", "$position $total")
-                                return false
-                            }
-                        })
                         .into(book_iv_book)
                 } catch (e: IllegalArgumentException) {
                     Log.d("Glide Error", "from PetViewHolder")

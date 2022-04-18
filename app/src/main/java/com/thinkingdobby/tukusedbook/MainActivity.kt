@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         main_btn_grade.setOnClickListener {
-            bookAdapter.setCategoryChanging(true)
+            bookAdapter.setCategoryChanging(true)   // 카테고리 변경 시 플래그 true로 설정
             val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
             val grades = arrayOf("전체", "1", "2", "3", "4")
             dlg.setItems(grades) { _, which ->
