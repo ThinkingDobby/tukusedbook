@@ -91,7 +91,9 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/bookdetail_iv_main"
                     android:src="@drawable/bookadd_iv_basic"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
 
                 <ImageView
                     android:id="@+id/bookDetail_iv_sold"

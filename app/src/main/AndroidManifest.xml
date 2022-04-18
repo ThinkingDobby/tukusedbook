@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".BookDetailActivity" />
-        <activity android:name=".BookAddActivity" />
+        <activity android:name=".BookAddActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".CreateProfileActivity" />
         <activity
             android:name=".LoadingActivity"

@@ -1,5 +1,6 @@
 package com.thinkingdobby.tukusedbook
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -30,6 +31,8 @@ class BookDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_detail)
+
+        overridePendingTransition(0, 0)
 
         val bundle = intent.extras
         val book = bundle!!.getParcelable<Book>("selectedBook")!!
@@ -92,6 +95,18 @@ class BookDetailActivity : AppCompatActivity() {
                 bookDetail_tv_like.text = book.like.toString()
                 ref.updateChildren(checkUpdates)
             }
+        }
+
+        bookDetail_btn_back.setOnClickListener { finish() }
+
+        bookDetail_btn_edit.setOnClickListener {
+            val intent = Intent(this, BookAddActivity::class.java)
+            val bundle = Bundle()
+            bundle.putParcelable("selectedBook", book)
+            intent.putExtras(bundle)
+            intent.putExtra("edit", true)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
         }
 
         bookDetail_btn_delete.setOnClickListener {

@@ -65,6 +65,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/bookAdd_btn_removeImgMain"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:background="@drawable/icon_remove"
+                android:visibility="invisible"
+                app:layout_constraintStart_toEndOf="@id/bookAdd_iv_main"
+                app:layout_constraintEnd_toEndOf="@id/bookAdd_iv_main"
+                app:layout_constraintTop_toTopOf="@id/bookAdd_iv_main"
+                app:layout_constraintBottom_toTopOf="@id/bookAdd_iv_main"/>
+
             <TextView
                 android:id="@+id/bookAdd_tv_mainImgAdd"
                 android:layout_width="wrap_content"
