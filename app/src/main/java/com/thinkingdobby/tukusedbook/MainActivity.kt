@@ -40,7 +40,6 @@ class MainActivity : AppCompatActivity() {
         main_rv_list.layoutManager = layoutManager
         val bookAdapter = BookAdapter(this, postList)
         main_rv_list.adapter = bookAdapter
-        main_rv_list.setItemViewCacheSize(30)
 
         main_et_search.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {

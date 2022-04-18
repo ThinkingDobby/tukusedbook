@@ -21,6 +21,7 @@ class BookAdapter(val context: Context, private val dataList: ArrayList<Book>) :
 
     private var department = "전체"
     private var grade = "전체"
+    private var categoryChanging = false
 
     fun setDepartment(data: String) {
         department = data
@@ -28,6 +29,10 @@ class BookAdapter(val context: Context, private val dataList: ArrayList<Book>) :
 
     fun setGrade(data: String) {
         grade = data
+    }
+
+    fun setCategoryChanging(value: Boolean) {
+        categoryChanging = value
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -46,7 +51,7 @@ class BookAdapter(val context: Context, private val dataList: ArrayList<Book>) :
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
-        holder.bind(filteredDataList[position], position, context)
+        holder.bind(filteredDataList[position], position, context, categoryChanging, filteredDataList.size, this)
 
 //        리스트 각 항목 클릭
         try {
@@ -66,6 +71,7 @@ class BookAdapter(val context: Context, private val dataList: ArrayList<Book>) :
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
                 val target = constraint.toString()
+                categoryChanging = true
                 filteredDataList = if (target.isEmpty()) {
                     val filteredList = ArrayList<Book>()
                     for (book in dataList) {

@@ -2,6 +2,7 @@ package com.thinkingdobby.tukusedbook.viewHolder
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.util.Log
 import android.view.View
@@ -9,16 +10,23 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import androidx.vectordrawable.graphics.drawable.Animatable2Compat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.gif.GifDrawable
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.tukusedbook.R
+import com.thinkingdobby.tukusedbook.adapter.BookAdapter
 import com.thinkingdobby.tukusedbook.data.Book
 import com.thinkingdobby.tukusedbook.data.state_levs
 import com.thinkingdobby.tukusedbook.data.state_levs_color
 import kotlinx.android.synthetic.main.book_card.view.*
 import java.lang.IllegalArgumentException
+import javax.sql.DataSource
 
 class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val book_tv_title = itemView.book_tv_title
@@ -32,7 +40,11 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val book_iv_line = itemView.book_iv_line
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    fun bind(book: Book, position: Int, context: Context) {
+    fun bind(book: Book, position: Int, context: Context, categoryChanging: Boolean, total: Int, adapter: BookAdapter):Boolean {
+        // 기본 이미지 로드
+        if (categoryChanging) book_iv_book.setImageResource(R.drawable.bookadd_iv_basic)
+        Log.d("categoryChanging", categoryChanging.toString())
+
         book_tv_title.text = book.title
         book_tv_publisher.text = book.publisher
         book_tv_stateLev.text = book.state_lev
@@ -72,10 +84,6 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             }
         }
 
-        // 기본 이미지 로드
-        book_iv_book.setImageResource(R.drawable.bookadd_iv_basic)
-
-
 //        이미지 로드
         val circularProgressDrawable = CircularProgressDrawable(context)
         circularProgressDrawable.setTint(Color.WHITE)
@@ -95,6 +103,27 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                         .load(task.result)
                         .placeholder(circularProgressDrawable)
                         .transform(CenterCrop())
+                        .listener(object : RequestListener<Drawable> {
+                            override fun onLoadFailed(
+                                p0: GlideException?,
+                                p1: Any?,
+                                target: Target<Drawable>?,
+                                p3: Boolean
+                            ): Boolean {
+                                if (position == total - 1) adapter.setCategoryChanging(false)
+                                return false
+                            }
+                            override fun onResourceReady(
+                                p0: Drawable?,
+                                p1: Any?,
+                                target: Target<Drawable>?,
+                                dataSource: com.bumptech.glide.load.DataSource?,
+                                p4: Boolean
+                            ): Boolean {
+                                if (position == total - 1) adapter.setCategoryChanging(false)
+                                return false
+                            }
+                        })
                         .into(book_iv_book)
                 } catch (e: IllegalArgumentException) {
                     Log.d("Glide Error", "from PetViewHolder")
@@ -104,5 +133,7 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                 Log.d("Image Load Error", "URL 불러오지 못함")
             }
         }
+
+        return false
     }
 }
