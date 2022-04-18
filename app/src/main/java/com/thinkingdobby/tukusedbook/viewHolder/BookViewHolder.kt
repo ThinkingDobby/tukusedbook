@@ -43,7 +43,6 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(book: Book, position: Int, context: Context, categoryChanging: Boolean, total: Int, adapter: BookAdapter):Boolean {
         // 기본 이미지 로드
         if (categoryChanging) book_iv_book.setImageResource(R.drawable.bookadd_iv_basic)
-        Log.d("categoryChanging", categoryChanging.toString())
 
         book_tv_title.text = book.title
         book_tv_publisher.text = book.publisher
@@ -111,6 +110,8 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                                 p3: Boolean
                             ): Boolean {
                                 if (position == total - 1) adapter.setCategoryChanging(false)
+                                Log.d("categoryChanging", adapter.getCategoryChanging().toString())
+                                Log.d("idx", "$position $total")
                                 return false
                             }
                             override fun onResourceReady(
@@ -121,6 +122,8 @@ class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
                                 p4: Boolean
                             ): Boolean {
                                 if (position == total - 1) adapter.setCategoryChanging(false)
+                                Log.d("categoryChanging", adapter.getCategoryChanging().toString())
+                                Log.d("idx", "$position $total")
                                 return false
                             }
                         })

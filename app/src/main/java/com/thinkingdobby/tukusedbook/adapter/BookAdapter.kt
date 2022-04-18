@@ -35,6 +35,10 @@ class BookAdapter(val context: Context, private val dataList: ArrayList<Book>) :
         categoryChanging = value
     }
 
+    fun getCategoryChanging(): Boolean {
+        return categoryChanging
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
         val view = LayoutInflater.from(context)
             .inflate(R.layout.book_card, parent, false)
@@ -71,7 +75,6 @@ class BookAdapter(val context: Context, private val dataList: ArrayList<Book>) :
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
                 val target = constraint.toString()
-                categoryChanging = true
                 filteredDataList = if (target.isEmpty()) {
                     val filteredList = ArrayList<Book>()
                     for (book in dataList) {

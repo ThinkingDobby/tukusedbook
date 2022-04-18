@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         main_btn_department.setOnClickListener {
+            bookAdapter.setCategoryChanging(true)
             val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
             dlg.setItems(departments) { _, which ->
                 main_et_department.setText(departments[which])
@@ -69,6 +70,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         main_btn_grade.setOnClickListener {
+            bookAdapter.setCategoryChanging(true)
             val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
             val grades = arrayOf("전체", "1", "2", "3", "4")
             dlg.setItems(grades) { _, which ->
