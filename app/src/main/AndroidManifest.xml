@@ -12,9 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MyProfileActivity"></activity>
         <activity android:name=".BookDetailActivity" />
-        <activity android:name=".BookAddActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".BookAddActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".CreateProfileActivity" />
         <activity
             android:name=".LoadingActivity"
@@ -28,7 +30,7 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustNothing" />
     </application>
 
 </manifest>

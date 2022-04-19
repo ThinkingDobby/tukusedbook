@@ -41,12 +41,19 @@ class MainActivity : AppCompatActivity() {
         val bookAdapter = BookAdapter(this, postList)
         main_rv_list.adapter = bookAdapter
 
+        main_icon_profile.setOnClickListener {
+            val intent = Intent(this, MyProfileActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+        }
+
         main_et_search.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 //Do Nothing
             }
 
             override fun onTextChanged(charSequence: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                bookAdapter.setCategoryChanging(true)
                 bookAdapter.filter.filter(charSequence)
             }
 
@@ -55,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         })
 
         main_btn_department.setOnClickListener {
-//            bookAdapter.setCategoryChanging(true)
+            bookAdapter.setCategoryChanging(true)
             val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
             dlg.setItems(departments) { _, which ->
                 main_et_department.setText(departments[which])
@@ -70,7 +77,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         main_btn_grade.setOnClickListener {
-//            bookAdapter.setCategoryChanging(true)   // 카테고리 변경 시 플래그 true로 설정
+            bookAdapter.setCategoryChanging(true)   // 카테고리 변경 시 플래그 true로 설정
             val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
             val grades = arrayOf("전체", "1", "2", "3", "4")
             dlg.setItems(grades) { _, which ->

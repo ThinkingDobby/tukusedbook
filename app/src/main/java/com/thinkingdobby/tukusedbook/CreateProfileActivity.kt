@@ -131,7 +131,7 @@ class CreateProfileActivity : AppCompatActivity() {
 
                 if (edit) Toast.makeText(this, "프로필이 변경되었습니다.", Toast.LENGTH_SHORT).show()
                 else Toast.makeText(this, "프로필이 등록되었습니다.", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = if (edit) Intent(this, MyProfileActivity::class.java) else Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 overridePendingTransition(0, 0)
                 finish()

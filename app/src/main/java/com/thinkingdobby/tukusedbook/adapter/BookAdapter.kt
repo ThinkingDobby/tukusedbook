@@ -75,7 +75,7 @@ class BookAdapter(val context: Context, private val dataList: ArrayList<Book>) :
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence): FilterResults {
-                categoryChanging = true
+//                categoryChanging = true
                 val target = constraint.toString()
                 filteredDataList = if (target.isEmpty()) {
                     val filteredList = ArrayList<Book>()

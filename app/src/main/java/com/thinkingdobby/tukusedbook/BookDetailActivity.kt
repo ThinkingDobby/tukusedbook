@@ -96,7 +96,8 @@ class BookDetailActivity : AppCompatActivity() {
             }
         }
 
-        bookDetail_btn_back.setOnClickListener { finish() }
+        bookDetail_btn_back.setOnClickListener { finish()
+        overridePendingTransition(0, 0)}
 
         bookDetail_btn_edit.setOnClickListener {
             val intent = Intent(this, BookAddActivity::class.java)
@@ -266,5 +267,10 @@ class BookDetailActivity : AppCompatActivity() {
         }
 
         bookDetail_tv_price.text = book.price.toString()
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(0, 0)
     }
 }
