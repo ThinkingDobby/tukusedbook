@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="6dp"
+        android:paddingHorizontal="20dp"
+        android:layout_marginEnd="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/stateGuide_tv_state1Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="거의 새 책"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/stateGuide_tv_state1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="새 책 또는 사용감이 거의 없는 책"
+            android:textColor="@color/colorBlack"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/stateGuide_tv_state1Title"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/stateGuide_tv_state2Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="약간의 사용감 있는 책"
+            android:textColor="@color/colorSub1"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stateGuide_tv_state1"/>
+
+        <TextView
+            android:id="@+id/stateGuide_tv_state2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="약간의 빛바램이 있거나 3~4장에 한 번 이상의 필기 또는 낙서가 있는 책"
+            android:textColor="@color/colorBlack"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/stateGuide_tv_state2Title"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/stateGuide_tv_state3Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="사용감 많은 책"
+            android:textColor="@color/colorYellow"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stateGuide_tv_state2"/>
+
+        <TextView
+            android:id="@+id/stateGuide_tv_state3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="빛바램, 눈에 띄는 손상이 있거나 각 장마다 필기 또는 낙서가 있는 책"
+            android:textColor="@color/colorBlack"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/stateGuide_tv_state3Title"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/stateGuide_tv_state4Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:fontFamily="@font/pretendard_medium"
+            android:text="낙서나 손상이 심한 책"
+            android:textColor="@color/colorRed"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/stateGuide_tv_state3"/>
+
+        <TextView
+            android:id="@+id/stateGuide_tv_state4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="일부가 손실되었거나 빛바램, 낙서 및 손상이 심한 책"
+            android:textColor="@color/colorBlack"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@id/stateGuide_tv_state4Title"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

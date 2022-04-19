@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -17,11 +18,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.thinkingdobby.tukusedbook.data.Book
-import com.thinkingdobby.tukusedbook.data.User
-import com.thinkingdobby.tukusedbook.data.state_levs
-import com.thinkingdobby.tukusedbook.data.state_levs_color
+import com.thinkingdobby.tukusedbook.data.*
 import kotlinx.android.synthetic.main.activity_book_detail.*
+import kotlinx.android.synthetic.main.book_detail_dialog.*
 import java.lang.IllegalArgumentException
 
 class BookDetailActivity : AppCompatActivity() {
@@ -143,6 +142,33 @@ class BookDetailActivity : AppCompatActivity() {
             bookDetail_iv_sold.visibility = View.INVISIBLE
             bookDetail_tv_sold.visibility = View.INVISIBLE
         }
+
+        bookDetail_tv_moreInfo.setOnClickListener {
+            val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+            val dlgXml = View.inflate(this, R.layout.book_detail_dialog, null)
+            dlg.setPositiveButton("닫기") { _, which ->
+            }
+            val date = dlgXml.findViewById<TextView>(R.id.bookDetailDialog_tv_date)
+            date.text = millToDate(book.post_date.toLong())
+            val isbn = dlgXml.findViewById<TextView>(R.id.bookDetailDialog_tv_isbn)
+            isbn.text = book.ISBN
+            val page = dlgXml.findViewById<TextView>(R.id.bookDetailDialog_tv_page)
+            page.text = "${book.page} 쪽"
+            val size = dlgXml.findViewById<TextView>(R.id.bookDetailDialog_tv_size)
+            size.text = "${book.size[0]} x ${book.size[1]} (mm)"
+            dlg.setView(dlgXml)
+            dlg.show()
+        }
+
+        bookDetail_tv_guide.setOnClickListener {
+            val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+            val dlgXml = View.inflate(this, R.layout.state_guide, null)
+            dlg.setPositiveButton("닫기") { _, which ->
+            }
+            dlg.setView(dlgXml)
+            dlg.show()
+        }
+
 
         val circularProgressDrawable = CircularProgressDrawable(this)
         circularProgressDrawable.setTint(Color.WHITE)   // 추후 수정
