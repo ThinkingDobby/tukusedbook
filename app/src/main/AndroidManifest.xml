@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MyProfileActivity"></activity>
+        <activity android:name=".InterestedActivity"></activity>
+        <activity android:name=".MyBookActivity" />
+        <activity android:name=".MyProfileActivity" />
         <activity android:name=".BookDetailActivity" />
         <activity
             android:name=".BookAddActivity"

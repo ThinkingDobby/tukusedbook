@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyBookActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/myBook_cl_top"
+        android:layout_width="match_parent"
+        android:background="@drawable/bottom_line"
+        android:layout_height="72dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/myBook_tv_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="내가 등록한 책"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/myBook_btn_back"
+            android:layout_width="13dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="22dp"
+            android:background="@drawable/icon_back"
+            app:layout_constraintBottom_toBottomOf="@id/myBook_tv_subject"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/myBook_tv_subject" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/myBook_rv_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/myBook_cl_top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingBottom="178dp"
+        android:clipToPadding="false" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
