@@ -35,8 +35,12 @@ class MyProfileActivity : AppCompatActivity() {
             val intent = Intent(this, CreateProfileActivity::class.java)
             intent.putExtra("isEdit", true)
             startActivity(intent)
-            finish()
+        }
 
+        myProfile_cv_toMyBook.setOnClickListener {
+            val intent = Intent(this, MyBookActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0)
         }
     }
 

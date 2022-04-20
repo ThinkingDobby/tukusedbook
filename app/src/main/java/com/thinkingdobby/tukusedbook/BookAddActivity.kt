@@ -150,6 +150,11 @@ class BookAddActivity : AppCompatActivity() {
                 }
             }
 
+            bookAdd_et_title.setBackgroundResource(R.drawable.createprofile_et_essential_satisfied)
+            bookAdd_et_publisher.setBackgroundResource(R.drawable.createprofile_et_essential_satisfied)
+            bookAdd_et_author.setBackgroundResource(R.drawable.createprofile_et_essential_satisfied)
+
+
             bookAdd_et_title.setText(book.title)
             bookAdd_et_publisher.setText(book.publisher)
             bookAdd_et_author.setText(book.author)
@@ -173,6 +178,8 @@ class BookAddActivity : AppCompatActivity() {
             bookAdd_et_stain.setText(book.stain)
             bookAdd_et_detailInfo.setText(book.detail_info)
             bookAdd_et_price.setText(book.price.toString())
+
+            bookAdd_btn_register.text = "서적 정보 변경"
 
             like = book.like
             sold = book.sold
@@ -412,6 +419,19 @@ class BookAddActivity : AppCompatActivity() {
                 if (edit) FirebaseDatabase.getInstance().getReference("Book/$bookId").setValue(book)
                 else ref.setValue(book)
 
+                if (!edit) {
+                    val userRef = FirebaseDatabase.getInstance().getReference("User").child(sellerId)
+                    userRef.get().addOnSuccessListener {
+                        val checkUpdates = mutableMapOf<String, Any>()
+                        val user = it.getValue(User::class.java)!!
+                        user.my_books.add(ref.key!!)
+
+                        checkUpdates["my_books"] = user.my_books
+
+                        userRef.updateChildren(checkUpdates)
+                    }
+                }
+
                 if (!edit) detail3Changed = true
                 val final = when {
                     detail3Changed -> "detail3"
@@ -421,9 +441,24 @@ class BookAddActivity : AppCompatActivity() {
                     else -> "else"
                 }
                 if (!edit || (edit && mainChanged)) imageUpload(book.book_id, "main", edit, final)
-                if (!edit || (edit && detail1Changed)) imageUpload(book.book_id, "detail1", edit, final)
-                if (!edit || (edit && detail2Changed)) imageUpload(book.book_id, "detail2", edit, final)
-                if (!edit || (edit && detail3Changed)) imageUpload(book.book_id, "detail3", edit, final)
+                if (!edit || (edit && detail1Changed)) imageUpload(
+                    book.book_id,
+                    "detail1",
+                    edit,
+                    final
+                )
+                if (!edit || (edit && detail2Changed)) imageUpload(
+                    book.book_id,
+                    "detail2",
+                    edit,
+                    final
+                )
+                if (!edit || (edit && detail3Changed)) imageUpload(
+                    book.book_id,
+                    "detail3",
+                    edit,
+                    final
+                )
                 if (edit && final == "else") {
                     Toast.makeText(this, "서적 정보가 변경됐어요.", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, MainActivity::class.java)

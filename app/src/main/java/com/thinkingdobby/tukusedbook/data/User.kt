@@ -10,6 +10,9 @@ class User (
     val tel: String,
     val department: String,
     val grade: Int,
-    val intro: String) : Parcelable {
-    constructor() : this("", "", "", "", 1, "")
+    val intro: String,
+    val my_books: MutableList<String>,
+    val interested_books: MutableList<String>
+) : Parcelable {
+    constructor() : this("", "", "", "", 1, "", mutableListOf(), mutableListOf())
 }

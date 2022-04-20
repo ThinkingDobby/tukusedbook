@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".InterestedActivity"></activity>
         <activity android:name=".MyBookActivity" />
-        <activity android:name=".MyProfileActivity" />
+        <activity android:name=".MyProfileActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".BookDetailActivity" />
         <activity
             android:name=".BookAddActivity"

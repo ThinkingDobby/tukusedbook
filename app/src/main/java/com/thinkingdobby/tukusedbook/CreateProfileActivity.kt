@@ -24,6 +24,8 @@ import kotlinx.android.synthetic.main.activity_create_profile.*
 
 
 class CreateProfileActivity : AppCompatActivity() {
+    private var myBooks = mutableListOf<String>()
+    private var interestedBooks = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,6 +107,9 @@ class CreateProfileActivity : AppCompatActivity() {
                 createProfile_et_department.setText(user?.department)
                 createProfile_et_grade.setText(user?.grade.toString())
                 createProfile_et_intro.setText(user?.intro)
+
+                myBooks = user!!.my_books
+                interestedBooks = user.interested_books
             }
         }
 
@@ -118,7 +123,9 @@ class CreateProfileActivity : AppCompatActivity() {
                     createProfile_et_tel.text.toString(),
                     createProfile_et_department.text.toString(),
                     createProfile_et_grade.text.toString().toInt(),
-                    createProfile_et_intro.text.toString()
+                    createProfile_et_intro.text.toString(),
+                    myBooks,
+                    interestedBooks
                 )
 
                 if (edit) Firebase.database.getReference("User/$id").setValue(user)
