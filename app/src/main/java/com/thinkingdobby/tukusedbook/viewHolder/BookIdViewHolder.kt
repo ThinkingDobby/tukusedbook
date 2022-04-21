@@ -24,6 +24,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.tukusedbook.R
 import com.thinkingdobby.tukusedbook.adapter.BookAdapter
 import com.thinkingdobby.tukusedbook.data.Book
+import com.thinkingdobby.tukusedbook.data.User
 import com.thinkingdobby.tukusedbook.data.state_levs
 import com.thinkingdobby.tukusedbook.data.state_levs_color
 import kotlinx.android.synthetic.main.book_card.view.*
@@ -43,7 +44,6 @@ class BookIdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun bind(book: Book, context: Context) {
-
 
         book_tv_title.text = book.title
         book_tv_publisher.text = book.publisher
@@ -69,6 +69,20 @@ class BookIdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
             book_icon_like.setOnClickListener {
                 val checkUpdates = mutableMapOf<String, Any>()
+
+                // 관심 항목 추가
+                val userRef = FirebaseDatabase.getInstance().getReference("User").child(nowId)
+                userRef.get().addOnSuccessListener {
+                    val interestedUpdates = mutableMapOf<String, Any>()
+                    val user = it.getValue(User::class.java)!!
+                    if (book.book_id in user.interested_books) user.interested_books.remove(book.book_id)
+                    else user.interested_books.add(book.book_id)
+
+                    interestedUpdates["interested_books"] = user.interested_books
+
+                    userRef.updateChildren(interestedUpdates)
+                }
+
                 if (like) {
                     book.like_users[nowId] = false
                     book.like--

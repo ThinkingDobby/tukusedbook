@@ -76,6 +76,20 @@ class BookDetailActivity : AppCompatActivity() {
 
             bookDetail_icon_like.setOnClickListener {
                 val checkUpdates = mutableMapOf<String, Any>()
+
+                // 관심 항목 추가
+                val userRef = FirebaseDatabase.getInstance().getReference("User").child(nowId)
+                userRef.get().addOnSuccessListener {
+                    val interestedUpdates = mutableMapOf<String, Any>()
+                    val user = it.getValue(User::class.java)!!
+                    if (book.book_id in user.interested_books) user.interested_books.remove(book.book_id)
+                    else user.interested_books.add(book.book_id)
+
+                    interestedUpdates["interested_books"] = user.interested_books
+
+                    userRef.updateChildren(interestedUpdates)
+                }
+
                 if (like) {
                     book.like_users[nowId] = false
                     book.like--
@@ -96,8 +110,10 @@ class BookDetailActivity : AppCompatActivity() {
             }
         }
 
-        bookDetail_btn_back.setOnClickListener { finish()
-        overridePendingTransition(0, 0)}
+        bookDetail_btn_back.setOnClickListener {
+            finish()
+            overridePendingTransition(0, 0)
+        }
 
         bookDetail_btn_edit.setOnClickListener {
             val intent = Intent(this, BookAddActivity::class.java)
@@ -113,6 +129,18 @@ class BookDetailActivity : AppCompatActivity() {
             val ref = FirebaseDatabase.getInstance().getReference("Book").child(book.book_id)
             var sRef = FirebaseStorage.getInstance().getReference("images").child(book.book_id)
             val builder = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+
+            // 내가 등록한 책 항목 제거
+            val userRef = FirebaseDatabase.getInstance().getReference("User").child(nowId)
+            userRef.get().addOnSuccessListener {
+                val myBooksUpdates = mutableMapOf<String, Any>()
+                val user = it.getValue(User::class.java)!!
+                if (book.book_id in user.my_books) user.my_books.remove(book.book_id)
+
+                myBooksUpdates["my_books"] = user.my_books
+
+                userRef.updateChildren(myBooksUpdates)
+            }
 
             // 임시 디자인
             if (book.seller_id == nowId) {

@@ -419,6 +419,7 @@ class BookAddActivity : AppCompatActivity() {
                 if (edit) FirebaseDatabase.getInstance().getReference("Book/$bookId").setValue(book)
                 else ref.setValue(book)
 
+                // 내가 등록한 책 추가
                 if (!edit) {
                     val userRef = FirebaseDatabase.getInstance().getReference("User").child(sellerId)
                     userRef.get().addOnSuccessListener {

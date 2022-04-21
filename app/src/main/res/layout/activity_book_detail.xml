@@ -249,7 +249,7 @@
                     android:id="@+id/bookDetail_iv_detailImg1"
                     android:layout_width="88dp"
                     android:layout_height="122dp"
-                    android:layout_marginTop="22dp"
+                    android:layout_marginTop="34dp"
                     android:background="@drawable/all_line"
                     android:src="@drawable/bookadd_iv_basic"
                     app:layout_constraintStart_toStartOf="@id/bookDetail_tv_title"
