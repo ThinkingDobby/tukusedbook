@@ -157,19 +157,60 @@ class BookDetailActivity : AppCompatActivity() {
                     sRef.child("detail2").delete()
                     sRef.child("detail3").delete()
                     sRef.delete()
-                    Toast.makeText(this, "삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "삭제되었어요.", Toast.LENGTH_SHORT).show()
                     finish()
                 }
                 builder.create().show()
             }
         }
 
-        if (book.sold) {
+        var sold = book.sold
+
+        if (sold) {
             bookDetail_iv_sold.visibility = View.VISIBLE
             bookDetail_tv_sold.visibility = View.VISIBLE
+            bookDetail_btn_soldFin.text = "판매 확정 취소"
         } else {
             bookDetail_iv_sold.visibility = View.INVISIBLE
             bookDetail_tv_sold.visibility = View.INVISIBLE
+            bookDetail_btn_soldFin.text = "판매 확정"
+        }
+
+        bookDetail_btn_soldFin.setOnClickListener {
+            val builder = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+            if (sold) {
+                builder.setMessage("판매 확정을 취소할까요?                 ")
+
+                builder.setPositiveButton("아니오") { _, which ->
+                }
+
+                builder.setNegativeButton("예") { _, which ->
+                    sold = false
+                    bookDetail_iv_sold.visibility = View.INVISIBLE
+                    bookDetail_tv_sold.visibility = View.INVISIBLE
+                    bookDetail_btn_soldFin.text = "판매 확정"
+
+                    FirebaseDatabase.getInstance().getReference("Book/${book.book_id}/sold").setValue(sold)
+                    Toast.makeText(this, "판매 확정이 취소되었어요.", Toast.LENGTH_SHORT).show()
+                }
+                builder.show()
+            } else {
+                builder.setMessage("판매 확정 시 다른 사람들은 이 글을 볼 수 없어요.\n\n판매 확정 하시겠어요?")
+
+                builder.setPositiveButton("아니오") { _, which ->
+                }
+
+                builder.setNegativeButton("예") { _, which ->
+                    sold = true
+                    bookDetail_iv_sold.visibility = View.VISIBLE
+                    bookDetail_tv_sold.visibility = View.VISIBLE
+                    bookDetail_btn_soldFin.text = "판매 확정 취소"
+
+                    FirebaseDatabase.getInstance().getReference("Book/${book.book_id}/sold").setValue(sold)
+                    Toast.makeText(this, "판매가 확정되었어요.", Toast.LENGTH_SHORT).show()
+                }
+                builder.show()
+            }
         }
 
         bookDetail_tv_moreInfo.setOnClickListener {

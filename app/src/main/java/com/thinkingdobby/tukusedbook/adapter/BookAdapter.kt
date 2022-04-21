@@ -80,20 +80,38 @@ class BookAdapter(val context: Context, private val dataList: ArrayList<Book>) :
                 filteredDataList = if (target.isEmpty()) {
                     val filteredList = ArrayList<Book>()
                     for (book in dataList) {
-                        if (department == "전체" && grade == "전체") filteredList.add(book)
-                        else if (department == "전체" && grade == book.grade.toString()) filteredList.add(book)
-                        else if (department == book.department && grade == "전체") filteredList.add(book)
-                        else if (book.department == department && book.grade.toString() == grade) filteredList.add(book)
+                        if (!book.sold) {
+                            if (department == "전체" && grade == "전체") filteredList.add(book)
+                            else if (department == "전체" && grade == book.grade.toString()) filteredList.add(
+                                book
+                            )
+                            else if (department == book.department && grade == "전체") filteredList.add(
+                                book
+                            )
+                            else if (book.department == department && book.grade.toString() == grade) filteredList.add(
+                                book
+                            )
+                        }
                     }
                     filteredList
                 } else {
                     val filteredList = ArrayList<Book>()
                     for (book in dataList) {
-                        if (book.title.toLowerCase().contains(target.toLowerCase()) || book.ISBN.contains(target)) {
-                            if (department == "전체" && grade == "전체") filteredList.add(book)
-                            else if (department == "전체" && grade == book.grade.toString()) filteredList.add(book)
-                            else if (department == book.department && grade == "전체") filteredList.add(book)
-                            else if (book.department == department && book.grade.toString() == grade) filteredList.add(book)
+                        if (!book.sold) {
+                            if (book.title.toLowerCase()
+                                    .contains(target.toLowerCase()) || book.ISBN.contains(target)
+                            ) {
+                                if (department == "전체" && grade == "전체") filteredList.add(book)
+                                else if (department == "전체" && grade == book.grade.toString()) filteredList.add(
+                                    book
+                                )
+                                else if (department == book.department && grade == "전체") filteredList.add(
+                                    book
+                                )
+                                else if (book.department == department && book.grade.toString() == grade) filteredList.add(
+                                    book
+                                )
+                            }
                         }
                     }
                     filteredList
