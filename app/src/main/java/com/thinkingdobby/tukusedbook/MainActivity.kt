@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.ChildEventListener
@@ -22,9 +23,14 @@ import com.thinkingdobby.tukusedbook.data.Book
 import com.thinkingdobby.tukusedbook.data.departments
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 class MainActivity : AppCompatActivity() {
 
     private val postList = arrayListOf<Book>()
+
+    // 종료 관련
+    private val FINISH_INTERVAL_TIME: Long = 2000
+    private var backPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +64,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun afterTextChanged(charSequence: Editable?) {
-                main_rv_list.scrollToPosition(bookAdapter.itemCount - 1)            }
+                main_rv_list.scrollToPosition(bookAdapter.itemCount - 1)
+            }
         })
 
         main_btn_department.setOnClickListener {
@@ -72,7 +79,7 @@ class MainActivity : AppCompatActivity() {
                 main_rv_list.scrollToPosition(bookAdapter.itemCount - 1)
             }
             dlg.setTitle("학과를 선택하세요.")
-            dlg.setPositiveButton("취소" , null)
+            dlg.setPositiveButton("취소", null)
             dlg.show()
         }
 
@@ -88,7 +95,7 @@ class MainActivity : AppCompatActivity() {
                 main_rv_list.scrollToPosition(bookAdapter.itemCount - 1)
             }
             dlg.setTitle("학년을 선택하세요.")
-            dlg.setPositiveButton("취소" , null)
+            dlg.setPositiveButton("취소", null)
             dlg.show()
         }
 
@@ -227,5 +234,17 @@ class MainActivity : AppCompatActivity() {
         handler.postDelayed({
             // 카테고리 변경 시 로딩 구현
         }, 1000)
+    }
+
+    // 뒤로가기 버튼 두 번 누르면 종료료
+   override fun onBackPressed() {
+        val tempTime = System.currentTimeMillis()
+        val intervalTime: Long = tempTime - backPressedTime
+        if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime) {
+            finish()
+        } else {
+            backPressedTime = tempTime
+            Toast.makeText(applicationContext, "한 번 더 누르면 종료돼요.", Toast.LENGTH_SHORT).show()
+        }
     }
 }

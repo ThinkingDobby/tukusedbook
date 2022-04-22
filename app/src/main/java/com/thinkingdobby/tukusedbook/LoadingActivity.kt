@@ -23,6 +23,7 @@ class LoadingActivity : AppCompatActivity() {
             val intent = if (first) Intent(this, CreateProfileActivity::class.java) else Intent(this, MainActivity::class.java)
             startActivity(intent)
             overridePendingTransition(0, 0)
+            finish()
         }
     }
 }
