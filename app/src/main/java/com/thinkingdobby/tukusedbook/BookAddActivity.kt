@@ -296,6 +296,27 @@ class BookAddActivity : AppCompatActivity() {
             }
         })
 
+        // 다음 버튼으로 이동 시 커서 위치 맨 뒤로
+        bookAdd_et_author.setOnFocusChangeListener { _, _ ->
+            bookAdd_et_author.setSelection(bookAdd_et_author.length())
+        }
+
+        bookAdd_et_publisher.setOnFocusChangeListener { _, _ ->
+            bookAdd_et_publisher.setSelection(bookAdd_et_publisher.length())
+        }
+
+        bookAdd_et_page.setOnFocusChangeListener { _, _ ->
+            bookAdd_et_page.setSelection(bookAdd_et_page.length())
+        }
+
+        bookAdd_et_size1.setOnFocusChangeListener { _, _ ->
+            bookAdd_et_size1.setSelection(bookAdd_et_size1.length())
+        }
+
+        bookAdd_et_size2.setOnFocusChangeListener { _, _ ->
+            bookAdd_et_size2.setSelection(bookAdd_et_size2.length())
+        }
+
         // 선택 버튼
         bookAdd_btn_department.setOnClickListener {
             val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
