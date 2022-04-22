@@ -128,7 +128,11 @@ class BookDetailActivity : AppCompatActivity() {
         bookDetail_btn_delete.setOnClickListener {
             val ref = FirebaseDatabase.getInstance().getReference("Book").child(book.book_id)
             var sRef = FirebaseStorage.getInstance().getReference("images").child(book.book_id)
+
             val builder = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+            val dlgXml = View.inflate(this, R.layout.basic_dialog, null)
+            val tv = dlgXml.findViewById<TextView>(R.id.basicDialog_tv_basic)
+            builder.setView(dlgXml)
 
             // 내가 등록한 책 항목 제거
             val userRef = FirebaseDatabase.getInstance().getReference("User").child(nowId)
@@ -144,7 +148,7 @@ class BookDetailActivity : AppCompatActivity() {
 
             // 임시 디자인
             if (book.seller_id == nowId) {
-                builder.setMessage("글을 삭제할까요?                     ")
+                tv.text = "삭제한 글은 복구할 수 없습니다.\n\n글을 삭제할까요?"
 
                 builder.setPositiveButton("아니오") { _, which ->
                 }
@@ -178,8 +182,13 @@ class BookDetailActivity : AppCompatActivity() {
 
         bookDetail_btn_soldFin.setOnClickListener {
             val builder = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+
+            val dlgXml = View.inflate(this, R.layout.basic_dialog, null)
+            val tv = dlgXml.findViewById<TextView>(R.id.basicDialog_tv_basic)
+            builder.setView(dlgXml)
+
             if (sold) {
-                builder.setMessage("판매 확정을 취소할까요?                 ")
+                tv.text = "판매 확정을 취소할까요?"
 
                 builder.setPositiveButton("아니오") { _, which ->
                 }
@@ -195,7 +204,7 @@ class BookDetailActivity : AppCompatActivity() {
                 }
                 builder.show()
             } else {
-                builder.setMessage("판매 확정 시 다른 사람들은 이 글을 볼 수 없어요.\n\n판매 확정 하시겠어요?")
+                tv.text = "판매 확정 시 다른 사람들은 이 글을 볼 수 없어요.\n\n판매 확정 하시겠어요?"
 
                 builder.setPositiveButton("아니오") { _, which ->
                 }

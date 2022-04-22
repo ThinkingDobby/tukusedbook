@@ -17,6 +17,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -194,6 +195,18 @@ class BookAddActivity : AppCompatActivity() {
             bookAdd_iv_main.setImageURI(uriPhoto)
             bookAdd_btn_removeImgMain.visibility = View.INVISIBLE
             mainChanged = true
+        }
+
+        bookAdd_icon_imgExplain.setOnClickListener {
+            val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+            val dlgXml = View.inflate(this, R.layout.basic_dialog, null)
+            val tv = dlgXml.findViewById<TextView>(R.id.basicDialog_tv_basic)
+            tv.text = "사진을 등록하지 않으면 기본 사진이 자동으로 등록돼요.\n\n다른 정보들과 마찬가지로 사진도 이후에 변경 가능해요."
+
+            dlg.setPositiveButton("닫기") { _, which ->
+            }
+            dlg.setView(dlgXml)
+            dlg.show()
         }
 
         bookAdd_iv_detailImgTemp1.setOnClickListener { loadImage(1) }
@@ -389,6 +402,15 @@ class BookAddActivity : AppCompatActivity() {
                     bookAdd_et_pubDate.setText(time)
                 }, year, month, date
             )
+            dlg.show()
+        }
+
+        bookAdd_tv_guide.setOnClickListener {
+            val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+            val dlgXml = View.inflate(this, R.layout.state_guide, null)
+            dlg.setPositiveButton("닫기") { _, which ->
+            }
+            dlg.setView(dlgXml)
             dlg.show()
         }
 
