@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:fontFamily="@font/pretendard_regular"
-                android:text="저자"
+                android:text="연락처"
                 android:textColor="@color/colorDarkGray"
                 android:textSize="13sp"
                 app:layout_constraintStart_toStartOf="@id/myProfile_tv_titleNickname"

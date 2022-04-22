@@ -10,10 +10,9 @@ import kotlinx.android.synthetic.main.activity_my_profile.*
 
 class MyProfileActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_my_profile)
-
+    // edit 후에도 반영될 수 있도록 onResume()에 프로필 로딩 등록
+    override fun onResume() {
+        super.onResume()
         val pref = getSharedPreferences("profile", MODE_PRIVATE)
         val id = pref.getString("user_id", "temp")!!
 
@@ -26,6 +25,11 @@ class MyProfileActivity : AppCompatActivity() {
             myProfile_tv_grade.text = user.grade.toString()
             myProfile_tv_intro.text = user.intro
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_my_profile)
 
         myProfile_btn_back.setOnClickListener {
             finish()
