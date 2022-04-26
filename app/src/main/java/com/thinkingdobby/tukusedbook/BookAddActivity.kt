@@ -21,6 +21,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -28,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.tukusedbook.data.*
 import kotlinx.android.synthetic.main.activity_book_add.*
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -43,11 +45,16 @@ class BookAddActivity : AppCompatActivity() {
     private var detailUriPhotoTemp3: Uri? =
         Uri.parse(basicUri)
 
-    private var time = SimpleDateFormat("yyyy년 MM월 dd일").format(Date())
+    private var time = SimpleDateFormat("yyyy년 M월 d일").format(Date())
     private var bookId = "temp"
     private var imgCnt = 3
     private var like = 0
     private var sold = false
+
+    private val today = GregorianCalendar()
+    private var year: Int = today.get(Calendar.YEAR)
+    private var month: Int = today.get(Calendar.MONTH)
+    private var date: Int = today.get(Calendar.DATE)
 
     private var page = 0
     private var size1 = 0
@@ -337,6 +344,7 @@ class BookAddActivity : AppCompatActivity() {
                 bookAdd_et_department.setText(departments[which])
             }
             dlg.setTitle("학과를 선택하세요.")
+            dlg.setPositiveButton("취소", null)
             dlg.show()
         }
 
@@ -347,6 +355,7 @@ class BookAddActivity : AppCompatActivity() {
                 bookAdd_et_grade.setText(grades[which])
             }
             dlg.setTitle("학년을 선택하세요.")
+            dlg.setPositiveButton("취소", null)
             dlg.show()
         }
 
@@ -356,6 +365,7 @@ class BookAddActivity : AppCompatActivity() {
                 bookAdd_et_doodle.setText(doodles[which])
             }
             dlg.setTitle("낙서 여부를 선택하세요.")
+            dlg.setPositiveButton("취소", null)
             dlg.show()
         }
 
@@ -365,6 +375,7 @@ class BookAddActivity : AppCompatActivity() {
                 bookAdd_et_damage.setText(damages[which])
             }
             dlg.setTitle("손상 여부를 선택하세요.")
+            dlg.setPositiveButton("취소", null)
             dlg.show()
         }
 
@@ -374,6 +385,7 @@ class BookAddActivity : AppCompatActivity() {
                 bookAdd_et_stain.setText(stains[which])
             }
             dlg.setTitle("얼룩 여부를 선택하세요.")
+            dlg.setPositiveButton("취소", null)
             dlg.show()
         }
 
@@ -384,25 +396,31 @@ class BookAddActivity : AppCompatActivity() {
                 bookAdd_et_stateLev.setTextColor(Color.parseColor(state_levs_color[which]))
             }
             dlg.setTitle("서적 등급을 선택하세요.")
+            dlg.setPositiveButton("취소", null)
             dlg.show()
         }
 
         // 기본 초기화
-        bookAdd_et_pubDate.setText(time)
+        if (!edit) bookAdd_et_pubDate.setText(time)
 
         bookAdd_btn_pubDate.setOnClickListener {
-            val today = GregorianCalendar()
-            val year: Int = today.get(Calendar.YEAR)
-            val month: Int = today.get(Calendar.MONTH)
-            val date: Int = today.get(Calendar.DATE)
+            val format = DecimalFormat("00")
             val dlg = DatePickerDialog(
                 this, R.style.DatePickerStyle,
                 { view, year, month, dayOfMonth ->
-                    time = "${year}년 ${month + 1}월 ${dayOfMonth}일"
+                    val sy = year.toString().format(format)
+                    val sm = (month + 1).toString().format(format)
+                    val sd = dayOfMonth.toString().format(format)
+
+                    time = "${sy}년 ${sm}월 ${sd}일"
                     bookAdd_et_pubDate.setText(time)
                 }, year, month, date
             )
+
             dlg.show()
+            // 달력 버튼 설정 - show() 이후에 넣어야 오류 발생 x
+            dlg.getButton(DatePickerDialog.BUTTON_NEGATIVE).typeface = ResourcesCompat.getFont(this, R.font.pretendard_regular)
+            dlg.getButton(DatePickerDialog.BUTTON_POSITIVE).typeface = ResourcesCompat.getFont(this, R.font.pretendard_regular)
         }
 
         bookAdd_tv_guide.setOnClickListener {
@@ -420,6 +438,7 @@ class BookAddActivity : AppCompatActivity() {
             } else {
                 val progDlg = ProgressDialog(this, R.style.ProgressBarStyle)
                 progDlg.setMessage("잠시만 기다려주세요...")
+                progDlg.setCancelable(false)
                 progDlg.show()
 
                 // Firebase Database Upload

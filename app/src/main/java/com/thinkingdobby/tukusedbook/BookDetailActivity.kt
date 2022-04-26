@@ -150,10 +150,10 @@ class BookDetailActivity : AppCompatActivity() {
             if (book.seller_id == nowId) {
                 tv.text = "삭제한 글은 복구할 수 없습니다.\n\n글을 삭제할까요?"
 
-                builder.setPositiveButton("아니오") { _, which ->
+                builder.setNegativeButton("아니오") { _, which ->
                 }
 
-                builder.setNegativeButton("예") { _, which ->
+                builder.setPositiveButton("예") { _, which ->
                     ref.removeValue()
                     // Firebase Storage - 폴더 내부 내용 없어야 폴더 삭제 가능
                     sRef.child("main").delete()
@@ -190,10 +190,10 @@ class BookDetailActivity : AppCompatActivity() {
             if (sold) {
                 tv.text = "판매 확정을 취소할까요?"
 
-                builder.setPositiveButton("아니오") { _, which ->
+                builder.setNegativeButton("아니오") { _, which ->
                 }
 
-                builder.setNegativeButton("예") { _, which ->
+                builder.setPositiveButton("예") { _, which ->
                     sold = false
                     bookDetail_iv_sold.visibility = View.INVISIBLE
                     bookDetail_tv_sold.visibility = View.INVISIBLE
@@ -206,10 +206,10 @@ class BookDetailActivity : AppCompatActivity() {
             } else {
                 tv.text = "판매 확정 시 다른 사람들은 이 글을 볼 수 없어요.\n\n판매 확정 하시겠어요?"
 
-                builder.setPositiveButton("아니오") { _, which ->
+                builder.setNegativeButton("아니오") { _, which ->
                 }
 
-                builder.setNegativeButton("예") { _, which ->
+                builder.setPositiveButton("예") { _, which ->
                     sold = true
                     bookDetail_iv_sold.visibility = View.VISIBLE
                     bookDetail_tv_sold.visibility = View.VISIBLE
