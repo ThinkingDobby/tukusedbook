@@ -41,6 +41,39 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/interested_cl_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/interested_rv_list"
+        app:layout_constraintEnd_toEndOf="@id/interested_rv_list"
+        app:layout_constraintTop_toTopOf="@id/interested_rv_list"
+        app:layout_constraintBottom_toBottomOf="@id/interested_rv_list">
+
+        <ImageView
+            android:id="@+id/interested_iv_empty"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_tukusedbooklogo"
+            android:alpha="0.26"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/interested_iv_empty"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="등록된 책이 없어요."
+            android:textColor="@color/colorGray"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/interested_rv_list"
         android:layout_width="match_parent"

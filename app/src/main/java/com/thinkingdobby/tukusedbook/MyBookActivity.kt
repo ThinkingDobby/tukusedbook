@@ -3,6 +3,7 @@ package com.thinkingdobby.tukusedbook
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -45,6 +46,8 @@ class MyBookActivity : AppCompatActivity() {
                                     myBook_rv_list.adapter?.notifyItemInserted(prevIndex + 1)
                                 }
                             }
+                            
+                            if (postList.size != 0) myBook_cl_empty.visibility = View.INVISIBLE
                         }
                     }
 
@@ -95,6 +98,10 @@ class MyBookActivity : AppCompatActivity() {
                                     postList.size
                                 )
                             }
+
+                            //                            항목 없을 때
+                            if (postList.size != 0) myBook_cl_empty.visibility = View.INVISIBLE
+                            else myBook_cl_empty.visibility = View.VISIBLE
                         }
                     }
 
@@ -104,8 +111,8 @@ class MyBookActivity : AppCompatActivity() {
                 })
 
 //            항목 없을 때
-//            if (postList.size == 0) findPet_tv_empty.visibility = View.VISIBLE
-//            else findPet_tv_empty.visibility = View.INVISIBLE
+            if (postList.size != 0) myBook_cl_empty.visibility = View.INVISIBLE
+            else myBook_cl_empty.visibility = View.VISIBLE
         } catch (e: Exception) {
             Log.d("Load Error", e.toString())
         }
