@@ -188,6 +188,7 @@ class BookAddActivity : AppCompatActivity() {
             bookAdd_et_price.setText(book.price.toString())
 
             bookAdd_btn_register.text = "서적 정보 변경"
+            bookAdd_tv_subject.text = "서적 정보 변경"
 
             like = book.like
             sold = book.sold
@@ -433,103 +434,126 @@ class BookAddActivity : AppCompatActivity() {
         }
 
         bookAdd_btn_register.setOnClickListener {
-            if (bookAdd_et_title.length() == 0 || bookAdd_et_publisher.length() == 0 || bookAdd_et_author.length() == 0) {
-                Toast.makeText(this, "빨간색 테두리로 나타나는 항목은 반드시 입력해야 해요.", Toast.LENGTH_SHORT).show()
-            } else {
-                val progDlg = ProgressDialog(this, R.style.ProgressBarStyle)
-                progDlg.setMessage("잠시만 기다려주세요...")
-                progDlg.setCancelable(false)
-                progDlg.show()
+            val builder = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+            val dlgXml = View.inflate(this, R.layout.basic_dialog, null)
+            val tv = dlgXml.findViewById<TextView>(R.id.basicDialog_tv_basic)
+            builder.setView(dlgXml)
 
-                // Firebase Database Upload
-                val ref = FirebaseDatabase.getInstance().getReference("Book").push()
+            if (!edit) tv.text = "글 정보는 이후에 변경 가능해요.\n\n글을 등록할까요?"
+            else tv.text = "수정된 정보를 등록할까요?"
 
-                val pref = getSharedPreferences("profile", MODE_PRIVATE)
-                val sellerId = pref.getString("user_id", "temp")
-                val pageTmp = bookAdd_et_page.text.toString()
-                page = if (!pageTmp.all { it.isDigit() }) -1 else pageTmp.toInt()
-                val size1Tmp = bookAdd_et_size1.text.toString()
-                size1 = if (!size1Tmp.all { it.isDigit() }) -1 else size1Tmp.toInt()
-                val size2Tmp = bookAdd_et_size2.text.toString()
-                size2 = if (!size2Tmp.all { it.isDigit() }) -1 else size2Tmp.toInt()
 
-                val book = Book(
-                    if (!edit) ref.key!! else bookId,
-                    sellerId!!,
-                    System.currentTimeMillis().toString(),
-                    bookAdd_et_title.text.toString(),
-                    bookAdd_et_publisher.text.toString(),
-                    bookAdd_et_author.text.toString(),
-                    bookAdd_et_pubDate.text.toString(),
-                    bookAdd_et_isbn.text.toString(),
-                    page,
-                    listOf(size1, size2),
-                    bookAdd_et_department.text.toString(),
-                    bookAdd_et_grade.text.toString().toInt(),
-                    imgCnt,
-                    bookAdd_et_doodle.text.toString(),
-                    bookAdd_et_damage.text.toString(),
-                    bookAdd_et_stain.text.toString(),
-                    bookAdd_et_stateLev.text.toString(),
-                    bookAdd_et_price.text.toString().toInt(),
-                    bookAdd_et_detailInfo.text.toString(),
-                    like,
-                    sold,
-                    mutableMapOf()
-                )
+            builder.setNegativeButton("아니오") { _, which ->
+            }
 
-                if (edit) FirebaseDatabase.getInstance().getReference("Book/$bookId").setValue(book)
-                else ref.setValue(book)
+            builder.setPositiveButton("예") { _, which ->
+                if (bookAdd_et_title.length() == 0 || bookAdd_et_publisher.length() == 0 || bookAdd_et_author.length() == 0) {
+                    Toast.makeText(this, "빨간색 테두리로 나타나는 항목은 반드시 입력해야 해요.", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    val progDlg = ProgressDialog(this, R.style.ProgressBarStyle)
+                    progDlg.setMessage("잠시만 기다려주세요...")
+                    progDlg.setCancelable(false)
+                    progDlg.show()
 
-                // 내가 등록한 책 추가
-                if (!edit) {
-                    val userRef = FirebaseDatabase.getInstance().getReference("User").child(sellerId)
-                    userRef.get().addOnSuccessListener {
-                        val checkUpdates = mutableMapOf<String, Any>()
-                        val user = it.getValue(User::class.java)!!
-                        user.my_books.add(ref.key!!)
+                    // Firebase Database Upload
+                    val ref = FirebaseDatabase.getInstance().getReference("Book").push()
 
-                        checkUpdates["my_books"] = user.my_books
+                    val pref = getSharedPreferences("profile", MODE_PRIVATE)
+                    val sellerId = pref.getString("user_id", "temp")
+                    val pageTmp = bookAdd_et_page.text.toString()
+                    page = if (!pageTmp.all { it.isDigit() }) -1 else pageTmp.toInt()
+                    val size1Tmp = bookAdd_et_size1.text.toString()
+                    size1 = if (!size1Tmp.all { it.isDigit() }) -1 else size1Tmp.toInt()
+                    val size2Tmp = bookAdd_et_size2.text.toString()
+                    size2 = if (!size2Tmp.all { it.isDigit() }) -1 else size2Tmp.toInt()
 
-                        userRef.updateChildren(checkUpdates)
+                    val book = Book(
+                        if (!edit) ref.key!! else bookId,
+                        sellerId!!,
+                        System.currentTimeMillis().toString(),
+                        bookAdd_et_title.text.toString(),
+                        bookAdd_et_publisher.text.toString(),
+                        bookAdd_et_author.text.toString(),
+                        bookAdd_et_pubDate.text.toString(),
+                        bookAdd_et_isbn.text.toString(),
+                        page,
+                        listOf(size1, size2),
+                        bookAdd_et_department.text.toString(),
+                        bookAdd_et_grade.text.toString().toInt(),
+                        imgCnt,
+                        bookAdd_et_doodle.text.toString(),
+                        bookAdd_et_damage.text.toString(),
+                        bookAdd_et_stain.text.toString(),
+                        bookAdd_et_stateLev.text.toString(),
+                        bookAdd_et_price.text.toString().toInt(),
+                        bookAdd_et_detailInfo.text.toString(),
+                        like,
+                        sold,
+                        mutableMapOf()
+                    )
+
+                    if (edit) FirebaseDatabase.getInstance().getReference("Book/$bookId")
+                        .setValue(book)
+                    else ref.setValue(book)
+
+                    // 내가 등록한 책 추가
+                    if (!edit) {
+                        val userRef =
+                            FirebaseDatabase.getInstance().getReference("User").child(sellerId)
+                        userRef.get().addOnSuccessListener {
+                            val checkUpdates = mutableMapOf<String, Any>()
+                            val user = it.getValue(User::class.java)!!
+                            user.my_books.add(ref.key!!)
+
+                            checkUpdates["my_books"] = user.my_books
+
+                            userRef.updateChildren(checkUpdates)
+                        }
+                    }
+
+                    if (!edit) detail3Changed = true
+                    val final = when {
+                        detail3Changed -> "detail3"
+                        !detail3Changed && detail2Changed -> "detail2"
+                        !detail3Changed && !detail2Changed && detail1Changed -> "detail1"
+                        !detail3Changed && !detail2Changed && !detail1Changed && mainChanged -> "main"
+                        else -> "else"
+                    }
+                    if (!edit || (edit && mainChanged)) imageUpload(
+                        book.book_id,
+                        "main",
+                        edit,
+                        final
+                    )
+                    if (!edit || (edit && detail1Changed)) imageUpload(
+                        book.book_id,
+                        "detail1",
+                        edit,
+                        final
+                    )
+                    if (!edit || (edit && detail2Changed)) imageUpload(
+                        book.book_id,
+                        "detail2",
+                        edit,
+                        final
+                    )
+                    if (!edit || (edit && detail3Changed)) imageUpload(
+                        book.book_id,
+                        "detail3",
+                        edit,
+                        final
+                    )
+                    if (edit && final == "else") {
+                        Toast.makeText(this, "서적 정보가 변경됐어요.", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
+                        overridePendingTransition(0, 0)
+                        finish()
                     }
                 }
-
-                if (!edit) detail3Changed = true
-                val final = when {
-                    detail3Changed -> "detail3"
-                    !detail3Changed && detail2Changed -> "detail2"
-                    !detail3Changed && !detail2Changed && detail1Changed -> "detail1"
-                    !detail3Changed && !detail2Changed && !detail1Changed && mainChanged -> "main"
-                    else -> "else"
-                }
-                if (!edit || (edit && mainChanged)) imageUpload(book.book_id, "main", edit, final)
-                if (!edit || (edit && detail1Changed)) imageUpload(
-                    book.book_id,
-                    "detail1",
-                    edit,
-                    final
-                )
-                if (!edit || (edit && detail2Changed)) imageUpload(
-                    book.book_id,
-                    "detail2",
-                    edit,
-                    final
-                )
-                if (!edit || (edit && detail3Changed)) imageUpload(
-                    book.book_id,
-                    "detail3",
-                    edit,
-                    final
-                )
-                if (edit && final == "else") {
-                    Toast.makeText(this, "서적 정보가 변경됐어요.", Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this, MainActivity::class.java)
-                    startActivity(intent)
-                    overridePendingTransition(0, 0)
-                    finish()
-                }
             }
+            builder.create().show()
 
         }
     }

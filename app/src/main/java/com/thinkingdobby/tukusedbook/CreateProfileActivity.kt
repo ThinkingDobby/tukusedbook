@@ -12,6 +12,7 @@ import android.view.Window
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -114,35 +115,54 @@ class CreateProfileActivity : AppCompatActivity() {
         }
 
         createProfile_btn_register.setOnClickListener {
-            if (createProfile_et_name.text.toString() == "") {
-                Toast.makeText(this, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
-            } else {
-                val user = User(
-                    id,
-                    createProfile_et_name.text.toString(),
-                    createProfile_et_tel.text.toString(),
-                    createProfile_et_department.text.toString(),
-                    createProfile_et_grade.text.toString().toInt(),
-                    createProfile_et_intro.text.toString(),
-                    myBooks,
-                    interestedBooks
-                )
+            val builder = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+            val dlgXml = View.inflate(this, R.layout.basic_dialog, null)
+            val tv = dlgXml.findViewById<TextView>(R.id.basicDialog_tv_basic)
+            builder.setView(dlgXml)
 
-                if (edit) Firebase.database.getReference("User/$id").setValue(user)
-                else {
-                    ref.setValue(user)
-                    editor.putString("user_id", id).apply()
-                    getSharedPreferences("basic", MODE_PRIVATE).edit().putBoolean("isFirst", false)
-                        .apply()
-                }
+            if (!edit) tv.text = "프로필을 등록할까요?"
+            else tv.text = "프로필 정보를 변경할까요?"
 
-                if (edit) Toast.makeText(this, "프로필이 변경되었습니다.", Toast.LENGTH_SHORT).show()
-                else Toast.makeText(this, "프로필이 등록되었습니다.", Toast.LENGTH_SHORT).show()
-                val intent = if (edit) Intent(this, MyProfileActivity::class.java) else Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                overridePendingTransition(0, 0)
-                finish()
+            builder.setNegativeButton("아니오") { _, which ->
             }
+
+            builder.setPositiveButton("예") { _, which ->
+
+                if (createProfile_et_name.text.toString() == "") {
+                    Toast.makeText(this, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                } else {
+                    val user = User(
+                        id,
+                        createProfile_et_name.text.toString(),
+                        createProfile_et_tel.text.toString(),
+                        createProfile_et_department.text.toString(),
+                        createProfile_et_grade.text.toString().toInt(),
+                        createProfile_et_intro.text.toString(),
+                        myBooks,
+                        interestedBooks
+                    )
+
+                    if (edit) Firebase.database.getReference("User/$id").setValue(user)
+                    else {
+                        ref.setValue(user)
+                        editor.putString("user_id", id).apply()
+                        getSharedPreferences("basic", MODE_PRIVATE).edit()
+                            .putBoolean("isFirst", false)
+                            .apply()
+                    }
+
+                    if (edit) Toast.makeText(this, "프로필이 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                    else Toast.makeText(this, "프로필이 등록되었습니다.", Toast.LENGTH_SHORT).show()
+                    val intent = if (edit) Intent(this, MyProfileActivity::class.java) else Intent(
+                        this,
+                        MainActivity::class.java
+                    )
+                    startActivity(intent)
+                    overridePendingTransition(0, 0)
+                    finish()
+                }
+            }
+            builder.create().show()
         }
     }
 
