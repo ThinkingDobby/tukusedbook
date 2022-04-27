@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    tools:context=".MessageListActivity">
+    
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/messageList_cl_top"
+        android:layout_width="match_parent"
+        android:background="@drawable/bottom_line"
+        android:layout_height="72dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/messageList_tv_subject"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="사려는 책 쪽지 목록"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/messageList_btn_back"
+            android:layout_width="13dp"
+            android:layout_height="26dp"
+            android:layout_marginStart="22dp"
+            android:background="@drawable/icon_back"
+            app:layout_constraintBottom_toBottomOf="@id/messageList_tv_subject"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/messageList_tv_subject" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messageList_rv_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/messageList_cl_top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingBottom="178dp"
+        android:clipToPadding="false" />
+
+    <!--
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/messageList_cl_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/messageList_rv_list"
+        app:layout_constraintEnd_toEndOf="@id/messageList_rv_list"
+        app:layout_constraintTop_toTopOf="@id/messageList_rv_list"
+        app:layout_constraintBottom_toBottomOf="@id/messageList_rv_list">
+
+        <ImageView
+            android:id="@+id/main_iv_empty"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_tukusedbooklogo"
+            android:alpha="0.26"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/main_iv_empty"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:text="등록된 책이 없어요."
+            android:textColor="@color/colorGray"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>

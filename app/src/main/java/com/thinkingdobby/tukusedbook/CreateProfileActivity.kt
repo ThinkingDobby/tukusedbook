@@ -76,6 +76,7 @@ class CreateProfileActivity : AppCompatActivity() {
                 createProfile_et_department.setText(departments[which])
             }
             dlg.setTitle("학과 선택")
+            dlg.setPositiveButton("취소", null)
             dlg.show()
         }
 
@@ -86,6 +87,7 @@ class CreateProfileActivity : AppCompatActivity() {
                 createProfile_et_grade.setText(grades[which])
             }
             dlg.setTitle("학년 선택")
+            dlg.setPositiveButton("취소", null)
             dlg.show()
         }
 

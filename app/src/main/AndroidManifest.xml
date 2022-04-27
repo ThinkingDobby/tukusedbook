@@ -12,10 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".InterestedActivity"></activity>
+        <activity android:name=".MessageListActivity"></activity>
+        <activity android:name=".MessageActivity" />
+        <activity android:name=".InterestedActivity" />
         <activity android:name=".MyBookActivity" />
-        <activity android:name=".MyProfileActivity"
-            android:launchMode="singleTask"/>
+        <activity
+            android:name=".MyProfileActivity"
+            android:launchMode="singleTask" />
         <activity android:name=".BookDetailActivity" />
         <activity
             android:name=".BookAddActivity"

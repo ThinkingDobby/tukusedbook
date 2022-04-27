@@ -342,6 +342,12 @@ class BookDetailActivity : AppCompatActivity() {
             bookDetail_tv_sellerNickName.text = user.name
             bookDetail_tv_sellerTel.text = user.tel
             bookDetail_tv_sellerIntro.text = user.intro
+
+            bookDetail_btn_chat.setOnClickListener {
+                val intent = Intent(this, MessageActivity::class.java)
+                intent.putExtra("destinationUid", user.id)
+                startActivity(intent)
+            }
         }
 
         bookDetail_tv_price.text = book.price.toString()
