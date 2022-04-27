@@ -1,15 +1,14 @@
 package com.thinkingdobby.tukusedbook
 
 import android.annotation.SuppressLint
+import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -109,6 +108,8 @@ class MessageActivity : AppCompatActivity() {
                 message_et_input.text = null
                 Log.d("chatUidNotNull dest", destinationUid)
             }
+
+            message_et_input.requestFocus()
         }
         checkChatRoom()
     }

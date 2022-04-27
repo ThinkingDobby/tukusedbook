@@ -12,7 +12,7 @@
         android:roundIcon="@drawable/ic_tukusedbooklogo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MessageListActivity"></activity>
+        <activity android:name=".MessageListActivity"/>
         <activity android:name=".MessageActivity" />
         <activity android:name=".InterestedActivity" />
         <activity android:name=".MyBookActivity" />

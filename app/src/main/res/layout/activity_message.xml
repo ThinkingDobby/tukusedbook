@@ -54,31 +54,35 @@
         android:id="@+id/message_cl_bot"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="#DDDEE1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <EditText
-            android:id="@+id/message_et_input"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginEnd="55dp"
-            android:layout_marginRight="55dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/message_btn_send"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ImageView
             android:id="@+id/message_btn_send"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/icon_arrow_right"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="4dp"
+            android:src="@drawable/message_btn_d_send"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/message_et_input"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="4dp"
+            android:layout_marginHorizontal="4dp"
+            android:background="@drawable/round_shape_d"
+            android:textColor="@color/colorBlack"
+            android:fontFamily="@font/pretendard_regular"
+            android:paddingHorizontal="12dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/message_btn_send"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
