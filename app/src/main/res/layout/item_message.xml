@@ -1,43 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/messageItem_linearlayout_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:orientation="horizontal">
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="32dp">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/messageItem_tv_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginHorizontal="10dp"
+            android:fontFamily="@font/pretendard_regular"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"
+            android:text="test"
+            android:textColor="@color/colorBlack"
+            android:textSize="15sp"
+            android:maxWidth="300dp"
+            android:minWidth="70dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/messageItme_ll_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@id/messageItem_tv_message"
+            app:layout_constraintStart_toStartOf="@id/messageItem_tv_message"
+            app:layout_constraintTop_toBottomOf="@id/messageItem_tv_message">
 
             <TextView
-                android:id="@+id/messageItem_textview_name"
+                android:id="@+id/messageItem_tv_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="이름"
-                android:textColor="#000000"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/messageItem_textView_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp"
-                android:text="메세지"
-                android:textColor="#000000" />
-
-            <TextView
-                android:id="@+id/messageItem_textView_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="시간"
-                android:textSize="12sp" />
+                android:fontFamily="@font/roboto_regular"
+                android:text="sdjflksdjfl"
+                android:textColor="@color/colorGray"
+                android:textSize="10sp" />
         </LinearLayout>
-    </LinearLayout>
+
+        <ImageView
+            android:id="@+id/messageItem_iv_leftarrow"
+            android:layout_width="11dp"
+            android:layout_height="21dp"
+            android:src="@drawable/leftbubble_arrow"
+            app:layout_constraintBottom_toBottomOf="@id/messageItem_tv_message"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ImageView
+            android:id="@+id/messageItem_iv_rightarrow"
+            android:layout_width="11dp"
+            android:layout_height="21dp"
+            android:src="@drawable/rightbubble_arrow"
+            app:layout_constraintBottom_toBottomOf="@id/messageItem_tv_message"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

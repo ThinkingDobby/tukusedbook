@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,6 +31,8 @@ class MessageListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_message_list)
 
         mode = intent.getStringExtra("mode") ?: "buy"
+        if (mode == "buy") messageList_tv_subject.text = "사려는 서적 쪽지 목록"
+        else messageList_tv_subject.text = "팔려는 서적 쪽지 목록"
 
         messageList_rv_list.layoutManager = LinearLayoutManager(this)
         messageList_rv_list.adapter = RecyclerViewAdapter()
@@ -67,14 +68,14 @@ class MessageListActivity : AppCompatActivity() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
 
             return CustomViewHolder(
-                LayoutInflater.from(this@MessageListActivity).inflate(R.layout.item_chat, parent, false)
+                LayoutInflater.from(this@MessageListActivity).inflate(R.layout.item_chatroom, parent, false)
             )
         }
 
         inner class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val textView_title: TextView = itemView.findViewById(R.id.chat_textview_title)
+            val textView_title: TextView = itemView.findViewById(R.id.chatroom_tv_title)
             val textView_lastMessage: TextView =
-                itemView.findViewById(R.id.chat_item_textview_lastmessage)
+                itemView.findViewById(R.id.chatroom_tv_lastmessage)
         }
 
         override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
@@ -108,11 +109,17 @@ class MessageListActivity : AppCompatActivity() {
                 intent.putExtra("destinationUid", destinationUsers[position])
                 intent.putExtra("mode", mode)
                 startActivity(intent)
+                overridePendingTransition(0, 0)
             }
         }
 
         override fun getItemCount(): Int {
             return chatModel.size
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(0, 0)
     }
 }

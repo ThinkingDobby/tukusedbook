@@ -8,25 +8,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="4dp">
+        android:orientation="vertical">
 
         <TextView
-            android:id="@+id/chat_textview_title"
+            android:id="@+id/chatroom_tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="22dp"
             android:layout_marginTop="10dp"
-            android:text="방이름"
-            android:textColor="#000000"
-            android:textSize="20sp"
+            android:text=""
+            android:fontFamily="@font/pretendard_semibold"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
             android:textStyle="bold" />
+
         <TextView
-            android:id="@+id/chat_item_textview_lastmessage"
+            android:id="@+id/chatroom_tv_lastmessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="마지막 메세지"
-            android:layout_marginTop="6dp"
-            android:layout_marginLeft="10dp"/>
+            android:fontFamily="@font/pretendard_regular"
+            android:textColor="@color/colorGray"
+            android:textSize="13sp"
+            android:text=""
+            android:layout_marginHorizontal="22dp"/>
     </LinearLayout>
 </LinearLayout>

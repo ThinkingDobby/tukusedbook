@@ -60,7 +60,6 @@ class MyProfileActivity : AppCompatActivity() {
             intent.putExtra("mode", "sell")
             startActivity(intent)
             overridePendingTransition(0, 0)
-
         }
 
         myProfile_cv_toInterested.setOnClickListener {

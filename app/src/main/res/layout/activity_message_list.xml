@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
             android:fontFamily="@font/roboto_medium"
-            android:text="사려는 책 쪽지 목록"
+            android:text="사려는 서적 쪽지 목록"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

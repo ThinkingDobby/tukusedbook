@@ -347,6 +347,7 @@ class BookDetailActivity : AppCompatActivity() {
                 val intent = Intent(this, MessageActivity::class.java)
                 intent.putExtra("destinationUid", user.id)
                 startActivity(intent)
+                overridePendingTransition(0, 0)
             }
 
             bookDetail_icon_chat.setOnClickListener {

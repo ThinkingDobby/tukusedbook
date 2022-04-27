@@ -3,6 +3,8 @@ package com.thinkingdobby.tukusedbook
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -25,6 +27,7 @@ import com.google.firebase.ktx.Firebase
 import com.thinkingdobby.tukusedbook.data.ChatModel
 import com.thinkingdobby.tukusedbook.data.User
 import kotlinx.android.synthetic.main.activity_message.*
+import kotlinx.android.synthetic.main.item_message.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -57,6 +60,25 @@ class MessageActivity : AppCompatActivity() {
         // 리스트에서 넘어오면서 상대 id 인텐트로 받아와야
         destinationUid = intent.getStringExtra("destinationUid") ?: "temp"
         mode = intent.getStringExtra("mode") ?: "buy"
+
+        message_et_input.addTextChangedListener(object : TextWatcher {
+            var prev = ""
+
+            override fun afterTextChanged(p0: Editable?) {
+                if (message_et_input.lineCount >= 4) {
+                    message_et_input.setText(prev)
+                    message_et_input.setSelection(message_et_input.length())
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                prev = p0.toString()
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+        })
 
         message_btn_send.setOnClickListener {
             Log.d("클릭 시 dest", destinationUid)
@@ -125,7 +147,7 @@ class MessageActivity : AppCompatActivity() {
 
                     override fun onDataChange(snapshot: DataSnapshot) {
                         friend = snapshot.getValue<User>()
-                        message_tv_oppo.text = friend?.name
+                        message_tv_subject.text = friend?.name
                         getMessageList()
                     }
                 })
@@ -160,30 +182,40 @@ class MessageActivity : AppCompatActivity() {
 
         @SuppressLint("RtlHardcoded")
         override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
-            holder.textView_message.textSize = 20F
-            holder.textView_message.text = comments[position].message
-            holder.textView_time.text = comments[position].time
+            message_tv_subject.text = friend?.name + "님과의 대화"
+            holder.tv_message.text = comments[position].message
+            holder.tv_time.text = comments[position].time
             if (comments[position].uid.equals(uid)) { // 본인 채팅
-                holder.textView_message.setBackgroundResource(R.drawable.rightbubble)
-                holder.textView_name.visibility = View.INVISIBLE
+                holder.tv_message.setBackgroundResource(R.color.leftbubble)
                 holder.layout_main.gravity = Gravity.RIGHT
+                holder.ll_time.gravity = Gravity.LEFT
+                holder.left_arrow.visibility = View.GONE
+                holder.right_arrow.visibility = View.VISIBLE
             } else { // 상대방 채팅
-                holder.textView_name.text = friend?.name
-                holder.textView_name.visibility = View.VISIBLE
-                holder.textView_message.setBackgroundResource(R.drawable.leftbubble)
+                holder.tv_message.setBackgroundResource(R.color.rightbubble)
                 holder.layout_main.gravity = Gravity.LEFT
+                holder.ll_time.gravity = Gravity.RIGHT
+                holder.left_arrow.visibility = View.VISIBLE
+                holder.right_arrow.visibility = View.GONE
             }
         }
 
         inner class MessageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-            val textView_message: TextView = view.findViewById(R.id.messageItem_textView_message)
-            val textView_name: TextView = view.findViewById(R.id.messageItem_textview_name)
+            val tv_message: TextView = view.findViewById(R.id.messageItem_tv_message)
             val layout_main: LinearLayout = view.findViewById(R.id.messageItem_linearlayout_main)
-            val textView_time: TextView = view.findViewById(R.id.messageItem_textView_time)
+            val tv_time: TextView = view.findViewById(R.id.messageItem_tv_time)
+            val ll_time: LinearLayout = view.findViewById(R.id.messageItme_ll_time)
+            val right_arrow: ImageView = view.findViewById(R.id.messageItem_iv_rightarrow)
+            val left_arrow: ImageView = view.findViewById(R.id.messageItem_iv_leftarrow)
         }
 
         override fun getItemCount(): Int {
             return comments.size
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(0, 0)
     }
 }

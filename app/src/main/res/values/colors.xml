@@ -10,4 +10,6 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorYellow">#CE8300</color>
 
+    <color name="leftbubble">#E6F6F9</color>
+    <color name="rightbubble">#DFF3FC</color>
 </resources>
