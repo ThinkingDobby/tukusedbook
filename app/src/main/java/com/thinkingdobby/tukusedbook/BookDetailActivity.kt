@@ -348,6 +348,10 @@ class BookDetailActivity : AppCompatActivity() {
                 intent.putExtra("destinationUid", user.id)
                 startActivity(intent)
             }
+
+            bookDetail_icon_chat.setOnClickListener {
+                bookDetail_btn_chat.callOnClick()
+            }
         }
 
         bookDetail_tv_price.text = book.price.toString()

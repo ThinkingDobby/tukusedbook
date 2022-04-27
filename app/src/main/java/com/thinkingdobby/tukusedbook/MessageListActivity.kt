@@ -25,10 +25,13 @@ import kotlin.collections.ArrayList
 class MessageListActivity : AppCompatActivity() {
 
     private val fireDatabase = FirebaseDatabase.getInstance().reference
+    private var mode = "buy"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_message_list)
+
+        mode = intent.getStringExtra("mode") ?: "buy"
 
         messageList_rv_list.layoutManager = LinearLayoutManager(this)
         messageList_rv_list.adapter = RecyclerViewAdapter()
@@ -37,14 +40,15 @@ class MessageListActivity : AppCompatActivity() {
     inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.CustomViewHolder>() {
 
         private val chatModel = ArrayList<ChatModel>()
-        private var uid: String? = null
+        private var nowId: String? = null
         private val destinationUsers: ArrayList<String> = arrayListOf()
 
         init {
             val pref = getSharedPreferences("profile", MODE_PRIVATE)
-            uid = pref.getString("user_id", "temp")!!
+            nowId = pref.getString("user_id", "temp")!!
 
-            fireDatabase.child("Chat").orderByChild("users/$uid").equalTo(true)
+            val value = mode == "buy"
+            fireDatabase.child("Chat").orderByChild("users/$nowId").equalTo(value)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
                     override fun onCancelled(error: DatabaseError) {
                     }
@@ -77,7 +81,7 @@ class MessageListActivity : AppCompatActivity() {
             var destinationUid: String? = null
             //채팅방에 있는 유저 모두 체크
             for (user in chatModel[position].users.keys) {
-                if (!user.equals(uid)) {
+                if (!user.equals(nowId)) {
                     destinationUid = user
                     destinationUsers.add(destinationUid)
                 }
@@ -102,6 +106,7 @@ class MessageListActivity : AppCompatActivity() {
             holder.itemView.setOnClickListener {
                 val intent = Intent(this@MessageListActivity, MessageActivity::class.java)
                 intent.putExtra("destinationUid", destinationUsers[position])
+                intent.putExtra("mode", mode)
                 startActivity(intent)
             }
         }

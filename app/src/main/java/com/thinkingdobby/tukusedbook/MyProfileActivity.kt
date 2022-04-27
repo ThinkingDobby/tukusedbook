@@ -50,8 +50,17 @@ class MyProfileActivity : AppCompatActivity() {
 
         myProfile_cv_toBuyMessageList.setOnClickListener {
             val intent = Intent(this, MessageListActivity::class.java)
+            intent.putExtra("mode", "buy")
             startActivity(intent)
             overridePendingTransition(0, 0)
+        }
+
+        myProfile_cv_toSellMessageList.setOnClickListener {
+            val intent = Intent(this, MessageListActivity::class.java)
+            intent.putExtra("mode", "sell")
+            startActivity(intent)
+            overridePendingTransition(0, 0)
+
         }
 
         myProfile_cv_toInterested.setOnClickListener {

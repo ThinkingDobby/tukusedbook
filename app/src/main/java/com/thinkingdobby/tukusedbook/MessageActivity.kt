@@ -41,6 +41,8 @@ class MessageActivity : AppCompatActivity() {
     // 상대 id
     private var destinationUid = "temp"
 
+    private var mode = "buy"
+
     @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,12 +56,13 @@ class MessageActivity : AppCompatActivity() {
         uid = pref.getString("user_id", "temp")!!
         // 리스트에서 넘어오면서 상대 id 인텐트로 받아와야
         destinationUid = intent.getStringExtra("destinationUid") ?: "temp"
+        mode = intent.getStringExtra("mode") ?: "buy"
 
         message_btn_send.setOnClickListener {
             Log.d("클릭 시 dest", destinationUid)
             val chatModel = ChatModel()
             chatModel.users.put(uid, true)
-            chatModel.users.put(destinationUid!!, true)
+            chatModel.users.put(destinationUid!!, false)
 
             val comment = ChatModel.Comment(uid, message_et_input.text.toString(), curTime)
             if (chatRoomUid == null) {
@@ -87,7 +90,8 @@ class MessageActivity : AppCompatActivity() {
     }
 
     private fun checkChatRoom() {
-        ref.child("Chat").orderByChild("users/$uid").equalTo(true)
+        val value = mode == "buy"
+        ref.child("Chat").orderByChild("users/$uid").equalTo(value)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onCancelled(error: DatabaseError) {
                 }
