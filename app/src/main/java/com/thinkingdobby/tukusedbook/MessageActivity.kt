@@ -133,8 +133,11 @@ class MessageActivity : AppCompatActivity() {
                         if (chatModel?.users!!.containsKey(destinationUid)) {
                             chatRoomUid = item.key
                             message_btn_send.isEnabled = true
-                            message_rv_list?.layoutManager =
-                                LinearLayoutManager(this@MessageActivity)
+
+                            val manager = LinearLayoutManager(this@MessageActivity)
+                            manager.stackFromEnd = true
+                            message_rv_list?.layoutManager = manager
+
                             message_rv_list?.adapter = RecyclerViewAdapter()
                         }
                     }
