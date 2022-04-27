@@ -61,6 +61,8 @@ class MessageActivity : AppCompatActivity() {
         destinationUid = intent.getStringExtra("destinationUid") ?: "temp"
         mode = intent.getStringExtra("mode") ?: "buy"
 
+        message_btn_back.setOnClickListener { finish() }
+
         message_et_input.addTextChangedListener(object : TextWatcher {
             var prev = ""
 

@@ -1,7 +1,9 @@
 package com.thinkingdobby.tukusedbook
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +37,17 @@ class MessageListActivity : AppCompatActivity() {
         else messageList_tv_subject.text = "팔려는 서적 쪽지 목록"
 
         messageList_rv_list.layoutManager = LinearLayoutManager(this)
-        messageList_rv_list.adapter = RecyclerViewAdapter()
+
+        fireDatabase.child("Chat").addValueEventListener(object : ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                messageList_rv_list.adapter = RecyclerViewAdapter()
+            }
+        })
+
+        messageList_btn_back.setOnClickListener { finish() }
     }
 
     inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.CustomViewHolder>() {
@@ -58,7 +70,6 @@ class MessageListActivity : AppCompatActivity() {
                         chatModel.clear()
                         for (data in snapshot.children) {
                             chatModel.add(data.getValue<ChatModel>()!!)
-                            println(data)
                         }
                         notifyDataSetChanged()
                     }
@@ -68,14 +79,14 @@ class MessageListActivity : AppCompatActivity() {
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomViewHolder {
 
             return CustomViewHolder(
-                LayoutInflater.from(this@MessageListActivity).inflate(R.layout.item_chatroom, parent, false)
+                LayoutInflater.from(this@MessageListActivity)
+                    .inflate(R.layout.item_chatroom, parent, false)
             )
         }
 
         inner class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
             val textView_title: TextView = itemView.findViewById(R.id.chatroom_tv_title)
-            val textView_lastMessage: TextView =
-                itemView.findViewById(R.id.chatroom_tv_lastmessage)
+            val textView_lastMessage: TextView = itemView.findViewById(R.id.chatroom_tv_lastmessage)
         }
 
         override fun onBindViewHolder(holder: CustomViewHolder, position: Int) {
