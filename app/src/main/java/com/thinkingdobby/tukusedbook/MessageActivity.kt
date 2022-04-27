@@ -15,18 +15,14 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
-import com.google.firebase.ktx.Firebase
 import com.thinkingdobby.tukusedbook.data.ChatModel
 import com.thinkingdobby.tukusedbook.data.User
 import kotlinx.android.synthetic.main.activity_message.*
-import kotlinx.android.synthetic.main.item_message.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -108,10 +104,19 @@ class MessageActivity : AppCompatActivity() {
                 message_et_input.text = null
                 Log.d("chatUidNotNull dest", destinationUid)
             }
-
             message_et_input.requestFocus()
         }
         checkChatRoom()
+        message_btn_send.setOnTouchListener { p0, p1 ->
+            if (p1 != null) {
+                if (p1.action == MotionEvent.ACTION_UP) {
+                    message_et_input.requestFocus()
+                }
+            }
+            false
+        }
+
+
     }
 
     private fun checkChatRoom() {
@@ -128,7 +133,8 @@ class MessageActivity : AppCompatActivity() {
                         if (chatModel?.users!!.containsKey(destinationUid)) {
                             chatRoomUid = item.key
                             message_btn_send.isEnabled = true
-                            message_rv_list?.layoutManager = LinearLayoutManager(this@MessageActivity)
+                            message_rv_list?.layoutManager =
+                                LinearLayoutManager(this@MessageActivity)
                             message_rv_list?.adapter = RecyclerViewAdapter()
                         }
                     }
@@ -215,6 +221,25 @@ class MessageActivity : AppCompatActivity() {
         override fun getItemCount(): Int {
             return comments.size
         }
+    }
+
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        val view: View? = currentFocus
+        val focusView = currentFocus
+        if (focusView != null) {
+            val rect = Rect()
+            focusView.getGlobalVisibleRect(rect)
+            val x = ev.x.toInt()
+            val y = ev.y.toInt()
+            if (!rect.contains(x + -150, y)) {
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm?.hideSoftInputFromWindow(focusView.windowToken, 0)
+                focusView.clearFocus()
+            }
+        }
+
+        message_et_input.clearFocus()
+        return super.dispatchTouchEvent(ev)
     }
 
     override fun finish() {

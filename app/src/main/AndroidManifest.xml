@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MessageListActivity"/>
-        <activity android:name=".MessageActivity" />
+        <activity android:name=".MessageActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".InterestedActivity" />
         <activity android:name=".MyBookActivity" />
         <activity
