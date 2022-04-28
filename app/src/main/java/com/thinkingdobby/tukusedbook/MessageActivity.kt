@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -78,33 +79,37 @@ class MessageActivity : AppCompatActivity() {
         })
 
         message_btn_send.setOnClickListener {
-            Log.d("클릭 시 dest", destinationUid)
-            val chatModel = ChatModel()
-            chatModel.users.put(uid, true)
-            chatModel.users.put(destinationUid!!, false)
-
-            val comment = ChatModel.Comment(uid, message_et_input.text.toString(), curTime)
-            if (chatRoomUid == null) {
-                message_btn_send.isEnabled = false
-                ref.child("Chat").push().setValue(chatModel).addOnSuccessListener {
-                    //채팅방 생성
-                    checkChatRoom()
-                    //메세지 보내기
-                    Handler().postDelayed({
-                        println(chatRoomUid)
-                        ref.child("Chat").child(chatRoomUid.toString())
-                            .child("comments").push().setValue(comment)
-                        message_et_input.text = null
-                    }, 1000L)
-                    Log.d("chatUidNull dest", destinationUid)
-                }
+            if (message_et_input.text.toString() == "") {
+                Toast.makeText(this, "내용을 입력해 주세요.", Toast.LENGTH_SHORT).show()
             } else {
-                ref.child("Chat").child(chatRoomUid.toString()).child("comments")
-                    .push().setValue(comment)
-                message_et_input.text = null
-                Log.d("chatUidNotNull dest", destinationUid)
+                Log.d("클릭 시 dest", destinationUid)
+                val chatModel = ChatModel()
+                chatModel.users.put(uid, true)
+                chatModel.users.put(destinationUid!!, false)
+
+                val comment = ChatModel.Comment(uid, message_et_input.text.toString(), curTime)
+                if (chatRoomUid == null) {
+                    message_btn_send.isEnabled = false
+                    ref.child("Chat").push().setValue(chatModel).addOnSuccessListener {
+                        //채팅방 생성
+                        checkChatRoom()
+                        //메세지 보내기
+                        Handler().postDelayed({
+                            println(chatRoomUid)
+                            ref.child("Chat").child(chatRoomUid.toString())
+                                .child("comments").push().setValue(comment)
+                            message_et_input.text = null
+                        }, 1000L)
+                        Log.d("chatUidNull dest", destinationUid)
+                    }
+                } else {
+                    ref.child("Chat").child(chatRoomUid.toString()).child("comments")
+                        .push().setValue(comment)
+                    message_et_input.text = null
+                    Log.d("chatUidNotNull dest", destinationUid)
+                }
+                message_et_input.requestFocus()
             }
-            message_et_input.requestFocus()
         }
         checkChatRoom()
         message_btn_send.setOnTouchListener { p0, p1 ->

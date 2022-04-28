@@ -20,7 +20,7 @@
             android:fontFamily="@font/pretendard_regular"
             android:paddingHorizontal="16dp"
             android:paddingVertical="8dp"
-            android:text="test"
+            android:text=""
             android:textColor="@color/colorBlack"
             android:textSize="15sp"
             android:maxWidth="300dp"
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_regular"
-                android:text="sdjflksdjfl"
+                android:text=""
                 android:textColor="@color/colorGray"
                 android:textSize="10sp" />
         </LinearLayout>

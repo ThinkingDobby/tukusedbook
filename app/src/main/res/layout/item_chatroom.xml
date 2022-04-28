@@ -2,23 +2,25 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="94dp"
     android:orientation="horizontal"
     >
     <LinearLayout
+        android:id="@+id/chatroom_ll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/bottom_line_gray"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/chatroom_tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="22dp"
             android:text=""
             android:fontFamily="@font/pretendard_semibold"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorBlack"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -26,8 +28,13 @@
             android:id="@+id/chatroom_tv_lastmessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
             android:fontFamily="@font/pretendard_regular"
             android:textColor="@color/colorGray"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:maxLines="1"
+            android:layout_marginStart="32dp"
             android:textSize="13sp"
             android:text=""
             android:layout_marginHorizontal="22dp"/>
