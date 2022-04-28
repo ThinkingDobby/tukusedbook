@@ -26,6 +26,8 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.tukusedbook.data.*
 import kotlinx.android.synthetic.main.activity_book_add.*
@@ -75,6 +77,9 @@ class BookAddActivity : AppCompatActivity() {
         circularProgressDrawable.strokeWidth = 5f
         circularProgressDrawable.centerRadius = 30f
         circularProgressDrawable.start()
+
+        val pref = getSharedPreferences("profile", MODE_PRIVATE)
+        val sellerId = pref.getString("user_id", "temp")
 
         val edit = intent.getBooleanExtra("edit", false)
         if (edit) {
@@ -192,6 +197,13 @@ class BookAddActivity : AppCompatActivity() {
 
             like = book.like
             sold = book.sold
+        } else {
+            Firebase.database.getReference("User").child(sellerId!!).get().addOnSuccessListener {
+                val user = it.getValue(User::class.java)!!
+
+                bookAdd_et_department.setText(user.department)
+                bookAdd_et_grade.setText(user.grade.toString())
+            }
         }
 
         bookAdd_btn_back.setOnClickListener { finish() }
@@ -459,8 +471,6 @@ class BookAddActivity : AppCompatActivity() {
                     // Firebase Database Upload
                     val ref = FirebaseDatabase.getInstance().getReference("Book").push()
 
-                    val pref = getSharedPreferences("profile", MODE_PRIVATE)
-                    val sellerId = pref.getString("user_id", "temp")
                     val pageTmp = bookAdd_et_page.text.toString()
                     page = if (!pageTmp.all { it.isDigit() }) -1 else pageTmp.toInt()
                     val size1Tmp = bookAdd_et_size1.text.toString()

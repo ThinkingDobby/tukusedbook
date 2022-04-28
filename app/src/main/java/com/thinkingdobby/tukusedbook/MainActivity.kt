@@ -19,8 +19,11 @@ import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import com.thinkingdobby.tukusedbook.adapter.BookAdapter
 import com.thinkingdobby.tukusedbook.data.Book
+import com.thinkingdobby.tukusedbook.data.User
 import com.thinkingdobby.tukusedbook.data.departments
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -47,6 +50,20 @@ class MainActivity : AppCompatActivity() {
         main_rv_list.layoutManager = layoutManager
         val bookAdapter = BookAdapter(this, postList)
         main_rv_list.adapter = bookAdapter
+
+        val pref = getSharedPreferences("profile", MODE_PRIVATE)
+        val id = pref.getString("user_id", "temp")!!
+
+        Firebase.database.getReference("User").child(id).get().addOnSuccessListener {
+            val user = it.getValue(User::class.java)!!
+
+            main_et_department.setText(user.department)
+            main_et_grade.setText(user.grade.toString())
+
+            bookAdapter.setDepartment(main_et_department.text.toString())
+            bookAdapter.setGrade(main_et_grade.text.toString())
+            bookAdapter.filter.filter(main_et_search.text.toString())
+        }
 
         main_icon_profile.setOnClickListener {
             val intent = Intent(this, MyProfileActivity::class.java)

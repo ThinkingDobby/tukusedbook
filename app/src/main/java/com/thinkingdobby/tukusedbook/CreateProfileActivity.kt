@@ -102,6 +102,7 @@ class CreateProfileActivity : AppCompatActivity() {
             id = pref.getString("user_id", "temp")!!
             createProfile_tv_registerTitle.text = "프로필 변경"
             createProfile_btn_register.text = "프로필 변경"
+            createProfile_tv_registerSub.visibility = View.GONE
 
             Firebase.database.getReference("User").child(id).get().addOnSuccessListener {
                 val user = it.getValue(User::class.java)

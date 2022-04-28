@@ -136,7 +136,7 @@
             android:background="@drawable/main_et_department"
             android:fontFamily="@font/pretendard_regular"
             android:paddingHorizontal="10dp"
-            android:text="컴퓨터공학부"
+            android:text="전체"
             android:textColor="@color/colorBlack"
             android:enabled="false"
             android:textSize="15sp"
