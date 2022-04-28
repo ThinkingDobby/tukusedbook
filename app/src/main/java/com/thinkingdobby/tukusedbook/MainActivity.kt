@@ -13,8 +13,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.size
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -26,6 +26,7 @@ import com.thinkingdobby.tukusedbook.data.Book
 import com.thinkingdobby.tukusedbook.data.User
 import com.thinkingdobby.tukusedbook.data.departments
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -53,6 +54,15 @@ class MainActivity : AppCompatActivity() {
 
         val pref = getSharedPreferences("profile", MODE_PRIVATE)
         val id = pref.getString("user_id", "temp")!!
+
+        if (bookAdapter.itemCount == 0) main_cl_empty.visibility = View.VISIBLE
+        else main_cl.main_cl_empty.visibility = View.INVISIBLE
+        bookAdapter.registerAdapterDataObserver(object : AdapterDataObserver() {
+            override fun onChanged() {
+                if (bookAdapter.itemCount == 0) main_cl_empty.visibility = View.VISIBLE
+                else main_cl.main_cl_empty.visibility = View.INVISIBLE
+            }
+        })
 
         Firebase.database.getReference("User").child(id).get().addOnSuccessListener {
             val user = it.getValue(User::class.java)!!
