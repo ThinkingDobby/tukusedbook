@@ -61,6 +61,14 @@ class MessageListActivity : AppCompatActivity() {
             val pref = getSharedPreferences("profile", MODE_PRIVATE)
             nowId = pref.getString("user_id", "temp")!!
 
+            if (chatModel.size != 0) {
+                messageList_iv_background.visibility = View.VISIBLE
+                messageList_cl_empty.visibility = View.INVISIBLE
+            } else {
+                messageList_iv_background.visibility = View.INVISIBLE
+                messageList_cl_empty.visibility = View.VISIBLE
+            }
+
             val value = mode == "buy"
             fireDatabase.child("Chat").orderByChild("users/$nowId").equalTo(value)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -71,6 +79,13 @@ class MessageListActivity : AppCompatActivity() {
                         chatModel.clear()
                         for (data in snapshot.children) {
                             chatModel.add(data.getValue<ChatModel>()!!)
+                            if (chatModel.size != 0) {
+                                messageList_iv_background.visibility = View.VISIBLE
+                                messageList_cl_empty.visibility = View.INVISIBLE
+                            } else {
+                                messageList_iv_background.visibility = View.INVISIBLE
+                                messageList_cl_empty.visibility = View.VISIBLE
+                            }
                         }
                         notifyDataSetChanged()
                     }
@@ -107,13 +122,15 @@ class MessageListActivity : AppCompatActivity() {
                     override fun onDataChange(snapshot: DataSnapshot) {
                         val friend = snapshot.getValue<User>()
                         holder.textView_title.text = friend?.name
+
+                        //메세지 내림차순 정렬 후 마지막 메세지의 키값을 가져옴
+                        val commentMap = TreeMap<String, ChatModel.Comment>(reverseOrder())
+                        commentMap.putAll(chatModel[position].comments)
+                        val lastMessageKey = commentMap.keys.toTypedArray()[0]
+                        holder.textView_lastMessage.text = chatModel[position].comments[lastMessageKey]?.message
                     }
                 })
-            //메세지 내림차순 정렬 후 마지막 메세지의 키값을 가져옴
-            val commentMap = TreeMap<String, ChatModel.Comment>(reverseOrder())
-            commentMap.putAll(chatModel[position].comments)
-            val lastMessageKey = commentMap.keys.toTypedArray()[0]
-            holder.textView_lastMessage.text = chatModel[position].comments[lastMessageKey]?.message
+
 
             //채팅창 선책 시 이동
             holder.itemView.setOnClickListener {
