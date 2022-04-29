@@ -588,7 +588,10 @@ class BookAddActivity : AppCompatActivity() {
         } else if (requestCode == 1) {
             if (resultCode == Activity.RESULT_OK) {
                 detailUriPhotoTemp1 = data?.data
-                bookAdd_iv_detailImgTemp1.setImageURI(detailUriPhotoTemp1)
+                Glide.with(this)
+                    .load(detailUriPhotoTemp1)
+                    .transform(CenterCrop())
+                    .into(bookAdd_iv_detailImgTemp1)
                 bookAdd_btn_removeImgTemp1.visibility = View.VISIBLE
                 bookAdd_tv_detailImgTemp1.visibility = View.INVISIBLE
                 detail1Changed = true
@@ -596,7 +599,10 @@ class BookAddActivity : AppCompatActivity() {
         } else if (requestCode == 2) {
             if (resultCode == Activity.RESULT_OK) {
                 detailUriPhotoTemp2 = data?.data
-                bookAdd_iv_detailImgTemp2.setImageURI(detailUriPhotoTemp2)
+                Glide.with(this)
+                    .load(detailUriPhotoTemp2)
+                    .transform(CenterCrop())
+                    .into(bookAdd_iv_detailImgTemp2)
                 bookAdd_btn_removeImgTemp2.visibility = View.VISIBLE
                 bookAdd_tv_detailImgTemp2.visibility = View.INVISIBLE
                 detail2Changed = true
@@ -604,7 +610,10 @@ class BookAddActivity : AppCompatActivity() {
         } else if (requestCode == 3) {
             if (resultCode == Activity.RESULT_OK) {
                 detailUriPhotoTemp3 = data?.data
-                bookAdd_iv_detailImgTemp3.setImageURI(detailUriPhotoTemp3)
+                Glide.with(this)
+                    .load(detailUriPhotoTemp3)
+                    .transform(CenterCrop())
+                    .into(bookAdd_iv_detailImgTemp3)
                 bookAdd_btn_removeImgTemp3.visibility = View.VISIBLE
                 bookAdd_tv_detailImgTemp3.visibility = View.INVISIBLE
                 detail3Changed = true

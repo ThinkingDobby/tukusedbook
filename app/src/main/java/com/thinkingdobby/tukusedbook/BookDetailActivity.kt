@@ -2,18 +2,22 @@ package com.thinkingdobby.tukusedbook
 
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
+import androidx.core.graphics.drawable.toBitmap
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -277,6 +281,33 @@ class BookDetailActivity : AppCompatActivity() {
             }
         }
 
+        val view1 = View.inflate(this, R.layout.image_detail, null)
+        val iv1 = view1.findViewById<ImageView>(R.id.imageDetail_iv)
+        val builder1 = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+
+        builder1.setView(view1)
+        builder1.setNegativeButton("닫기") { _, which ->
+        }
+        val imgDetail1 = builder1.create()
+
+        val view2 = View.inflate(this, R.layout.image_detail, null)
+        val iv2 = view2.findViewById<ImageView>(R.id.imageDetail_iv)
+        val builder2 = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+
+        builder2.setView(view2)
+        builder2.setNegativeButton("닫기") { _, which ->
+        }
+        val imgDetail2 = builder2.create()
+
+        val view3 = View.inflate(this, R.layout.image_detail, null)
+        val iv3 = view3.findViewById<ImageView>(R.id.imageDetail_iv)
+        val builder3 = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+
+        builder3.setView(view3)
+        builder3.setNegativeButton("닫기") { _, which ->
+        }
+        val imgDetail3 = builder3.create()
+
         storageRef.child("detail1").downloadUrl.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 // Glide 이용하여 이미지뷰에 로딩
@@ -286,6 +317,12 @@ class BookDetailActivity : AppCompatActivity() {
                         .placeholder(circularProgressDrawable)
                         .transform(CenterCrop())
                         .into(bookDetail_iv_detailImg1)
+
+                    Glide.with(this)
+                        .load(task.result)
+                        .placeholder(circularProgressDrawable)
+                        .transform(FitCenter())
+                        .into(iv1)
                 } catch (e: IllegalArgumentException) {
                     Log.d("Glide Error", "from DetailActivity")
                 }
@@ -301,6 +338,12 @@ class BookDetailActivity : AppCompatActivity() {
                         .placeholder(circularProgressDrawable)
                         .transform(CenterCrop())
                         .into(bookDetail_iv_detailImg2)
+
+                    Glide.with(this)
+                        .load(task.result)
+                        .placeholder(circularProgressDrawable)
+                        .transform(FitCenter())
+                        .into(iv2)
                 } catch (e: IllegalArgumentException) {
                     Log.d("Glide Error", "from DetailActivity")
                 }
@@ -316,10 +359,28 @@ class BookDetailActivity : AppCompatActivity() {
                         .placeholder(circularProgressDrawable)
                         .transform(CenterCrop())
                         .into(bookDetail_iv_detailImg3)
+
+                    Glide.with(this)
+                        .load(task.result)
+                        .placeholder(circularProgressDrawable)
+                        .transform(FitCenter())
+                        .into(iv3)
                 } catch (e: IllegalArgumentException) {
                     Log.d("Glide Error", "from DetailActivity")
                 }
             }
+        }
+
+        bookDetail_iv_detailImg1.setOnClickListener {
+            imgDetail1.show()
+        }
+
+        bookDetail_iv_detailImg2.setOnClickListener {
+            imgDetail2.show()
+        }
+
+        bookDetail_iv_detailImg3.setOnClickListener {
+            imgDetail3.show()
         }
 
         bookDetail_tv_title.text = book.title

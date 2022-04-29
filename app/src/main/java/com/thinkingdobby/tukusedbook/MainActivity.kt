@@ -99,6 +99,7 @@ class MainActivity : AppCompatActivity() {
         main_btn_department.setOnClickListener {
             bookAdapter.setCategoryChanging(true)
             val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
+            val departments = arrayOf("전체") + departments
             dlg.setItems(departments) { _, which ->
                 main_et_department.setText(departments[which])
                 bookAdapter.setDepartment(departments[which])
