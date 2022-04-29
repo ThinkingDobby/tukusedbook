@@ -107,8 +107,9 @@
                 <ImageView
                     android:id="@+id/bookDetail_iv_sold"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/bookdetail_label"
+                    android:layout_height="90dp"
+                    android:background="@color/colorWhite"
+                    android:alpha="0.8"
                     android:visibility="invisible"
                     app:layout_constraintBottom_toBottomOf="@id/bookDetail_iv_main"
                     app:layout_constraintTop_toTopOf="@id/bookDetail_iv_main" />
@@ -586,12 +587,14 @@
             android:layout_height="18dp"
             android:layout_marginTop="14dp"
             android:layout_marginEnd="44dp"
+            android:visibility="gone"
             android:src="@drawable/main_icon_heart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/bookDetail_tv_like"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"

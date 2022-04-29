@@ -58,6 +58,9 @@ class BookIdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val pref = context.getSharedPreferences("profile", AppCompatActivity.MODE_PRIVATE)
         val nowId = pref.getString("user_id", "temp")!!
+
+        book_icon_like.visibility = View.GONE
+        book_tv_like.visibility = View.GONE
         if (nowId == book.seller_id) {
             book_icon_like.setImageResource(R.drawable.main_icon_heart_disabled)
             book_icon_like.isClickable = false
