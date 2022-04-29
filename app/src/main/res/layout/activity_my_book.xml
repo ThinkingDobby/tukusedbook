@@ -30,7 +30,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/myBook_btn_back"
+            android:id="@+id/myBook_btn_back_base"
             android:layout_width="13dp"
             android:layout_height="26dp"
             android:layout_marginStart="22dp"
@@ -38,6 +38,15 @@
             app:layout_constraintBottom_toBottomOf="@id/myBook_tv_subject"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/myBook_tv_subject" />
+
+        <View
+            android:id="@+id/myBook_btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintStart_toStartOf="@id/myBook_btn_back_base"
+            app:layout_constraintEnd_toEndOf="@id/myBook_btn_back_base"
+            app:layout_constraintTop_toTopOf="@id/myBook_btn_back_base"
+            app:layout_constraintBottom_toBottomOf="@id/myBook_btn_back_base"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

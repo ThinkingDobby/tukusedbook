@@ -1,8 +1,8 @@
 package com.thinkingdobby.tukusedbook
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.thinkingdobby.tukusedbook.data.User
@@ -31,9 +31,8 @@ class MyProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
 
-        myProfile_btn_back.setOnClickListener {
-            finish()
-        }
+        myProfile_btn_back.setOnClickListener { finish() }
+        myProfile_btn_back_base.setOnClickListener { finish() }
 
         myProfile_btn_edit.setOnClickListener {
             val intent = Intent(this, CreateProfileActivity::class.java)

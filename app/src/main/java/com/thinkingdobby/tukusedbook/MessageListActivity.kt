@@ -1,13 +1,10 @@
 package com.thinkingdobby.tukusedbook
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,6 +46,7 @@ class MessageListActivity : AppCompatActivity() {
         })
 
         messageList_btn_back.setOnClickListener { finish() }
+        messageList_btn_back_base.setOnClickListener { finish() }
     }
 
     inner class RecyclerViewAdapter : RecyclerView.Adapter<RecyclerViewAdapter.CustomViewHolder>() {
@@ -127,7 +125,8 @@ class MessageListActivity : AppCompatActivity() {
                         val commentMap = TreeMap<String, ChatModel.Comment>(reverseOrder())
                         commentMap.putAll(chatModel[position].comments)
                         val lastMessageKey = commentMap.keys.toTypedArray()[0]
-                        holder.textView_lastMessage.text = chatModel[position].comments[lastMessageKey]?.message
+                        holder.textView_lastMessage.text =
+                            chatModel[position].comments[lastMessageKey]?.message
                     }
                 })
 

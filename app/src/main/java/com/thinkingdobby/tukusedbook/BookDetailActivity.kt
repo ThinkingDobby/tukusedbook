@@ -2,9 +2,7 @@ package com.thinkingdobby.tukusedbook
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,7 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
-import androidx.core.graphics.drawable.toBitmap
+import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -24,8 +22,6 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.thinkingdobby.tukusedbook.data.*
 import kotlinx.android.synthetic.main.activity_book_detail.*
-import kotlinx.android.synthetic.main.book_detail_dialog.*
-import java.lang.IllegalArgumentException
 
 class BookDetailActivity : AppCompatActivity() {
     private var admin = false
@@ -114,10 +110,8 @@ class BookDetailActivity : AppCompatActivity() {
             }
         }
 
-        bookDetail_btn_back.setOnClickListener {
-            finish()
-            overridePendingTransition(0, 0)
-        }
+        bookDetail_btn_back.setOnClickListener { finish() }
+        bookDetail_btn_back_base.setOnClickListener { finish() }
 
         bookDetail_btn_edit.setOnClickListener {
             val intent = Intent(this, BookAddActivity::class.java)
@@ -203,7 +197,8 @@ class BookDetailActivity : AppCompatActivity() {
                     bookDetail_tv_sold.visibility = View.INVISIBLE
                     bookDetail_btn_soldFin.text = "판매 확정"
 
-                    FirebaseDatabase.getInstance().getReference("Book/${book.book_id}/sold").setValue(sold)
+                    FirebaseDatabase.getInstance().getReference("Book/${book.book_id}/sold")
+                        .setValue(sold)
                     Toast.makeText(this, "판매 확정이 취소되었어요.", Toast.LENGTH_SHORT).show()
                 }
                 builder.show()
@@ -219,7 +214,8 @@ class BookDetailActivity : AppCompatActivity() {
                     bookDetail_tv_sold.visibility = View.VISIBLE
                     bookDetail_btn_soldFin.text = "판매 확정 취소"
 
-                    FirebaseDatabase.getInstance().getReference("Book/${book.book_id}/sold").setValue(sold)
+                    FirebaseDatabase.getInstance().getReference("Book/${book.book_id}/sold")
+                        .setValue(sold)
                     Toast.makeText(this, "판매가 확정되었어요.", Toast.LENGTH_SHORT).show()
                 }
                 builder.show()

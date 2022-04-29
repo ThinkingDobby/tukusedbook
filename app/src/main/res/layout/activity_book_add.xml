@@ -30,7 +30,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/bookAdd_btn_back"
+            android:id="@+id/bookAdd_btn_back_base"
             android:layout_width="13dp"
             android:layout_height="26dp"
             android:layout_marginStart="22dp"
@@ -38,6 +38,15 @@
             app:layout_constraintBottom_toBottomOf="@id/bookAdd_tv_subject"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/bookAdd_tv_subject" />
+
+        <View
+            android:id="@+id/bookAdd_btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintStart_toStartOf="@id/bookAdd_btn_back_base"
+            app:layout_constraintEnd_toEndOf="@id/bookAdd_btn_back_base"
+            app:layout_constraintTop_toTopOf="@id/bookAdd_btn_back_base"
+            app:layout_constraintBottom_toBottomOf="@id/bookAdd_btn_back_base"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
@@ -56,7 +65,9 @@
             <ImageView
                 android:id="@+id/bookAdd_iv_main"
                 android:layout_width="wrap_content"
-                android:layout_height="280dp"
+                android:maxWidth="300dp"
+                android:layout_height="wrap_content"
+                android:maxHeight="280dp"
                 android:adjustViewBounds="true"
                 android:layout_marginTop="32dp"
                 android:background="@drawable/all_line"
@@ -112,6 +123,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/bookAdd_iv_main" />
 
+            <!--
             <Button
                 android:id="@+id/bookAdd_btn_isbnInput"
                 android:layout_width="108dp"
@@ -124,6 +136,7 @@
                 android:textSize="13sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/bookAdd_tv_infoTitle" />
+                -->
 
             <TextView
                 android:id="@+id/bookAdd_tv_title"

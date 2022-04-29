@@ -25,6 +25,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -96,7 +97,7 @@ class BookAddActivity : AppCompatActivity() {
                         Glide.with(this)
                             .load(task.result)
                             .placeholder(circularProgressDrawable)
-                            .transform(CenterCrop())
+                            .transform(FitCenter())
                             .into(bookAdd_iv_main)
                     } catch (e: IllegalArgumentException) {
                         Log.d("Glide Error", "from DetailActivity")
@@ -207,6 +208,7 @@ class BookAddActivity : AppCompatActivity() {
         }
 
         bookAdd_btn_back.setOnClickListener { finish() }
+        bookAdd_btn_back_base.setOnClickListener { finish() }
 
         bookAdd_iv_main.setOnClickListener { loadImage(0) }
         bookAdd_tv_mainImgAdd.setOnClickListener { loadImage(0) }
@@ -221,7 +223,7 @@ class BookAddActivity : AppCompatActivity() {
             val dlg = AlertDialog.Builder(this, R.style.AlertDialogStyle)
             val dlgXml = View.inflate(this, R.layout.basic_dialog, null)
             val tv = dlgXml.findViewById<TextView>(R.id.basicDialog_tv_basic)
-            tv.text = "사진을 등록하지 않으면 기본 사진이 자동으로 등록돼요.\n\n다른 정보들과 마찬가지로 사진도 이후에 변경 가능해요."
+            tv.text = "사진을 등록하지 않으면 기본 사진이 자동으로 등록돼요.\n\n세로로 찍힌 사진을 등록하시길 권장드려요."
 
             dlg.setPositiveButton("닫기") { _, which ->
             }
@@ -432,8 +434,10 @@ class BookAddActivity : AppCompatActivity() {
 
             dlg.show()
             // 달력 버튼 설정 - show() 이후에 넣어야 오류 발생 x
-            dlg.getButton(DatePickerDialog.BUTTON_NEGATIVE).typeface = ResourcesCompat.getFont(this, R.font.pretendard_regular)
-            dlg.getButton(DatePickerDialog.BUTTON_POSITIVE).typeface = ResourcesCompat.getFont(this, R.font.pretendard_regular)
+            dlg.getButton(DatePickerDialog.BUTTON_NEGATIVE).typeface =
+                ResourcesCompat.getFont(this, R.font.pretendard_regular)
+            dlg.getButton(DatePickerDialog.BUTTON_POSITIVE).typeface =
+                ResourcesCompat.getFont(this, R.font.pretendard_regular)
         }
 
         bookAdd_tv_guide.setOnClickListener {

@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         // 처음에 사용자의 학과, 학년으로 카테고리 분류되도록 설정
         // 카테고리 변경 시 recreate() - 안되면 finish 후 startActivity로 화면 재실행 - 인텐트로 카테고리 전달 필요요
 
-       val layoutManager = LinearLayoutManager(this)
+        val layoutManager = LinearLayoutManager(this)
         layoutManager.reverseLayout = true
         layoutManager.stackFromEnd = true
 
@@ -260,7 +260,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // 뒤로가기 버튼 두 번 누르면 종료료
-   override fun onBackPressed() {
+    override fun onBackPressed() {
         val tempTime = System.currentTimeMillis()
         val intervalTime: Long = tempTime - backPressedTime
         if (0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime) {

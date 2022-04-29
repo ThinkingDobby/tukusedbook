@@ -1,9 +1,9 @@
 package com.thinkingdobby.tukusedbook
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_my_book.*
 
 class MyBookActivity : AppCompatActivity() {
     private val postList = arrayListOf<String>()
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_book)
@@ -31,7 +31,8 @@ class MyBookActivity : AppCompatActivity() {
         myBook_rv_list.adapter = bookAdapter
 
         try {
-            FirebaseDatabase.getInstance().getReference("User/$id/my_books").addChildEventListener(object : ChildEventListener {
+            FirebaseDatabase.getInstance().getReference("User/$id/my_books")
+                .addChildEventListener(object : ChildEventListener {
                     override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                         snapshot?.let { snapshot ->
                             val post = snapshot.getValue(String::class.java)
@@ -46,7 +47,7 @@ class MyBookActivity : AppCompatActivity() {
                                     myBook_rv_list.adapter?.notifyItemInserted(prevIndex + 1)
                                 }
                             }
-                            
+
                             if (postList.size != 0) myBook_cl_empty.visibility = View.INVISIBLE
                         }
                     }
@@ -117,9 +118,8 @@ class MyBookActivity : AppCompatActivity() {
             Log.d("Load Error", e.toString())
         }
 
-        myBook_btn_back.setOnClickListener {
-            finish()
-        }
+        myBook_btn_back.setOnClickListener { finish() }
+        myBook_btn_back_base.setOnClickListener { finish() }
     }
 
     override fun finish() {

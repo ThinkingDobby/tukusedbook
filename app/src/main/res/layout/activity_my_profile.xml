@@ -29,7 +29,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/myProfile_btn_back"
+            android:id="@+id/myProfile_btn_back_base"
             android:layout_width="13dp"
             android:layout_height="26dp"
             android:layout_marginStart="22dp"
@@ -37,6 +37,15 @@
             app:layout_constraintBottom_toBottomOf="@id/myProfile_tv_subject"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/myProfile_tv_subject" />
+
+        <View
+            android:id="@+id/myProfile_btn_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintStart_toStartOf="@id/myProfile_btn_back_base"
+            app:layout_constraintEnd_toEndOf="@id/myProfile_btn_back_base"
+            app:layout_constraintTop_toTopOf="@id/myProfile_btn_back_base"
+            app:layout_constraintBottom_toBottomOf="@id/myProfile_btn_back_base"/>
 
         <Button
             android:id="@+id/myProfile_btn_edit"

@@ -1,9 +1,9 @@
 package com.thinkingdobby.tukusedbook
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -32,85 +32,86 @@ class InterestedActivity : AppCompatActivity() {
         interested_rv_list.adapter = bookAdapter
 
         try {
-            FirebaseDatabase.getInstance().getReference("User/$id/interested_books").addChildEventListener(object :
-                ChildEventListener {
-                override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                    snapshot?.let { snapshot ->
-                        val post = snapshot.getValue(String::class.java)
-                        post?.let {
-                            if (previousChildName == null) {
-                                postList.add(it)
-                                interested_rv_list.adapter?.notifyItemInserted(postList.size - 1)
-                            } else {
-                                val prevIndex =
-                                    postList.map { it }.indexOf(previousChildName)
-                                postList.add(prevIndex + 1, post)
-                                interested_rv_list.adapter?.notifyItemInserted(prevIndex + 1)
+            FirebaseDatabase.getInstance().getReference("User/$id/interested_books")
+                .addChildEventListener(object :
+                    ChildEventListener {
+                    override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                        snapshot?.let { snapshot ->
+                            val post = snapshot.getValue(String::class.java)
+                            post?.let {
+                                if (previousChildName == null) {
+                                    postList.add(it)
+                                    interested_rv_list.adapter?.notifyItemInserted(postList.size - 1)
+                                } else {
+                                    val prevIndex =
+                                        postList.map { it }.indexOf(previousChildName)
+                                    postList.add(prevIndex + 1, post)
+                                    interested_rv_list.adapter?.notifyItemInserted(prevIndex + 1)
+                                }
                             }
-                        }
 
-                        if (postList.size != 0) interested_cl_empty.visibility = View.INVISIBLE
-                    }
-                }
-
-                override fun onChildChanged(
-                    snapshot: DataSnapshot,
-                    previousChildName: String?
-                ) {
-                    snapshot?.let { snapshot ->
-                        val post = snapshot.getValue(String::class.java)
-                        post?.let {
-                            val prevIndex =
-                                postList.map { it }.indexOf(previousChildName)
-                            postList[prevIndex + 1] = post
-                            interested_rv_list.adapter?.notifyItemChanged(prevIndex + 1)
+                            if (postList.size != 0) interested_cl_empty.visibility = View.INVISIBLE
                         }
                     }
-                }
 
-                override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                    snapshot?.let {
-                        val post = snapshot.getValue(String::class.java)
-                        post?.let { post ->
-                            val existIndex = postList.map { it }.indexOf(post)
-                            postList.removeAt(existIndex)
-                            interested_rv_list.adapter?.notifyItemRemoved(existIndex)
-                            if (previousChildName == null) {
-                                postList.add(post)
-                                interested_rv_list.adapter?.notifyItemChanged(postList.size - 1)
-                            } else {
+                    override fun onChildChanged(
+                        snapshot: DataSnapshot,
+                        previousChildName: String?
+                    ) {
+                        snapshot?.let { snapshot ->
+                            val post = snapshot.getValue(String::class.java)
+                            post?.let {
                                 val prevIndex =
                                     postList.map { it }.indexOf(previousChildName)
-                                postList.add(prevIndex + 1, post)
+                                postList[prevIndex + 1] = post
                                 interested_rv_list.adapter?.notifyItemChanged(prevIndex + 1)
                             }
                         }
                     }
-                }
 
-                override fun onChildRemoved(snapshot: DataSnapshot) {
-                    snapshot?.let {
-                        val post = snapshot.getValue(String::class.java)
-                        post?.let { post ->
-                            val existIndex = postList.map { it }.indexOf(post)
-                            postList.removeAt(existIndex)
-                            interested_rv_list.adapter?.notifyItemRemoved(existIndex)
-                            interested_rv_list.adapter?.notifyItemRangeChanged(
-                                existIndex,
-                                postList.size
-                            )
+                    override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                        snapshot?.let {
+                            val post = snapshot.getValue(String::class.java)
+                            post?.let { post ->
+                                val existIndex = postList.map { it }.indexOf(post)
+                                postList.removeAt(existIndex)
+                                interested_rv_list.adapter?.notifyItemRemoved(existIndex)
+                                if (previousChildName == null) {
+                                    postList.add(post)
+                                    interested_rv_list.adapter?.notifyItemChanged(postList.size - 1)
+                                } else {
+                                    val prevIndex =
+                                        postList.map { it }.indexOf(previousChildName)
+                                    postList.add(prevIndex + 1, post)
+                                    interested_rv_list.adapter?.notifyItemChanged(prevIndex + 1)
+                                }
+                            }
                         }
+                    }
+
+                    override fun onChildRemoved(snapshot: DataSnapshot) {
+                        snapshot?.let {
+                            val post = snapshot.getValue(String::class.java)
+                            post?.let { post ->
+                                val existIndex = postList.map { it }.indexOf(post)
+                                postList.removeAt(existIndex)
+                                interested_rv_list.adapter?.notifyItemRemoved(existIndex)
+                                interested_rv_list.adapter?.notifyItemRangeChanged(
+                                    existIndex,
+                                    postList.size
+                                )
+                            }
 
 //                       항목 없을 때
-                        if (postList.size != 0) interested_cl_empty.visibility = View.INVISIBLE
-                        else interested_cl_empty.visibility = View.VISIBLE
+                            if (postList.size != 0) interested_cl_empty.visibility = View.INVISIBLE
+                            else interested_cl_empty.visibility = View.VISIBLE
+                        }
                     }
-                }
 
-                override fun onCancelled(error: DatabaseError) {
-                    error?.toException()?.printStackTrace()
-                }
-            })
+                    override fun onCancelled(error: DatabaseError) {
+                        error?.toException()?.printStackTrace()
+                    }
+                })
 
 //           항목 없을 때
             if (postList.size != 0) interested_cl_empty.visibility = View.INVISIBLE
@@ -119,9 +120,8 @@ class InterestedActivity : AppCompatActivity() {
             Log.d("Load Error", e.toString())
         }
 
-        interested_btn_back.setOnClickListener {
-            finish()
-        }
+        interested_btn_back.setOnClickListener { finish() }
+        interested_btn_back_base.setOnClickListener { finish() }
     }
 
     override fun finish() {

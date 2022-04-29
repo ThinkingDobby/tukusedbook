@@ -20,7 +20,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase
 import com.thinkingdobby.tukusedbook.data.ChatModel
 import com.thinkingdobby.tukusedbook.data.User
 import kotlinx.android.synthetic.main.activity_message.*
@@ -35,8 +37,10 @@ class MessageActivity : AppCompatActivity() {
 
     // 채팅방 id
     private var chatRoomUid: String? = null
+
     // 사용자 id
     private var uid = "temp"
+
     // 상대 id
     private var destinationUid = "temp"
 
@@ -57,7 +61,14 @@ class MessageActivity : AppCompatActivity() {
         destinationUid = intent.getStringExtra("destinationUid") ?: "temp"
         mode = intent.getStringExtra("mode") ?: "buy"
 
+        Firebase.database.getReference("User").child(destinationUid).get().addOnSuccessListener {
+            val user = it.getValue(User::class.java)!!
+
+            message_tv_subject.text = user.name + "님과의 대화"
+        }
+
         message_btn_back.setOnClickListener { finish() }
+        message_btn_back_base.setOnClickListener { finish() }
 
         message_et_input.addTextChangedListener(object : TextWatcher {
             var prev = ""
@@ -164,7 +175,7 @@ class MessageActivity : AppCompatActivity() {
 
                     override fun onDataChange(snapshot: DataSnapshot) {
                         friend = snapshot.getValue<User>()
-                        message_tv_subject.text = friend?.name
+                        message_tv_subject.text = friend?.name + "님과의 대화"
                         getMessageList()
                     }
                 })
@@ -199,7 +210,6 @@ class MessageActivity : AppCompatActivity() {
 
         @SuppressLint("RtlHardcoded")
         override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
-            message_tv_subject.text = friend?.name + "님과의 대화"
             holder.tv_message.text = comments[position].message
             holder.tv_time.text = comments[position].time
             if (comments[position].uid.equals(uid)) { // 본인 채팅
